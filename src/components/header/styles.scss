@@ -9,6 +9,11 @@
         margin-left: 30px;
         align-items: center;
 
+        .link {
+            position: relative;
+
+        }
+
         .search {
             display: inline-block;
             width: 100px;
@@ -19,9 +24,10 @@
         }
 
         &>a,
-        &>span {
+        &>span,
+        &>svg {
             display: inline-block;
-            margin-left: 20px;
+            margin-left: 25px;
 
         }
 

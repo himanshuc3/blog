@@ -3,7 +3,12 @@ import './styles.scss'
 
 const Logo: React.FC<{}> = () => {
     return <div className='logo'>
-        <h1>HC</h1>
+        <div className='emojis'>
+            <div>♞</div>
+            <div>🏓</div>
+            <div>🧑‍💻</div>
+        </div>
+        {/* <h1>HC</h1> */}
     </div>
 }
 

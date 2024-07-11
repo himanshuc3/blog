@@ -1,11 +1,47 @@
 @import '../../styles/colors.scss';
 
+@keyframes logoanimation {
+    0% {
+        transform: translateY(70px);
+
+    }
+
+    25% {
+        transform: translateY(0);
+
+    }
+
+    50% {
+        transform: translateY(-70px);
+
+    }
+
+    75% {
+        transform: translateY(-140px);
+    }
+}
+
 .logo {
     width: 70px;
     height: 70px;
     background: $yellow;
     position: relative;
+    overflow: hidden;
 
+    .emojis {
+        animation: logoanimation 3s;
+
+    }
+
+    .emojis>div {
+        height: 70px;
+        width: 70px;
+
+        font-size: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     h1 {
         position: absolute;

@@ -1,9 +1,13 @@
-import * as React from "react"
+import React, { useEffect, useContext } from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { XOutlined, GithubOutlined, LinkedinOutlined, InstagramOutlined, FileOutlined, CiOutlined } from '@ant-design/icons'
 // TODO: Possible relative paths
+import { Classic } from '@theme-toggles/react'
 import Skeleton from '../components/skeleton'
+import ThemeContext from '../hooks/themeContext'
 import dp from '../images/dp.png'
+
+import '@theme-toggles/react/css/Classic.css'
 import './styles.scss'
 
 const SOCIALS = [
@@ -49,8 +53,15 @@ const RECENT_POSTS = [
 ]
 
 const IndexPage: React.FC<PageProps> = () => {
+  const { darkTheme, toggleTheme } = useContext(ThemeContext)
+
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", darkTheme ? "dark" : "light")
+  }, [darkTheme])
+
   return (
-    <Skeleton className="index-wrapper">
+    <Skeleton className="index-wrapper" onToggleTheme={toggleTheme} darkTheme={darkTheme}>
       <div className="poster">
         <div className="text">
           <h1>Hi 👋 I’m Himanshu🔊 </h1>

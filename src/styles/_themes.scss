@@ -1,0 +1,24 @@
+@import 'colors';
+
+$variable-prefix: --variable-;
+
+$themes: (
+    light:(backgroundColor: $white,
+        primary: $yellow,
+        text: $black ),
+    dark:(backgroundColor: green, primary: $yellow, text: $white )
+);
+
+// We can be even more implicit and just set the dark variable and 
+// map-get rest of the variables from theme object
+html[data-theme="light"] {
+    @each $key, $value in map-get($themes, light) {
+        #{$variable-prefix}#{$key}: $value;
+    }
+}
+
+html[data-theme="dark"] {
+    @each $key, $value in map-get($themes, dark) {
+        #{$variable-prefix}#{$key}: $value;
+    }
+}

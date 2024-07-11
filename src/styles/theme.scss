@@ -1,8 +1,0 @@
-@import 'colors';
-
-$themes: (
-    light:(backgroundColor: $white,
-        primary: $yellow,
-        text: $black ),
-    dark:(backgroundColor: $black, primary: $yellow, text: $white )
-);

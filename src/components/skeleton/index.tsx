@@ -2,11 +2,16 @@ import * as React from 'react'
 import Header from '../header'
 import Footer from '../footer'
 
+interface Props {
+    children: React.ReactNode;
+    className: string;
+    props: any;
+}
 
-const Skeleton: React.FC<{ children: React.ReactNode, className: string }> = ({ children, className }) => {
+const Skeleton: React.FC<Props> = ({ children, className, ...props }) => {
     return (
         <div className={className}>
-            <Header />
+            <Header {...props} />
             {children}
             <Footer />
         </div>
