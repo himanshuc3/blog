@@ -1,0 +1,19 @@
+.blog-wrapper {
+
+    .poster {
+
+        display: flex;
+        flex-direction: column;
+        width: 750px;
+        margin: auto;
+
+        &>h1 {
+            font-size: var(--size-l);
+        }
+
+        .filters>h1 {
+            text-align: center;
+            font-size: var(--size-m);
+        }
+    }
+}

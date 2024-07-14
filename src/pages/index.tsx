@@ -2,40 +2,16 @@ import React, { useEffect, useContext } from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { XOutlined, GithubOutlined, LinkedinOutlined, InstagramOutlined, FileOutlined, CiOutlined } from '@ant-design/icons'
 // TODO: Possible relative paths
-import { Classic } from '@theme-toggles/react'
+import Socials from '../components/socials'
+import himanchu from '../media/himanchu.mp3'
+import useSound from 'use-sound'
 import Skeleton from '../components/skeleton'
 import ThemeContext from '../hooks/themeContext'
 import dp from '../images/dp.png'
 
-import '@theme-toggles/react/css/Classic.css'
 import './styles.scss'
+import PostListing from "../components/postListing"
 
-const SOCIALS = [
-  {
-    component: XOutlined,
-    to: 'x.com/himanshuc3'
-  },
-  {
-    component: GithubOutlined,
-    to: 'github.com/himanshuc3'
-  },
-  {
-    component: LinkedinOutlined,
-    to: 'linkedin.com/himanshuc3'
-  },
-  {
-    component: InstagramOutlined,
-    to: 'instagram.com/himanshuc3'
-  },
-  {
-    component: FileOutlined,
-    to: 'rssfeed'
-  },
-  {
-    component: CiOutlined,
-    to: 'cioutlined'
-  },
-]
 
 // TODO: Fetch from recent markdowns
 const RECENT_POSTS = [
@@ -54,7 +30,9 @@ const RECENT_POSTS = [
 
 const IndexPage: React.FC<PageProps> = () => {
   const { darkTheme, toggleTheme } = useContext(ThemeContext)
+  const [play, { stop }] = useSound(himanchu, { interrupt: true })
 
+  useEffect(() => stop, [])
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", darkTheme ? "dark" : "light")
@@ -64,32 +42,21 @@ const IndexPage: React.FC<PageProps> = () => {
     <Skeleton className="index-wrapper" onToggleTheme={toggleTheme} darkTheme={darkTheme}>
       <div className="poster">
         <div className="text">
-          <h1>Hi 👋 I’m Himanshu🔊 </h1>
-          <p>Building UI interfaces🎨 and engineering @Razorpay. <br />
-            Writing about my technical experiences & daily infra <br /> rants.</p>
-          <div className="socials">
-            {SOCIALS.map(({ component: Component, to }) => (
-              <Component style={{ fontSize: '18px' }} />
-            ))}
-          </div>
+          <h1>Hi<span className="emoji-wave">👋</span> I’m <span className="chunky-underline">Himanshu</span> <span className="emoji-sound" onClick={play}>🔊</span> </h1>
+          <p>Building UI interfaces🎨 and engineering <span className="working-at">@Razorpay</span>.<br />
+            <i>Writing</i> about my technical experiences & <i>daily infra <br /> rants.</i></p>
+          <Socials />
         </div>
         <div className="dp">
           <img src={dp} alt="My profile picture" className="image" />
         </div>
       </div>
       <div className="recent-posts">
-        <h1>Recently Posted</h1>
+        <h1 className="heading"><span>Recently Posted</span></h1>
 
         <div className="posts">
           {RECENT_POSTS.map((post: any) => (
-            <div className="post">
-              <h1>{post.title}</h1>
-              <div><span className="date">
-                {post.date}
-              </span>
-                <div className="tags">{post.tags.map((tag) => (<span>{tag}</span>))}</div>
-              </div>
-            </div>))}
+            <PostListing {...post} />))}
         </div>
       </div>
     </Skeleton>

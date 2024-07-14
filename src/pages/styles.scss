@@ -1,31 +1,58 @@
+.emoji-wave {
+    display: inline-block;
+    transform-origin: 70% 70%;
+    animation: wave-animation 2.5s infinite;
+}
+
 .index-wrapper {
-    width: 960px;
+    // width: 960px;
     display: flex;
     flex-direction: column;
     margin: auto;
     min-height: 100vh;
     background-color: var(--variable-backgroundColor);
 
+
     .poster {
         display: flex;
-        width: 780px;
+        width: 750px;
         justify-content: space-around;
         margin: 50px auto;
 
         .text {
             h1 {
-                font-size: 2.5rem;
+                // font-size: 2.5rem;
+                font-size: var(--size-m);
+                font-weight: 500;
             }
 
             p {
                 color: rgba(0, 0, 0, 0.7);
-                font-size: 1.25rem;
+                font-size: var(--size-xs);
                 font-weight: 400;
+                letter-spacing: 0.6px;
+                line-height: 1.7rem;
             }
 
             .socials span {
                 display: inline-block;
                 margin-right: 16px;
+            }
+
+
+            .emoji-sound {
+                display: inline-block;
+                position: relative;
+                cursor: pointer;
+                font-size: var(--size-s);
+                bottom: 10px;
+                left: -5px;
+
+            }
+
+            .working-at {
+                color: #3395FF;
+                font-style: italic;
             }
         }
 
@@ -36,8 +63,21 @@
 
     .recent-posts {
         display: flex;
+        width: 800px;
+        margin: auto;
         flex-direction: column;
         min-height: 100px;
         flex: 1;
+        margin-top: 50px;
+
+        .heading span {
+            display: inline-block;
+            padding: 2px 5px;
+            background: var(--variable-primary);
+            color: rgba(0, 0, 0, 0.7);
+            font-size: var(--size-xs);
+        }
+
+        .posts {}
     }
 }

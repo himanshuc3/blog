@@ -34,7 +34,8 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-toggle-dark-mode": "^1.1.1",
-    "sass": "^1.77.6"
+    "sass": "^1.77.6",
+    "use-sound": "^4.0.3"
   },
   "devDependencies": {
     "@types/node": "^20.11.19",

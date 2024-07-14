@@ -1,0 +1,21 @@
+.socials {
+    display: flex;
+
+    a {
+        display: inline-block;
+        position: relative;
+        // transition: transform 0.5s;
+
+    }
+
+    a:hover {
+        transform: translateY(-5px);
+        animation: lift-up 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    img {
+        width: 18px;
+        margin-right: 16px;
+    }
+}

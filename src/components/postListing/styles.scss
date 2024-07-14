@@ -1,0 +1,25 @@
+.post-heading {
+    h1 {
+        font-size: var(--size-s);
+    }
+
+    .meta {
+        display: flex;
+        top: -10px;
+        position: relative;
+    }
+
+    .meta .date {
+        display: inline-block;
+        margin-right: 16px;
+    }
+
+    .meta .tags>span {
+        display: inline-block;
+        margin-right: 10px;
+        position: relative;
+        background: linear-gradient(#cfddff, #cfddff) 0 95% / 100% 10px no-repeat;
+
+
+    }
+}

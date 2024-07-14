@@ -1,5 +1,4 @@
 .about-wrapper {
-    width: 960px;
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -9,14 +8,71 @@
         display: flex;
         width: 780px;
         margin: 20px auto;
-
+        justify-content: space-between;
     }
 
     .poster .right img {
         width: 200px;
+        display: inline-block;
+        position: relative;
+        top: 100px;
     }
+
+    .poster .left {
+        h1 {
+            font-size: var(--size-s);
+            font-weight: 500;
+        }
+
+        p {
+            font-size: var(--size-xs);
+            color: rgba(0, 0, 0, 0.7);
+            line-height: 1.6rem;
+        }
+    }
+
+    .company {
+        color: #4DA2FF;
+        font-style: italic;
+    }
+
+    .section {
+        display: flex;
+        flex-direction: column;
+        width: 780px;
+        margin: auto;
+        margin-top: 30px;
+
+        &>h1 {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        &>.description {
+            font-size: var(--size-xs);
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.7);
+            line-height: 28px;
+        }
+    }
+
+
 
     .projects {
         flex: 1;
+        margin-bottom: 50px;
+
+        & .in-progress {
+            background: rgb(247, 224, 24, 0.6);
+            padding: 10px;
+            margin: 50px;
+            color: rgba(0, 0, 0, 0.7);
+            font-size: var(--size-xs);
+            text-align: center;
+
+            & img {
+                width: 18px;
+            }
+        }
     }
 }

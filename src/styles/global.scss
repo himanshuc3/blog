@@ -1,9 +1,23 @@
 @import 'fonts.scss';
 @import 'normalize.scss';
 @import '_themes.scss';
+@import '_size.scss';
+@import 'mixins.scss';
+@import 'animations.scss';
+
+$size-prefix: --size-;
+
+:root {
+    @include addPrefixToMap($size, $size-prefix);
+}
 
 body {
     font-family: 'Rubik';
+}
+
+
+.chunky-underline {
+    @include chunky-underline(#F7E018, false, 25%, 10%);
 }
 
 a {
