@@ -4,13 +4,18 @@ import './styles.scss'
 
 const Logo: React.FC<{}> = () => {
     return <div className='logo'>
-        <div className='emojis'>
-            <div>🏎️</div>
-            <div>🎮</div>
-            <div>📚</div>
-            <div id="logo_img"><img src={logo} alt="blog logo" /></div>
+        <div className='emojis-container'>
+
+
+            <div className='emojis'>
+                <div>🏎️</div>
+                <div>🎮</div>
+                <div>📚</div>
+                <div id="logo_img"><img src={logo} alt="blog logo" /></div>
+            </div>
         </div>
-        {/* <h1>HC</h1> */}
+        <div className='backshadow'></div>
+        <div className='backshadow'></div>
     </div>
 }
 
