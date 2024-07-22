@@ -1,4 +1,5 @@
 import * as React from 'react'
+import logo from '../../images/logo.png'
 import './styles.scss'
 
 const Logo: React.FC<{}> = () => {
@@ -7,6 +8,7 @@ const Logo: React.FC<{}> = () => {
             <div>♞</div>
             <div>🏓</div>
             <div>🧑‍💻</div>
+            <div id="logo_img"><img src={logo} alt="blog logo" /></div>
         </div>
         {/* <h1>HC</h1> */}
     </div>

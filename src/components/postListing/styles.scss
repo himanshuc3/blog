@@ -1,9 +1,13 @@
 .post-heading {
+    cursor: pointer;
+
     h1 {
         font-size: var(--size-s);
+        transition: color 0.3s;
+        color: rgba(0, 0, 0, 0.3);
     }
 
-    .meta {
+    &>.meta {
         display: flex;
         top: -10px;
         position: relative;
@@ -14,6 +18,7 @@
         margin-right: 16px;
     }
 
+
     .meta .tags>span {
         display: inline-block;
         margin-right: 10px;
@@ -21,5 +26,13 @@
         background: linear-gradient(#cfddff, #cfddff) 0 95% / 100% 10px no-repeat;
 
 
+    }
+
+    .selected {
+        color: black;
+    }
+
+    &:hover>h1 {
+        color: black;
     }
 }

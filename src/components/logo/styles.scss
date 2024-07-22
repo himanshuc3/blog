@@ -19,6 +19,10 @@
     75% {
         transform: translateY(-140px);
     }
+
+    100% {
+        transform: translateY(-210px);
+    }
 }
 
 .logo {
@@ -27,9 +31,11 @@
     background: $yellow;
     position: relative;
     overflow: hidden;
+    border-radius: 20px;
+    border: 2px solid black;
 
     .emojis {
-        animation: logoanimation 3s;
+        animation: logoanimation 1s forwards;
 
     }
 
@@ -41,6 +47,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+
+    .emojis #logo_img {
+        width: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &>img {
+            width: 55px;
+        }
     }
 
     h1 {

@@ -9,6 +9,9 @@ interface Props {
 }
 
 const Skeleton: React.FC<Props> = ({ children, className, ...props }) => {
+
+    // TODO: Should probably be a HOC
+
     return (
         <div className={className}>
             <Header {...props} />
