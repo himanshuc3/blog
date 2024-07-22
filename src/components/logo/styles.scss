@@ -3,13 +3,16 @@
 @keyframes logoanimation {
     0% {
         transform: translateY(70px);
-
+        background: rgb(255, 255, 255);
+        border-width: 0px;
     }
 
     25% {
         transform: translateY(0);
-
+        // background: blue;
     }
+
+
 
     50% {
         transform: translateY(-70px);
@@ -22,20 +25,22 @@
 
     100% {
         transform: translateY(-210px);
+        background: #ffff00;
+        border-width: 4px;
     }
 }
 
 .logo {
     width: 70px;
     height: 70px;
-    background: $yellow;
+    // background: $yellow;
     position: relative;
     overflow: hidden;
     border-radius: 20px;
-    border: 2px solid black;
+    border: 0 solid black;
 
     .emojis {
-        animation: logoanimation 1s forwards;
+        animation: logoanimation 3s forwards;
 
     }
 

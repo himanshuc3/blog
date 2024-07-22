@@ -15,9 +15,9 @@ const PostListing: React.FC<Props> = ({ title, date, tags, id }) => {
             <span className="date" data-id={id}>
                 {date}
             </span>
-            <div className="tags" data-id={id}>
-                {tags.map((tag) => (<span data-id={id} className='chunky-underline'>{tag}</span>))}
-            </div>
+            {/* <div className="tags" data-id={id}>
+                {tags.map((tag) => (<span data-id={id}>{tag}</span>))}
+            </div> */}
         </div>
     </div>)
 }

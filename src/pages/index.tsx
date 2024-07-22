@@ -17,13 +17,13 @@ import onScrollHOC from "../components/onScroll"
 const RECENT_POSTS = [
   {
     id: 'sdfasldj',
-    title: 'Everyone gets picture-in-picture mode',
+    title: '🖼️ Everyone gets picture-in-picture mode',
     date: `29 Sept 2024`,
     tags: ['javascript', 'column']
   },
   {
     id: 'asdfasica',
-    title: 'Physics based gaming in p5.js',
+    title: '🖌️ Physics based gaming in p5.js',
     date: `12 Oct 2023`,
     tags: ['p5.js', 'canvas']
   },
@@ -63,14 +63,16 @@ const IndexPage: React.FC<PageProps> = () => {
         </div>
       </div>
       <div className="recent-posts">
-        <h1 className="heading"><span>Recently Posted</span></h1>
-
+        <div className="heading">
+          <span>🕮 Recent Articles</span>
+          <p className="heading_desc ibm-plex-mono">Presenting you with articles fresh out of the oven, decide for yourself if they satiate your reading appetite 🤓 or if I 🔥overcooked (most likely).</p>
+        </div>
         <div className="posts">
           {RECENT_POSTS.map((post: any) => (
             <PostListing {...post} data-id="post." />))}
         </div>
       </div>
-    </Skeleton>
+    </Skeleton >
   )
 }
 

@@ -4,18 +4,22 @@
     h1 {
         font-size: var(--size-s);
         transition: color 0.3s;
+        font-weight: 500;
         color: rgba(0, 0, 0, 0.3);
     }
 
     &>.meta {
         display: flex;
-        top: -10px;
+        top: -20px;
         position: relative;
+        color: rgba(0, 0, 0, 0.3);
     }
 
     .meta .date {
         display: inline-block;
         margin-right: 16px;
+        padding: 2px;
+        margin-left: 46px;
     }
 
 
@@ -23,7 +27,7 @@
         display: inline-block;
         margin-right: 10px;
         position: relative;
-        background: linear-gradient(#cfddff, #cfddff) 0 95% / 100% 10px no-repeat;
+        // background: linear-gradient(#cfddff, #cfddff) 0 95% / 100% 10px no-repeat;
 
 
     }
@@ -32,7 +36,18 @@
         color: black;
     }
 
-    &:hover>h1 {
-        color: black;
+    &:hover {
+        &>h1 {
+            color: black;
+        }
+
+        .date {
+            background-color: var(--variable-primary);
+            color: black;
+        }
+
+        .tags {
+            color: black;
+        }
     }
 }

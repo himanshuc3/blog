@@ -26,7 +26,7 @@
         .text {
             h1 {
                 // font-size: 2.5rem;
-                font-size: var(--size-m);
+                font-size: var(--size-l);
                 font-weight: 500;
             }
 
@@ -67,7 +67,7 @@
 
     .recent-posts {
         display: flex;
-        width: 800px;
+        width: 750px;
         margin: auto;
         flex-direction: column;
         min-height: 100px;
@@ -75,12 +75,29 @@
         margin-top: 50px;
         // height: 2000px;
 
+        .heading {
+            margin-bottom: 20px;
+        }
+
         .heading span {
             display: inline-block;
             padding: 2px 5px;
-            background: var(--variable-primary);
+            // background: var(--variable-primary);
+            color: black;
+            font-size: var(--size-m);
+            font-weight: 500;
+        }
+
+        .heading p {
+            display: inline-block;
+            position: relative;
+            // width: 70%;
+            top: -15px;
+            // font-size: var(--size-xs);
+            line-height: 24px;
+            font-size: 16px;
+            font-weight: 400;
             color: rgba(0, 0, 0, 0.7);
-            font-size: var(--size-xs);
         }
 
         .posts {}
