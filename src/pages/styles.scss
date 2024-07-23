@@ -6,10 +6,10 @@
     display: inline-block;
     transform-origin: 70% 70%;
     animation: wave-animation 2.5s infinite;
+    font-size: 30px;
 }
 
 .index-wrapper {
-    // width: 960px;
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -25,7 +25,6 @@
 
         .text {
             h1 {
-                // font-size: 2.5rem;
                 font-size: var(--size-l);
                 font-weight: 500;
             }
@@ -75,9 +74,9 @@
         margin: auto;
         flex-direction: column;
         min-height: 100px;
-        // flex: 1;
+        flex: 1;
         margin-top: 50px;
-        height: 2000px;
+        // height: 2000px;
 
         .heading {
             margin-bottom: 20px;
@@ -86,7 +85,6 @@
         .heading span {
             display: inline-block;
             padding: 2px 5px;
-            // background: var(--variable-primary);
             color: black;
             font-size: var(--size-m);
             font-weight: 500;

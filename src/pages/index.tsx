@@ -53,7 +53,7 @@ const IndexPage: React.FC<PageProps> = () => {
     <Skeleton className="index-wrapper" onToggleTheme={toggleTheme} darkTheme={darkTheme}>
       <div className="poster">
         <div className="text">
-          <h1>Hi<span className="emoji-wave">👋</span> I’m <span className="chunky-underline">Himanshu</span> <span className="emoji-sound" onClick={play}>🔊</span> </h1>
+          <h1><span className="emoji-wave">👋</span> Hi I’m <span className="chunky-underline">Himanshu</span> <span className="emoji-sound" onClick={play}>🔊</span> </h1>
           <p className="ibm-plex-mono">Building UI interfaces🎨 and engineering <a href="https://razorpay.com/" target="_blank"><span className="working-at">@Razorpay</span></a>.
             <i> Writing</i> about my technical experiences & <i>daily infra rants.</i></p>
           <Socials />

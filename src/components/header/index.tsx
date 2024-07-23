@@ -22,7 +22,7 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme }) => {
                     <div className='theme-switch-container'>
                         <DarkModeSwitch style={{ display: 'inline-block' }} checked={!darkTheme} sunColor='#f7e018' moonColor='black' onChange={onToggleTheme} size={20} />
                     </div>
-                    <div className='search'></div>
+                    {/* <div className='search'></div> */}
                 </div>
             </div>
         </nav>

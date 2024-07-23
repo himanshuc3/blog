@@ -12,7 +12,11 @@ Pages:
     - ~~sticky header?~~
 
 - About
+    - ~~Not much, no personality to the rescue~~
 - Blog listing
+    - Design
+    - Filtering content
+
 - A blog page with styling
 
 Sub-tasks:
