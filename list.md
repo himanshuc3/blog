@@ -2,14 +2,14 @@
 
 Pages:
 - Home
-    - Highlighting/animations in header
+    - ~~Highlighting/animations in header~~
     - Algolia index / search - how to local test or normal search 
-    - Font sizes (increase?)
-    - Text selection
+    - ~~Font sizes (increase?)~~
+    - ~~Text selection~~
     - Correct theme colors and consume in app
     - Newsletter or just subscription to incoming blogs (coming soon!) : integration
     - Responsive web design
-    - sticky header?
+    - ~~sticky header?~~
 
 - About
 - Blog listing

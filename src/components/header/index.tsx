@@ -13,14 +13,17 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme }) => {
 
     return (
         <nav id='navbar'>
-            <Logo />
-            <div className='menu'>
-                <Link to="/about" className='link'>About</Link>
-                <Link to="/blog" className='link'>Blog</Link>
-                <div className='theme-switch-container'>
-                    <DarkModeSwitch style={{ display: 'inline-block' }} checked={!darkTheme} sunColor='#f7e018' moonColor='black' onChange={onToggleTheme} size={20} />
+            <div className='inner'>
+
+                <Logo />
+                <div className='menu'>
+                    <Link to="/about" className='link'>About</Link>
+                    <Link to="/blog" className='link'>Blog</Link>
+                    <div className='theme-switch-container'>
+                        <DarkModeSwitch style={{ display: 'inline-block' }} checked={!darkTheme} sunColor='#f7e018' moonColor='black' onChange={onToggleTheme} size={20} />
+                    </div>
+                    <div className='search'></div>
                 </div>
-                <div className='search'></div>
             </div>
         </nav>
     )

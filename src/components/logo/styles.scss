@@ -61,7 +61,6 @@ $height: 60px;
 .logo {
     width: $width;
     height: $height;
-    // background: $yellow;
     position: relative;
 
     .emojis-container {
@@ -128,5 +127,15 @@ $height: 60px;
         top: 0;
         left: 0;
         animation: 0.25s backdrop_animation 3s forwards;
+    }
+
+
+    #alternate_logo_img img {
+        width: #{$height*0.54};
+
+    }
+
+    .hiden {
+        display: none;
     }
 }

@@ -54,8 +54,8 @@ const IndexPage: React.FC<PageProps> = () => {
       <div className="poster">
         <div className="text">
           <h1>Hi<span className="emoji-wave">👋</span> I’m <span className="chunky-underline">Himanshu</span> <span className="emoji-sound" onClick={play}>🔊</span> </h1>
-          <p>Building UI interfaces🎨 and engineering <a href="https://razorpay.com/" target="_blank"><span className="working-at">@Razorpay</span></a>.<br />
-            <i>Writing</i> about my technical experiences & <i>daily infra <br /> rants.</i></p>
+          <p className="ibm-plex-mono">Building UI interfaces🎨 and engineering <a href="https://razorpay.com/" target="_blank"><span className="working-at">@Razorpay</span></a>.
+            <i> Writing</i> about my technical experiences & <i>daily infra rants.</i></p>
           <Socials />
         </div>
         <div className="dp">
