@@ -1,36 +1,49 @@
 .post-heading {
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 
-    h1 {
-        font-size: var(--size-s);
-        transition: color 0.3s;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.3);
+    .left {
+
+        h1 {
+            font-size: var(--size-xs);
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+
+        .tags {
+            position: relative;
+            top: -10px;
+            margin-left: 30px;
+        }
+
+        .tags>span {
+            display: inline-block;
+            margin-right: 10px;
+            background: #D9D9D9;
+            border-radius: 10px;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
     }
 
-    &>.meta {
-        display: flex;
-        top: -20px;
-        position: relative;
-        color: rgba(0, 0, 0, 0.3);
-    }
+    .right {
 
-    .meta .date {
-        display: inline-block;
-        margin-right: 16px;
-        padding: 2px;
-        margin-left: 46px;
+        .date {
+            display: inline-block;
+            margin-right: 16px;
+            font-size: 14px;
+            padding: 2px;
+        }
     }
 
 
-    .meta .tags>span {
-        display: inline-block;
-        margin-right: 10px;
-        position: relative;
-        // background: linear-gradient(#cfddff, #cfddff) 0 95% / 100% 10px no-repeat;
-
-
-    }
 
     .selected {
         color: black;
