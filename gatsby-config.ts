@@ -12,12 +12,28 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   // TODO: No global variables as of now
   graphqlTypegen: true,
-  plugins: ["gatsby-plugin-sass", "gatsby-plugin-image", "gatsby-plugin-sitemap", {
-    resolve: 'gatsby-plugin-manifest',
-    options: {
-      "icon": "src/images/icon.png"
-    }
-  }, "gatsby-plugin-mdx", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
+  plugins: [
+
+    {
+      resolve: 'gatsby-source-filesystem', options: {
+        name: 'content',
+        path: `${dir}/src/content`
+      }
+    }, {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          'gatsby-remark-images',
+          'gatsbby-remark-lazy-load',
+          'gatsby-remark-external-links'
+        ]
+      }
+    }, "gatsby-plugin-sass", "gatsby-plugin-image", "gatsby-plugin-sitemap", {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        "icon": "src/images/icon.png"
+      }
+    }, "gatsby-plugin-mdx", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
       resolve: 'gatsby-source-filesystem',
       options: {
         "name": "images",
