@@ -10,9 +10,8 @@ const Footer: React.FC<{}> = () => {
     return <div id='footer'>
         <Subscribe />
         <div className='bottom'>
-            <div>Resume <LinkOutlined /></div>
+            <p>Resume <LinkOutlined /></p>
             <Socials />
-
         </div>
     </div>
 }

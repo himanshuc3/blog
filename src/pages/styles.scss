@@ -14,7 +14,6 @@
     flex-direction: column;
     margin: auto;
     min-height: 100vh;
-    background-color: var(--variable-backgroundColor);
 
 
     .poster {
@@ -30,7 +29,6 @@
             }
 
             p {
-                color: rgba(0, 0, 0, 0.7);
                 font-size: var(--size-xs);
                 font-weight: 400;
                 letter-spacing: 0.6px;
@@ -85,7 +83,6 @@
         .heading span {
             display: inline-block;
             padding: 2px 5px;
-            color: black;
             font-size: var(--size-m);
             font-weight: 500;
         }
@@ -93,13 +90,10 @@
         .heading p {
             display: inline-block;
             position: relative;
-            // width: 70%;
             top: -15px;
-            // font-size: var(--size-xs);
             line-height: 24px;
             font-size: 16px;
             font-weight: 400;
-            color: rgba(0, 0, 0, 0.7);
         }
 
         .posts {}

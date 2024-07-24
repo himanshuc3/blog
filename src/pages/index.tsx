@@ -36,14 +36,6 @@ const IndexPage: React.FC<PageProps> = () => {
   const [play, { stop }] = useSound(himanchu, { interrupt: true })
   useEffect(() => stop, [])
 
-  // function onMouseOverPost(e: any) {
-  //   const { id } = e.target.dataset
-  //   if (id && id !== selectedId) {
-  //     document.querySelector(`[data-unique=${selectedId}] > h1`)?.classList.toggle('selected')
-  //     document.querySelector(`[data-unique=${id}] > h1`)?.classList.toggle('selected')
-  //     setSelectedId(id)
-  //   }
-  // }
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", darkTheme ? "dark" : "light")
@@ -64,7 +56,7 @@ const IndexPage: React.FC<PageProps> = () => {
       </div>
       <div className="recent-posts">
         <div className="heading">
-          <span>🕮 Recent Articles</span>
+          <h1>🕮 Recent Articles</h1>
           <p className="heading_desc ibm-plex-mono">Presenting you with articles fresh out of the oven, decide for yourself if they satiate your reading appetite 🤓 or if I 🔥overcooked (most likely).</p>
         </div>
         <div className="posts">

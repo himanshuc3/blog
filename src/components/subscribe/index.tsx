@@ -8,9 +8,9 @@ const Subscribe: React.FC<{}> = () => {
         <div className='subscribe'>
             <h2 className='heading' >🔗 Stay <del>hydrated</del> Updated?</h2>
             {/* <h4 className='desc'></h4> */}
-            <h4 className='desc ibm-plex-mono'>Frontend explorations. Naive backend interfaces. Performance benchmarking. <br />
+            <p className='desc ibm-plex-mono'>Frontend explorations. Naive backend interfaces. Performance benchmarking. <br />
                 Daily life rants. Swatcch Bharat nakabhiyan & more.
-            </h4>
+            </p>
             <Input />
         </div>
     )

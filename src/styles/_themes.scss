@@ -5,8 +5,9 @@ $variable-prefix: --variable-;
 $themes: (
     light:(backgroundColor: $white,
         primary: $yellow,
-        text: $black ),
-    dark:(backgroundColor: green, primary: $yellow, text: $white )
+        text: $black,
+        textSecondary: rgba(0, 0, 0, 0.7)),
+    dark:(backgroundColor: #161618, primary: $yellow, text: $white, textSecondary: rgba(255, 255, 255, 0.7))
 );
 
 // We can be even more implicit and just set the dark variable and 
