@@ -13,7 +13,8 @@ const config: GatsbyConfig = {
   // TODO: No global variables as of now
   graphqlTypegen: true,
   plugins: [
-
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-source-filesystem', options: {
         name: 'content',
@@ -24,8 +25,14 @@ const config: GatsbyConfig = {
       options: {
         plugins: [
           'gatsby-remark-images',
-          'gatsbby-remark-lazy-load',
-          'gatsby-remark-external-links'
+          // 'gatsby-remark-lazy-load',
+          'gatsby-remark-external-links',
+          {
+            resolve: 'gatsby-remark-footnotes',
+            options: {
+              useCustomDivider: "<hr/><strong>Refernces:</strong>"
+            }
+          }
         ]
       }
     }, "gatsby-plugin-sass", "gatsby-plugin-image", "gatsby-plugin-sitemap", {
@@ -33,7 +40,13 @@ const config: GatsbyConfig = {
       options: {
         "icon": "src/images/icon.png"
       }
-    }, "gatsby-plugin-mdx", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
+    }, {
+      resolve: "gatsby-plugin-mdx", options: {
+        gatsbyRemarkPllugins: [{
+          resolve: 'gatsby-remark-images'
+        }]
+      }
+    }, {
       resolve: 'gatsby-source-filesystem',
       options: {
         "name": "images",

@@ -7,32 +7,14 @@ import himanchu from '../media/himanchu.mp3'
 import useSound from 'use-sound'
 import Skeleton from '../components/skeleton'
 import ThemeContext from '../hooks/themeContext'
-import PostListing from "../components/postListing"
+import Posts from '../components/posts'
 import dp from '../images/dp.png'
 
 import './styles.scss'
 import onScrollHOC from "../components/onScroll"
 
-// TODO: Fetch from recent markdowns
-const RECENT_POSTS = [
-  {
-    id: 'sdfasldj',
-    title: '🖼️ Everyone gets picture-in-picture mode',
-    date: `29 Sept 2024`,
-    tags: ['javascript', 'column']
-  },
-  {
-    id: 'asdfasica',
-    title: '🖌️ Physics based gaming in p5.js',
-    date: `12 Oct 2023`,
-    tags: ['p5.js', 'canvas']
-  },
-
-]
-
 const IndexPage: React.FC<PageProps> = () => {
   const { darkTheme, toggleTheme } = useContext(ThemeContext)
-  const [selectedId, setSelectedId] = useState(null)
   const [play, { stop }] = useSound(himanchu, { interrupt: true })
   useEffect(() => stop, [])
 
@@ -59,10 +41,9 @@ const IndexPage: React.FC<PageProps> = () => {
           <h1>🕮 Recent Articles</h1>
           <p className="heading_desc ibm-plex-mono">Presenting you with articles fresh out of the oven, decide for yourself if they satiate your reading appetite 🤓 or if I 🔥overcooked (most likely).</p>
         </div>
-        <div className="posts">
-          {RECENT_POSTS.map((post: any) => (
-            <PostListing {...post} data-id="post." />))}
-        </div>
+
+        <Posts />
+
       </div>
     </Skeleton >
   )

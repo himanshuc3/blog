@@ -1,7 +1,3 @@
-::selection {
-    background: rgba(247, 224, 24, 0.4);
-}
-
 .emoji-wave {
     display: inline-block;
     transform-origin: 70% 70%;
@@ -14,7 +10,7 @@
     flex-direction: column;
     margin: auto;
     min-height: 100vh;
-
+    width: 750px;
 
     .poster {
         display: flex;
@@ -96,6 +92,5 @@
             font-weight: 400;
         }
 
-        .posts {}
     }
 }

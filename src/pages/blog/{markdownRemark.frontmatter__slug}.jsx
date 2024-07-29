@@ -4,29 +4,12 @@ import Skeleton from '../../components/skeleton'
 import Tag from '../../components/tag'
 import './blogStyles.scss'
 
-// interface IProps {
-//     data: {
-
-//         markdownRemark: {
-
-//             frontmatter: {
-//                 title: String;
-//                 tags: String[];
-//                 date: String;
-
-//             },
-//             html: String;
-//         }
-//     }
-// }
 
 export default function BlogPostTemplate({
     data
 }) {
     const { markdownRemark } = data // data.markdownRemark holds my post data
     const { frontmatter, html } = markdownRemark
-
-
 
     return (
         <Skeleton className='blog-post-wrapper'>

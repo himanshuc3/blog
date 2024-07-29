@@ -29,6 +29,7 @@ body {
     background-color: var(--variable-backgroundColor);
 }
 
+// TODO: Set styles for h1-h6,p,a etc
 h1,
 h2,
 h3,
@@ -42,4 +43,8 @@ p,
 span,
 a {
     color: var(--variable-textSecondary) !important;
+}
+
+::selection {
+    background: rgba(247, 224, 24, 0.4);
 }
