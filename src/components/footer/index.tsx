@@ -8,10 +8,13 @@ import Socials from '../socials'
 
 const Footer: React.FC<{}> = () => {
     return <div id='footer'>
-        <Subscribe />
-        <div className='bottom'>
-            <p>Resume <LinkOutlined /></p>
-            <Socials />
+        <div>
+            <Subscribe />
+            <div className='bottom'>
+                <p>Resume <LinkOutlined /></p>
+                <Socials />
+            </div>
+
         </div>
     </div>
 }

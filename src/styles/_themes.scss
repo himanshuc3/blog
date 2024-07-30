@@ -3,11 +3,12 @@
 $variable-prefix: --variable-;
 
 $themes: (
-    light:(backgroundColor: $white,
+    light:(backgroundColor: $bg-grey,
         primary: $yellow,
         text: $black,
-        textSecondary: rgba(0, 0, 0, 0.7)),
-    dark:(backgroundColor: #161618, primary: $yellow, text: $white, textSecondary: rgba(255, 255, 255, 0.7))
+        textSecondary: rgba(0, 0, 0, 0.7),
+        theme: 'light'),
+    dark:(backgroundColor: #161618, primary: $yellow, text: $white, textSecondary: rgba(255, 255, 255, 0.7), theme: 'dark')
 );
 
 // We can be even more implicit and just set the dark variable and 

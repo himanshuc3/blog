@@ -25,10 +25,7 @@ const Posts = () => {
     }
         
         `)
-    // const { allMarkdownRemark: { edges } } = data
-    // console.log(data.allMarkdownRemark)
     const Posts = (data.allMarkdownRemark.edges).filter(edge => !!edge.node.frontmatter.date).map(edge => <PostListing key={edge.node.id} id={edge.node.id} {...edge.node.frontmatter} />)
-    // console.log(posts)
     return (
         <div className='posts'>
             {Posts}
@@ -36,24 +33,5 @@ const Posts = () => {
     )
 }
 
-// export const pageQuery = graphql`
-//     query{
-//         allMarkdownRemark(sort:{frontmatter: {date: DESC}}){
-//         edges{
-//             node{
-//                 id
-//                 frontmatter{
-//                     date(formatString: "MMMM DD, YYYY")
-//                     slug
-//                     title
-//                 }
-//             }
-//             }
-
-//         }
-//     }
-
-
-// `
 
 export default Posts

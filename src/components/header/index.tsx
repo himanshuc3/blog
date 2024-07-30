@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Link } from 'gatsby'
-import { SunOutlined } from '@ant-design/icons'
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 import Logo from '../logo'
@@ -9,20 +8,39 @@ interface Props {
     [key: string]: any;
 }
 
+const DEFAULT_THRESHOLD = 100
+
 const Header: React.FC<Props> = ({ onToggleTheme, darkTheme }) => {
+    const [sticky, setSticky] = React.useState(window.scrollY >= DEFAULT_THRESHOLD)
 
+    function onScroll() {
+        const scrollTop = Math.trunc(window.scrollY)
+        // if ((window.scrollY >= DEFAULT_THRESHOLD && !sticky) || (window.scrollY < DEFAULT_THRESHOLD && sticky)) {
+        if (scrollTop > 150) {
+            setSticky(true)
+        } else if (scrollTop < 100) {
+            setSticky(false)
+        }
+    }
+
+    React.useEffect(() => {
+        document.addEventListener('scroll', onScroll)
+
+        return () => {
+            removeEventListener('scroll', onScroll)
+        }
+    }, [])
     return (
-        <nav id='navbar'>
-            <div className='inner'>
-
-                <Logo />
+        <nav id='navbar' className={sticky ? 'sticky' : ''}>
+            <div className='inner' >
+                <p>Himanshu</p>
+                {/* <Logo /> */}
                 <div className='menu'>
                     <Link to="/about" className='link'>About</Link>
                     <Link to="/blog" className='link'>Blog</Link>
                     <div className='theme-switch-container'>
                         <DarkModeSwitch style={{ display: 'inline-block' }} checked={!darkTheme} sunColor='#f7e018' moonColor='black' onChange={onToggleTheme} size={20} />
                     </div>
-                    {/* <div className='search'></div> */}
                 </div>
             </div>
         </nav>

@@ -31,7 +31,7 @@ const AboutPage: React.FC<PageProps> = () => {
             </div>
             <div className="section">
                 <h1>🧑‍💻 Setup configuration</h1>
-                <p className="description">This blog is built on <a href="" className="chunky-underline">Gatsby.js</a> and hosted on <br /> <a href="" className="chunky-underline">hostinger</a> and skeleton designed on <a href="" className="chunky-underline">figma</a>.
+                <p className="description">This blog is built on <a href="" className="chunky-underline">Gatsby.js</a> and hosted on  <a href="" className="chunky-underline">hostinger</a> and skeleton designed on <a href="" className="chunky-underline">figma</a>.
                 </p>
             </div>
             <div className="section projects">

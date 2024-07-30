@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'gatsby'
 import './styles.scss'
 import Tag from '../tag';
 
@@ -6,11 +7,12 @@ interface Props {
     id: string;
     title: string;
     date: string;
-    tags: string[]
+    tags: string[];
+    slug: string
 }
 
-const PostListing: React.FC<Props> = ({ title, date, tags, id }) => {
-    return (<div className="post-heading" data-id={id} data-unique={id}>
+const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
+    return (<Link className="post-heading" data-id={id} data-unique={id} to={`blog/${slug}`} >
         <div data-id={id} className='left'>
             <h1>{title}</h1>
             <div className="tags ibm-plex-mono" data-id={id}>
@@ -23,7 +25,7 @@ const PostListing: React.FC<Props> = ({ title, date, tags, id }) => {
                 {date}
             </span>
         </div>
-    </div>)
+    </Link >)
 }
 
 export default PostListing

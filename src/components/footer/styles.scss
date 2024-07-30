@@ -1,11 +1,19 @@
 #footer {
-    background: rgb(58, 58, 56, 0.02);
-    // opacity: 0.02;
+
+    &>div {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: 750px;
+    }
+
+    background: rgb(58, 58, 56, 0.05);
 
     .bottom {
+        width: 100%;
         margin: 60px auto 10px;
-        width: 960px;
         display: flex;
+        align-items: center;
         justify-content: space-between;
     }
 }

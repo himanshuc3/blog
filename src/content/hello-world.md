@@ -1,5 +1,5 @@
 ---
-slug: "/hello-world"
+slug: "hello-world"
 date: "2024-07-25"
 title: "🙏 Hello World (Wide Web)"
 tags: ["personal", "www"]

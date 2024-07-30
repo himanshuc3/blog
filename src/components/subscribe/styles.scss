@@ -12,8 +12,11 @@
         font-weight: 400;
         line-height: 20px;
         position: relative;
-        top: -15px;
+        top: -10px;
     }
 
+    del {
+        color: var(--variable-textSecondary);
+    }
 
 }

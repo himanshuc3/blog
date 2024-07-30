@@ -4,6 +4,14 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 7px 10px;
+    transition: all 0.5s;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.4);
+    }
+
 
     .left {
 
@@ -11,7 +19,9 @@
             font-size: var(--size-xs);
             transition: color 0.3s;
             font-weight: 500;
+            // color: #659B5E;
         }
+
 
 
         .tags {

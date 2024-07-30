@@ -28,7 +28,7 @@ const IndexPage: React.FC<PageProps> = () => {
       <div className="poster">
         <div className="text">
           <h1><span className="emoji-wave">👋</span> Hi I’m <span className="chunky-underline">Himanshu</span> <span className="emoji-sound" onClick={play}>🔊</span> </h1>
-          <p className="ibm-plex-mono">Building UI interfaces🎨 and engineering <a href="https://razorpay.com/" target="_blank"><span className="working-at">@Razorpay</span></a>.
+          <p className="ibm-plex-mono">Building UI interfaces 🎨 and engineering <a href="https://razorpay.com/" target="_blank"><span className="working-at">@Razorpay</span></a>.
             <i> Writing</i> about my technical experiences & <i>daily infra rants.</i></p>
           <Socials />
         </div>
@@ -39,7 +39,7 @@ const IndexPage: React.FC<PageProps> = () => {
       <div className="recent-posts">
         <div className="heading">
           <h1>🕮 Recent Articles</h1>
-          <p className="heading_desc ibm-plex-mono">Presenting you with articles fresh out of the oven, decide for yourself if they satiate your reading appetite 🤓 or if I 🔥overcooked (most likely).</p>
+          <p className="heading_desc ibm-plex-mono">Presenting you with articles fresh out of the oven, decide for yourself if they satiate your reading appetite 🤓 or if I 🔥 overcooked (most likely).</p>
         </div>
 
         <Posts />
@@ -49,7 +49,7 @@ const IndexPage: React.FC<PageProps> = () => {
   )
 }
 
-export default onScrollHOC(IndexPage)
+export default IndexPage
 
 export const Head: HeadFC = () =>
   <>

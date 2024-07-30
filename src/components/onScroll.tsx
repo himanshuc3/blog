@@ -25,11 +25,11 @@ const onScrollHOC = (WrappedComponent: React.FC<any>) => {
             if ((!sticky && window.scrollY >= 100) || (sticky && window.scrollY < 100)) {
                 // TODO: Fetch one time
                 document.getElementById('navbar')?.classList.toggle('sticky')
-                document.getElementById('alternate_logo_img')?.classList.toggle('hiden')
+                // document.getElementById('alternate_logo_img')?.classList.toggle('hiden')
                 document.querySelector('.emojis-container')?.classList.toggle('hiden')
                 Array.from(document.getElementsByClassName('backshadow')).forEach(el => el.classList.toggle('hiden'))
                 this.setState({
-                    sticky: !sticky
+                    sticky: window.scrollY >= 100
                 })
             }
         }
