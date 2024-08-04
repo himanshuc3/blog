@@ -18,9 +18,9 @@ const AboutPage: React.FC<PageProps> = () => {
                         If you’re a fidgety individual, eternally confused
                         about <br /> life and constantly making non optimal life decisions, <br /> you’ve found yourself a duplicate. Let’s connect on <br /><a href="" className="chunky-underline link">insta</a> or <a href="" className="chunky-underline">x</a>. <br /> <br />
 
-                        I (usually) write about my learnings and frustations <br /> derived from frontend experiences. I also temporarily <br /> plan to write about node.js, golang and everything in  <br /> between.
+                        I (usually) write about my learnings and frustations <br /> derived from frontend experiences. I also temporarily <br /> plan to write about <a href="">node.js</a>, <a href="">golang</a> and everything in  <br /> between.
 
-                        <br /> <br />When annoyed with my state of living, I rant <br /> thoroughly about location’s aqi, roads among <br /> potholes and general infrastructure of the city 🇮🇳
+                        <br /> <br />When annoyed with my state of living, my favorite <br />timepass is blaming the environment around <br />me which includes location’s aqi, roads among <br /> potholes and general infrastructure of the city 🇮🇳
                         <br /><br />
                         Currently putting my day efforts <a href="" className="company">@Razorpay</a>.</p>
                     <Socials />

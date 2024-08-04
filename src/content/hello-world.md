@@ -2,7 +2,7 @@
 slug: "hello-world"
 date: "2024-07-25"
 title: "🙏 Hello World (Wide Web)"
-tags: ["personal", "www"]
+tags: ["personal"]
 ---
 
 नमस्ते 	&middot; Hello &middot; Konnichiwa &middot; হেৰি &middot; สวัสดี &middot; مرحبًا &middot; Ni hao

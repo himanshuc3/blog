@@ -8,4 +8,14 @@
     font-weight: 500;
     color: rgba(0, 0, 0, 0.7);
     position: relative;
+    transition: all 0.3s;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.highlighted {
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+    }
 }

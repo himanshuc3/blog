@@ -16,19 +16,19 @@ interface Props {
 const SOCIALS: { src: string, to: string }[] = [
     {
         src: x,
-        to: 'x.com/himanshuc3'
+        to: 'https://x.com/_himanshuc3'
     },
     {
         src: github,
-        to: 'github.com/himanshuc3'
+        to: 'https://github.com/himanshuc3'
     },
     {
         src: linkedin,
-        to: 'linkedin.com/himanshuc3'
+        to: 'https://linkedin.com/in/himanshuc3'
     },
     {
         src: instagram,
-        to: 'instagram.com/himanshuc3'
+        to: 'https://instagram.com/hi_manshu3'
     },
     {
         src: rssfeed,
@@ -36,7 +36,7 @@ const SOCIALS: { src: string, to: string }[] = [
     },
     {
         src: email,
-        to: 'emailto:sdfl'
+        to: 'mailto:himanshu_chhabra@outlook.com?subject=I am such a stan of you man!'
     },
 ]
 

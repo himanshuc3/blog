@@ -12,10 +12,14 @@ import dp from '../images/dp.png'
 
 import './styles.scss'
 import onScrollHOC from "../components/onScroll"
+import usePostsData from "../hooks/usePostsData"
+import { IPost } from "../utils/types"
 
 const IndexPage: React.FC<PageProps> = () => {
   const { darkTheme, toggleTheme } = useContext(ThemeContext)
   const [play, { stop }] = useSound(himanchu, { interrupt: true })
+  let postsData = usePostsData().sort((p1: IPost, p2: IPost) => (p2.date.getTime() - p1.date.getTime()))
+  postsData.slice(Math.min(3, postsData.length))
   useEffect(() => stop, [])
 
 
@@ -42,7 +46,7 @@ const IndexPage: React.FC<PageProps> = () => {
           <p className="heading_desc ibm-plex-mono">Presenting you with articles fresh out of the oven, decide for yourself if they satiate your reading appetite 🤓 or if I 🔥 overcooked (most likely).</p>
         </div>
 
-        <Posts />
+        <Posts posts={postsData} />
 
       </div>
     </Skeleton >

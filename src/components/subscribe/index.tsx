@@ -10,7 +10,8 @@ const Subscribe: React.FC<{}> = () => {
             <p className='desc ibm-plex-mono'>Frontend explorations. Naive backend interfaces. Performance benchmarking. <br />
                 Daily life rants. Swatcch Bharat nakabhiyan & more.
             </p>
-            <Input />
+            <Input disabled={true} placeholder="Coming Soon..." />
+            {/* <p className='comming-soon ibm-plex-mono'>Comming soon</p> */}
         </div>
     )
 }

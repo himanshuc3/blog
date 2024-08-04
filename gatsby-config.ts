@@ -1,11 +1,71 @@
-import type { GatsbyConfig } from "gatsby";
-
 const dir = __dirname;
 
-const config: GatsbyConfig = {
+interface INode {
+  id: string;
+  frontmatter: {
+    slug: string;
+    title: string;
+    tags: string[];
+    date: string;
+  }
+}
+
+interface IMarkdownRemark {
+  nodes: INode[]
+}
+
+interface ISerializeParams {
+  query: {
+    site: {
+      siteMetadata: {
+        siteUrl: string;
+      }
+    };
+    allMarkdownRemark: {
+      nodes: INode[]
+    }
+  }
+}
+
+
+
+function serializePostsForRss({ query: { site, allMarkdownRemark } }: ISerializeParams) {
+
+  return allMarkdownRemark.nodes.map((node: INode) => {
+    return Object.assign({}, node.frontmatter, {
+      slug: node.frontmatter.slug,
+      title: node.frontmatter.title,
+      tags: node.frontmatter.tags,
+      date: node.frontmatter.date,
+      id: node.id,
+      url: site.siteMetadata.siteUrl + '/blog/' + node.frontmatter.slug
+    })
+  })
+}
+
+function getMarkdownPosts() {
+  return `
+           {   allMarkdownRemark(sort: { frontmatter: { date: DESC } }){
+                        nodes{
+                          id
+                          frontmatter{
+                            date
+                            slug
+                            title
+                            tags
+                          }
+                        }
+
+              }
+            }
+    `
+}
+
+const config = {
   siteMetadata: {
-    title: `blog`,
-    siteUrl: `https://www.yourdomain.tld`
+    title: `Himanshu's bin`,
+    description: "Should frontend development be given the title of an SDE? Let's discuss about it.",
+    siteUrl: `https://himanshusb.in`
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -13,6 +73,7 @@ const config: GatsbyConfig = {
   // TODO: No global variables as of now
   graphqlTypegen: true,
   plugins: [
+
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
@@ -42,7 +103,7 @@ const config: GatsbyConfig = {
       }
     }, {
       resolve: "gatsby-plugin-mdx", options: {
-        gatsbyRemarkPllugins: [{
+        gatsbyRemarkPlugins: [{
           resolve: 'gatsby-remark-images'
         }]
       }
@@ -75,7 +136,22 @@ const config: GatsbyConfig = {
           },
         ],
       },
-    },]
+    },
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        feeds: [
+          {
+            output: '/rss.xml',
+            title: "Himanshu's bin",
+            serialize: serializePostsForRss,
+            query: getMarkdownPosts()
+          },
+
+        ]
+      }
+    }
+  ]
 };
 
 export default config;

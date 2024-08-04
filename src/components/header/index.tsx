@@ -4,6 +4,7 @@ import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 import Logo from '../logo'
 import './styles.scss'
+import { isBrowser } from '../../utils/helpers';
 interface Props {
     [key: string]: any;
 }
@@ -11,10 +12,10 @@ interface Props {
 const DEFAULT_THRESHOLD = 100
 
 const Header: React.FC<Props> = ({ onToggleTheme, darkTheme }) => {
-    const [sticky, setSticky] = React.useState(window.scrollY >= DEFAULT_THRESHOLD)
+    const [sticky, setSticky] = React.useState(isBrowser() && window.scrollY >= DEFAULT_THRESHOLD)
 
     function onScroll() {
-        const scrollTop = Math.trunc(window.scrollY)
+        const scrollTop = isBrowser() ? Math.trunc(window.scrollY) : 50
         // if ((window.scrollY >= DEFAULT_THRESHOLD && !sticky) || (window.scrollY < DEFAULT_THRESHOLD && sticky)) {
         if (scrollTop > 150) {
             setSticky(true)

@@ -18,6 +18,10 @@
         width: 10px;
         background: transparent;
         border: none;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
     }
 
     button {
@@ -30,9 +34,17 @@
         border-radius: 50%;
         padding: 3px 9px;
         cursor: pointer;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
     }
 
     &:focus-within {
         border: 2px solid black;
+    }
+
+    &.disabled {
+        cursor: not-allowed;
     }
 }

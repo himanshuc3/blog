@@ -1,4 +1,5 @@
 import React from 'react'
+import { isBrowser } from '../utils/helpers';
 
 
 type MyProps = {
@@ -22,7 +23,7 @@ const onScrollHOC = (WrappedComponent: React.FC<any>) => {
 
         handleScroll = (e: any) => {
             const { sticky } = this.state
-            if ((!sticky && window.scrollY >= 100) || (sticky && window.scrollY < 100)) {
+            if ((!sticky && isBrowser() && window.scrollY >= 100) || (sticky && isBrowser() && window.scrollY < 100)) {
                 // TODO: Fetch one time
                 document.getElementById('navbar')?.classList.toggle('sticky')
                 // document.getElementById('alternate_logo_img')?.classList.toggle('hiden')
