@@ -14,10 +14,11 @@ import './styles.scss'
 import onScrollHOC from "../components/onScroll"
 import usePostsData from "../hooks/usePostsData"
 import { IPost } from "../utils/types"
+import useMyVoice from '../hooks/useMyVoice'
 
 const IndexPage: React.FC<PageProps> = () => {
   const { darkTheme, toggleTheme } = useContext(ThemeContext)
-  const [play, { stop }] = useSound(himanchu, { interrupt: true })
+  const { play, stop } = useMyVoice()
   let postsData = usePostsData().sort((p1: IPost, p2: IPost) => (p2.date.getTime() - p1.date.getTime()))
   postsData.slice(Math.min(3, postsData.length))
   useEffect(() => stop, [])

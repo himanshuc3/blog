@@ -6,6 +6,7 @@ import linkedin from '../../images/linkedin.png'
 import x from '../../images/x.png'
 import rssfeed from '../../images/rss.png'
 import './styles.scss'
+import { SOCIAL_LINKS } from '../../utils/constants'
 
 
 interface Props {
@@ -16,23 +17,23 @@ interface Props {
 const SOCIALS: { src: string, to: string }[] = [
     {
         src: x,
-        to: 'https://x.com/_himanshuc3'
+        to: SOCIAL_LINKS.X
     },
     {
         src: github,
-        to: 'https://github.com/himanshuc3'
+        to: SOCIAL_LINKS.GITHUB
     },
     {
         src: linkedin,
-        to: 'https://linkedin.com/in/himanshuc3'
+        to: SOCIAL_LINKS.LINKEDIN
     },
     {
         src: instagram,
-        to: 'https://instagram.com/hi_manshu3'
+        to: SOCIAL_LINKS.INSTA
     },
     {
         src: rssfeed,
-        to: 'rssfeed'
+        to: '/rss.xml'
     },
     {
         src: email,

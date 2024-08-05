@@ -14,7 +14,7 @@ Pages:
     - ~~Not much, no personality to the rescue~~
 - Blog listing
     - ~~Design~~
-    - Filtering content
+    - ~~Filtering content~~
 
 - A blog page with styling
 
@@ -28,6 +28,6 @@ Sub-tasks:
     - Events
 
 Post build:
-- Analytics
-- Search working?
+- ~~Analytics~~
+- ~~Search working?~~
 - Asset and build latency? 

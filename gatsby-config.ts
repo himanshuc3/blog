@@ -73,7 +73,14 @@ const config = {
   // TODO: No global variables as of now
   graphqlTypegen: true,
   plugins: [
-
+    "gatsby-plugin-webpack-bundle-analyser-v2",
+    'gatsby-plugin-bundle-stats',
+    {
+      resolve: 'gatsby-plugin-plausible',
+      options: {
+        domain: 'himanshusb.in'
+      }
+    },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {

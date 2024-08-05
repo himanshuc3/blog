@@ -17,6 +17,11 @@ const TAGS = [
 ]
 
 
+function debug(prop: any) {
+    console.log(prop)
+    return true
+}
+
 
 function getSortedPosts(posts: IPost[]) {
 
@@ -76,7 +81,6 @@ const BlogPage: React.FC<PageProps> = () => {
 
         const lowercaseSearch = search.toLowerCase()
         setFilteredPosts(sortedPosts.map(([key, posts]): [number, IPost[]] => {
-            console.log(posts)
             return [key, posts.filter(post => post.title.toLowerCase().indexOf(lowercaseSearch) != -1)]
         }).filter(([_, posts]) => posts.length > 0))
     }
@@ -97,24 +101,25 @@ const BlogPage: React.FC<PageProps> = () => {
                         </div>
                     </div>
                 </div>
-                {/* {!filteredPosts.length &&
-                    <div>
+                {filteredPosts.length == 0 ?
+                    (<div>
                         <h1>No Posts</h1>
-                    </div>
-                } */}
-                {filteredPosts.length &&
-                    filteredPosts.map(([year, posts]) => {
-                        return <div>
-                            <div className='filters'>
-                                <h1 className='ibm-plex-mono'>{year}</h1>
-                            </div>
+                    </div>) :
+                    (
 
-                            <div className="posts">
-                                <Posts posts={posts} />
-                            </div>
+                        filteredPosts.map(([year, posts]) => {
+                            return <div>
+                                <div className='filters'>
+                                    <h1 className='ibm-plex-mono'>{year}</h1>
+                                </div>
 
-                        </div>
-                    })
+                                <div className="posts">
+                                    <Posts posts={posts} />
+                                </div>
+
+                            </div>
+                        })
+                    )
                 }
             </div>
         </Skeleton>
