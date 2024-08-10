@@ -9,7 +9,7 @@ tags: ["personal"]
 
 Above are greetings in seven different languages: Hindi, English, Japanese, Assamese, Thai, Arabic and Malay, in order from left to right. I welcome you aboard to my little crapping digital space (r.i.p the luxury of physical space 🇮🇳).
 
-> Fun Fact:  These are all the languages I’ve spoken in or national language of the places I’ve been to.
+> Fun Fact:  These are all the languages I’ve spoken in or national language of the places I’ve travelled to.
 
 No, This is not an article on [localization](https://developer.mozilla.org/en-US/docs/Glossary/Internationalization). And yes, I did google most of the translations. Now while the introductory article is usually kept a way of testing the waters, I am going to throw caution to the wind, virtue of the solid average content[^1] at display from the get go.   
 
@@ -19,17 +19,13 @@ I have mostly worked in React professionally and dabbled a bit in Vue.js. To add
 
 ![React meme](./images/reactmeme.png)
 
-Recently I've also been sucked into the rabbit hole of developer productivity (thanks to theprimeagen[^2]) which wastes a lot of my time counterintuitively. And as much as I'd like to bash my keyboard everytime I have to hit a bunch of keystrokes for copying ten lines in vim, it just looks way cooler while sharing screen to let go of. So, you can expect to see me agonizing about my tooling journey in vim, ansible and more buzz words.
+Recently I've also been sucked into the rabbit hole of developer productivity (mostly thanks to theprimeagen) which wastes a lot of my time counterintuitively. And as much as I'd like to bash (in your face zsh) my keyboard everytime I have to hit a bunch of keystrokes for copying ten lines in vim, it just looks way cooler while sharing screen to let go of. So, you can expect to see me agonizing about my tooling journey in vim, ansible and more buzz words.
 
 And as a filler between the technical musings, you would also see me write articles about the architecture, or rather the non-existence of it, in my surroundings supported by some crappy photography. 
 
-Logging out. Have a nice day
+![Import * from 'lodash'](./images/lodashmeme.png)
 
-Himanshu
+Welcome to the blog fellow boomers 👶 
 
-
-![Import * from 'lodash'](./images/lodashmeme.jpg)
 
 [^1]: Any ideas put forward henceworth can be cringe, distasteful and authoritarian, very much like a man in love. Take them with a grain of salt.
-
-[^2]: Thanks to overreacted taniarasia for inspiring me to create content the blog or copy over some key design ideas. 

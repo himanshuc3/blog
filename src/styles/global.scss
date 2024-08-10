@@ -45,9 +45,14 @@ a {
 
 ::selection {
     background: rgba(247, 224, 24, 0.4);
+    color: black;
 }
 
 .width-desktop {
     width: 750px;
     margin: auto;
+}
+
+.section {
+    margin-bottom: 40px;
 }

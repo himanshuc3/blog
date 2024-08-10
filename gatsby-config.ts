@@ -80,8 +80,15 @@ const config = {
         domain: 'himanshusb.in'
       }
     },
+    "gatsby-plugin-react-helmet",
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        "icon": "src/images/logo.png"
+      }
+    },
     {
       resolve: "gatsby-plugin-mdx", options: {
         gatsbyRemarkPlugins: [{
@@ -104,7 +111,9 @@ const config = {
           {
             resolve: 'gatsby-remark-footnotes',
             options: {
-              useCustomDivider: "<hr/><strong>Refernces:</strong>"
+              footnoteBackRefPreviousElementDisplay: "inline",
+              footnoteBackRefDisplay: "inline",
+              useCustomDivider: "<hr class='references-divider'/><h2 class='reference-header'>🛈 Footnotes</h2>"
             }
           }
         ]

@@ -90,5 +90,37 @@
             display: inline-block;
             border-radius: 5px;
         }
+
+
+        .references-divider {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid rgba(100, 100, 100, 0.5);
+        }
+
+        .footnotes {
+            padding: 20px 0;
+        }
+
+        .reference-header {
+            font-weight: 500;
+            font-size: 20px;
+            color: var(--variable-text);
+        }
+
+        .gatsby-resp-image-wrapper {
+            display: inline-block;
+            margin: 60px auto;
+        }
+
+        blockquote {
+            margin: 0 40px;
+            background: var(--variable-hoverBG);
+            border: 1px solid var(--variable-textSecondary);
+
+            padding: 5px 20px;
+            border-radius: 5px;
+        }
     }
 }

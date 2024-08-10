@@ -50,7 +50,7 @@ export default AboutPage
 
 export const Head: HeadFC = () =>
     <>
-        <title>Blog | Himanshu</title>
+        <title>About Himanshu.</title>
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
         <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
     </>

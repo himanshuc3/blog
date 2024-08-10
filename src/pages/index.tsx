@@ -22,7 +22,7 @@ const IndexPage: React.FC<PageProps> = () => {
 
   return (
     <BaseComponent className="index-wrapper">
-      <div className="poster">
+      <div className="poster section">
         <div className="text">
           <h1><span className="emoji-wave">👋</span> Hi, I’m <span className="chunky-underline">Himanshu</span></h1>
           <p className="ibm-plex-mono">Building UI interfaces 🎨 and engineering <a href="https://razorpay.com/" target="_blank"><span className="working-at">@Razorpay</span></a>.
@@ -33,7 +33,7 @@ const IndexPage: React.FC<PageProps> = () => {
           <img src={dp} alt="My profile picture" className="image" />
         </div>
       </div>
-      <div className="recent-posts">
+      <div className="recent-posts section">
         <div className="heading">
           <h1>🕮 Recent Articles</h1>
           <p className="heading_desc ibm-plex-mono">Presenting you with articles fresh out of the oven, decide for yourself if they satiate your reading appetite 🤓 or if I 🔥 overcooked (most likely).</p>
@@ -50,7 +50,7 @@ export default IndexPage
 
 export const Head: HeadFC = () =>
   <>
-    <title>Blog | Himanshu</title>
+    <title>Himanshu's bin.</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
     <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
   </>

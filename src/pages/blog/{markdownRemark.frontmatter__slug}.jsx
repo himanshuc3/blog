@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
+import { Helmet } from "react-helmet"
 import Tag from '../../components/tag'
 import BaseComponent from '../../containers/base'
 import './blogStyles.scss'
@@ -12,6 +13,7 @@ export default function BlogPostTemplate({
 
     return (
         <BaseComponent className='blog-post-wrapper'>
+            <Helmet title={`${frontmatter.title}`} />
             <div className='blog-post'>
                 <div className='heading'>
                     <h1>{frontmatter.title}</h1>
@@ -31,7 +33,6 @@ export default function BlogPostTemplate({
 
 export const Head = () =>
     <>
-        <title>Blog | Himanshu</title>
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
         <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
     </>
