@@ -6,10 +6,12 @@ import Tag from '../../components/tag'
 import { IPost } from '../../utils/types'
 import Posts from '../../components/posts'
 import Input from '../../components/input'
+import NoPostsImage from '../../images/cena.png'
 
 
 import './styles.scss'
 import usePostsData from '../../hooks/usePostsData'
+import BaseComponent from '../../containers/base'
 
 
 const TAGS = [
@@ -86,7 +88,7 @@ const BlogPage: React.FC<PageProps> = () => {
     }
 
     return (
-        <Skeleton className='blog-wrapper'>
+        <BaseComponent className='blog-wrapper'>
             <div className="poster section">
                 <div className='heading'>
                     <h1>Articles</h1>
@@ -102,8 +104,8 @@ const BlogPage: React.FC<PageProps> = () => {
                     </div>
                 </div>
                 {filteredPosts.length == 0 ?
-                    (<div>
-                        <h1>No Posts</h1>
+                    (<div className='no-posts'>
+                        <img src={NoPostsImage} alt="no posts available" />
                     </div>) :
                     (
 
@@ -122,10 +124,16 @@ const BlogPage: React.FC<PageProps> = () => {
                     )
                 }
             </div>
-        </Skeleton>
+        </BaseComponent>
     )
 }
 
 
 export default BlogPage
-export const Head: HeadFC = () => <title>Home Page</title>
+
+export const Head: HeadFC = () =>
+    <>
+        <title>Blog | Himanshu</title>
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
+        <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
+    </>

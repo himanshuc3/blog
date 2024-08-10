@@ -6,8 +6,8 @@
 
     .poster {
         display: flex;
-        width: 780px;
-        margin: 20px auto;
+        margin: auto;
+        margin-top: 40px !important;
         justify-content: space-between;
     }
 
@@ -26,7 +26,6 @@
 
         p {
             font-size: var(--size-xs);
-            color: rgba(0, 0, 0, 0.7);
             line-height: 1.8rem;
         }
     }
@@ -41,7 +40,8 @@
         flex-direction: column;
         width: 780px;
         margin: auto;
-        margin-top: 30px;
+        margin-top: 40px !important;
+
 
         &>h1 {
             font-size: 24px;
@@ -51,7 +51,6 @@
         &>.description {
             font-size: var(--size-xs);
             font-weight: 400;
-            color: rgba(0, 0, 0, 0.7);
             line-height: 28px;
         }
     }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { LinkOutlined } from '@ant-design/icons'
+import LinkOutlined from '@ant-design/icons/LinkOutlined'
 import Subscribe from '../subscribe'
 
 import Resume from '../../media/Himanshu_Resume.pdf'
@@ -12,7 +12,7 @@ const Footer: React.FC<{}> = () => {
         <div>
             <Subscribe />
             <div className='bottom'>
-                <a href={Resume} target='_blank'><p>Resume <LinkOutlined /></p></a>
+                <a href={Resume} target='_blank' className='chunky-underline'>Resume <LinkOutlined /></a>
                 <Socials />
             </div>
 

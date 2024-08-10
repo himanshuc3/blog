@@ -19,9 +19,10 @@ Pages:
 - A blog page with styling
 
 Sub-tasks:
-- Animating logo
+- Animating logo (& get a logo)
+- theming across blog
+- 
 - ~~Theme: light and dark~~
-- Newsletter
 - Comments
 - ~~Analytics~~ 
     - ~~Website~~
@@ -31,3 +32,16 @@ Post build:
 - ~~Analytics~~
 - ~~Search working?~~
 - Asset and build latency? 
+
+MVP:
+- ~~Sound~~
+- ~~Icons - Remove antd dependency and check in dark mode~~
+- ~~Theme highlight - yellow?~~
+- Logo??
+- ~~Theme across pages.~~ 
+- ~~Responsive design~~
+- ~~Blog Styling.~~
+- ~~About section -writeup~~
+- Blog writeup && styling
+- Comments section
+- ~~No posts design & 404 page~~

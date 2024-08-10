@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
-import { FrownOutlined, ArrowRightOutlined } from '@ant-design/icons'
+import SearchOutlined from '@ant-design/icons/SearchOutlined'
+import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined'
 import './styles.scss'
 import { noop } from '../../utils/helpers';
 
@@ -17,7 +18,7 @@ const Input: React.FC<Props> = ({ disabled = false, placeholder = 'Enter text...
 
     return (
         <div className={`input ${disabled ? 'disabled' : ''}`}>
-            {icon || <FrownOutlined style={{ color: "#777575", margin: '0 10px' }} />}
+            {icon || <SearchOutlined style={{ color: "#777575", margin: '0 10px' }} />}
             <input type="email" placeholder={placeholder} disabled={disabled} onChange={(e) => onChange(e.target.value)} {...props} />
             <button disabled={disabled}><ArrowRightOutlined style={{ width: '10px' }} /></button>
         </div>

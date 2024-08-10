@@ -13,20 +13,18 @@ $size-prefix: --size-;
 
 body {
     font-family: 'Rubik';
+    background-color: var(--variable-backgroundColor);
 }
 
 
 .chunky-underline {
-    @include chunky-underline(#F7E018, false, 25%, 10%);
+    // @include chunky-underline(rgb(247, 224, 24, 0.7), false, 25%, 10%);
+    @include chunky-underline(var(--variable-underline), false, 25%, 10%);
 }
 
 a {
     color: black;
     text-decoration: none;
-}
-
-body {
-    background-color: var(--variable-backgroundColor);
 }
 
 // TODO: Set styles for h1-h6,p,a etc
@@ -47,4 +45,9 @@ a {
 
 ::selection {
     background: rgba(247, 224, 24, 0.4);
+}
+
+.width-desktop {
+    width: 750px;
+    margin: auto;
 }

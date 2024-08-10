@@ -1,0 +1,25 @@
+.not-found {
+    display: flex;
+    // align-items: center;
+    // justify-content: center;
+    width: 750px;
+    max-width: 100vw;
+    margin: 100px auto;
+    height: 100vh;
+    flex-direction: column;
+    padding: 10px;
+
+    &>h2 {
+        font-size: 38px;
+        font-weight: 500;
+        color: rgba(100, 100, 100, 0.8);
+    }
+
+
+
+    &>p {
+        font-size: 20px;
+        line-height: 40px;
+
+    }
+}

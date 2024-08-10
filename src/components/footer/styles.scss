@@ -7,7 +7,7 @@
         width: 750px;
     }
 
-    background: rgb(58, 58, 56, 0.05);
+    background: rgb(140, 140, 140, 0.05);
 
     .bottom {
         width: 100%;
@@ -16,4 +16,9 @@
         align-items: center;
         justify-content: space-between;
     }
+}
+
+// Fix: Too lazy to scope out these styles
+html.dark #footer {
+    background: rgba(9, 9, 9, 1);
 }

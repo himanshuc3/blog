@@ -1,0 +1,10 @@
+.skeleton {
+    &>div:not(#footer) {
+        width: 750px;
+        margin: auto;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    // TODO: Once deployed
+}

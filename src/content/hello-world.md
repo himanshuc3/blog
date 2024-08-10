@@ -15,11 +15,17 @@ No, This is not an article on [localization](https://developer.mozilla.org/en-US
 
 Hopefully this is the first of of many pieces of articles to follow up. I am not much into reading novels or the practice of regular writing, so I would like to apologize for any grammatical, structural or technical mistakes that are to follow. 
 
-I have mostly worked in React professionally and dabbled a bit in Vue.js. To add to the sparsness, I have rarely worked on backend or systems development. Therefore the likes of svelte, node.js, golang could also be featured in the articles from the perspective of a frontend soyboy.
+I have mostly worked in React professionally and dabbled a bit in Vue.js. To add to the sparsness of my technical expertise, I have rarely worked on backend or systems development. Therefore this blog will act as a medium of conveying my ongoing experiments including but not exhaustive of [svelte](https://svelte.dev/), [node.js](https://nodejs.org/en), [golang](https://go.dev/) from the perspective of a typical frontend soyboy.
 
 ![React meme](./images/reactmeme.png)
 
-Recently theprimeagen[^2] has also edged in the direction of tooling and I’ve gotten spoilt into a world in which I feel very much like a foreign entity. So expect to hear my agonies on vim, ansible and so forth. 
+Recently I've also been sucked into the rabbit hole of developer productivity (thanks to theprimeagen[^2]) which wastes a lot of my time counterintuitively. And as much as I'd like to bash my keyboard everytime I have to hit a bunch of keystrokes for copying ten lines in vim, it just looks way cooler while sharing screen to let go of. So, you can expect to see me agonizing about my tooling journey in vim, ansible and more buzz words.
+
+And as a filler between the technical musings, you would also see me write articles about the architecture, or rather the non-existence of it, in my surroundings supported by some crappy photography. 
+
+Logging out. Have a nice day
+
+Himanshu
 
 
 ![Import * from 'lodash'](./images/lodashmeme.jpg)

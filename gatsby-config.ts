@@ -74,7 +74,6 @@ const config = {
   graphqlTypegen: true,
   plugins: [
     "gatsby-plugin-webpack-bundle-analyser-v2",
-    'gatsby-plugin-bundle-stats',
     {
       resolve: 'gatsby-plugin-plausible',
       options: {
@@ -83,6 +82,13 @@ const config = {
     },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    {
+      resolve: "gatsby-plugin-mdx", options: {
+        gatsbyRemarkPlugins: [{
+          resolve: 'gatsby-remark-images'
+        }]
+      }
+    },
     {
       resolve: 'gatsby-source-filesystem', options: {
         name: 'content',
@@ -108,13 +114,8 @@ const config = {
       options: {
         "icon": "src/images/icon.png"
       }
-    }, {
-      resolve: "gatsby-plugin-mdx", options: {
-        gatsbyRemarkPlugins: [{
-          resolve: 'gatsby-remark-images'
-        }]
-      }
-    }, {
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         "name": "images",

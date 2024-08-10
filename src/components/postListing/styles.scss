@@ -9,7 +9,8 @@
     transition: all 0.5s;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.4);
+        // background: rgba(255, 255, 255, 0.4);
+        background-color: var(--variable-hoverBG);
     }
 
 
@@ -60,17 +61,10 @@
     }
 
     &:hover {
-        &>h1 {
-            color: black;
-        }
 
         .date {
-            // background-color: var(--variable-primary);
-            color: black;
+            color: var(--variable-primary);
         }
 
-        .tags {
-            color: black;
-        }
     }
 }

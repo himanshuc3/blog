@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 import Logo from '../logo'
+import logo from '../../images/logo.png'
 import './styles.scss'
 import { isBrowser } from '../../utils/helpers';
 interface Props {
@@ -34,11 +35,10 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme }) => {
     return (
         <nav id='navbar' className={sticky ? 'sticky' : ''}>
             <div className='inner' >
-                <p>Himanshu</p>
-                {/* <Logo /> */}
+                <Logo />
                 <div className='menu'>
-                    <Link to="/about" className='link'>About</Link>
-                    <Link to="/blog" className='link'>Blog</Link>
+                    <Link to="/about" className='link' activeClassName='active-link' >About</Link>
+                    <Link to="/blog" className='link' activeClassName='active-link'>Blog</Link>
                     <div className='theme-switch-container'>
                         <DarkModeSwitch style={{ display: 'inline-block' }} checked={!darkTheme} sunColor='#f7e018' moonColor='black' onChange={onToggleTheme} size={20} />
                     </div>

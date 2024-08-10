@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { FrownOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import './styles.scss'
 import Input from '../input'
 

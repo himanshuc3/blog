@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
-import Skeleton from '../../components/skeleton'
 import Tag from '../../components/tag'
+import BaseComponent from '../../containers/base'
 import './blogStyles.scss'
-
 
 export default function BlogPostTemplate({
     data
@@ -12,7 +11,7 @@ export default function BlogPostTemplate({
     const { frontmatter, html } = markdownRemark
 
     return (
-        <Skeleton className='blog-post-wrapper'>
+        <BaseComponent className='blog-post-wrapper'>
             <div className='blog-post'>
                 <div className='heading'>
                     <h1>{frontmatter.title}</h1>
@@ -26,16 +25,16 @@ export default function BlogPostTemplate({
                 </div>
                 <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
             </div>
-        </Skeleton>
+        </BaseComponent>
     )
 }
 
-// export const Head: HeadFC = () =>
-//     <>
-//         <title>Blog | Himanshu</title>
-//         <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
-//         <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
-//     </>
+export const Head = () =>
+    <>
+        <title>Blog | Himanshu</title>
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
+        <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
+    </>
 
 export const pageQuery = graphql`
     query($id: String!){

@@ -1,10 +1,8 @@
 import React, { useEffect, useContext, useState } from "react"
 import type { HeadFC, PageProps } from "gatsby"
-import { XOutlined, GithubOutlined, LinkedinOutlined, InstagramOutlined, FileOutlined, CiOutlined } from '@ant-design/icons'
 // TODO: Possible relative paths
 import Socials from '../components/socials'
 import himanchu from '../media/himanchu.mp3'
-import useSound from 'use-sound'
 import Skeleton from '../components/skeleton'
 import ThemeContext from '../hooks/themeContext'
 import Posts from '../components/posts'
@@ -14,25 +12,19 @@ import './styles.scss'
 import onScrollHOC from "../components/onScroll"
 import usePostsData from "../hooks/usePostsData"
 import { IPost } from "../utils/types"
-import useMyVoice from '../hooks/useMyVoice'
+import BaseComponent from "../containers/base"
 
 const IndexPage: React.FC<PageProps> = () => {
-  const { darkTheme, toggleTheme } = useContext(ThemeContext)
-  const { play, stop } = useMyVoice()
   let postsData = usePostsData().sort((p1: IPost, p2: IPost) => (p2.date.getTime() - p1.date.getTime()))
   postsData.slice(Math.min(3, postsData.length))
-  useEffect(() => stop, [])
 
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", darkTheme ? "dark" : "light")
-  }, [darkTheme])
 
   return (
-    <Skeleton className="index-wrapper" onToggleTheme={toggleTheme} darkTheme={darkTheme}>
+    <BaseComponent className="index-wrapper">
       <div className="poster">
         <div className="text">
-          <h1><span className="emoji-wave">👋</span> Hi I’m <span className="chunky-underline">Himanshu</span> <span className="emoji-sound" onClick={play}>🔊</span> </h1>
+          <h1><span className="emoji-wave">👋</span> Hi, I’m <span className="chunky-underline">Himanshu</span></h1>
           <p className="ibm-plex-mono">Building UI interfaces 🎨 and engineering <a href="https://razorpay.com/" target="_blank"><span className="working-at">@Razorpay</span></a>.
             <i> Writing</i> about my technical experiences & <i>daily infra rants.</i></p>
           <Socials />
@@ -50,7 +42,7 @@ const IndexPage: React.FC<PageProps> = () => {
         <Posts posts={postsData} />
 
       </div>
-    </Skeleton >
+    </BaseComponent>
   )
 }
 

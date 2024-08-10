@@ -10,11 +10,10 @@
     flex-direction: column;
     margin: auto;
     min-height: 100vh;
-    // width: 750px;
+    background-color: var(--variable-backgroundColor);
 
     .poster {
         display: flex;
-        width: 750px;
         justify-content: space-around;
         margin: 50px auto;
 
@@ -22,11 +21,13 @@
             h1 {
                 font-size: var(--size-l);
                 font-weight: 500;
+                color: var(--variable-primary);
                 color: var(--variable-textSecondary);
             }
 
             h1>span {
-                color: var(--variable-text);
+
+                color: var(--variable-primary);
             }
 
             p {
@@ -57,8 +58,9 @@
             }
 
             .working-at {
-                color: #3395FF;
+                color: var(--variable-primary);
                 font-style: italic;
+                font-weight: 500;
             }
         }
 
@@ -69,13 +71,11 @@
 
     .recent-posts {
         display: flex;
-        width: 750px;
         margin: auto;
         flex-direction: column;
         min-height: 100px;
         flex: 1;
         margin-top: 30px;
-        // height: 2000px;
 
         .heading {
             margin-bottom: 10px;
