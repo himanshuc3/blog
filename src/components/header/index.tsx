@@ -40,7 +40,7 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme }) => {
                     <Link to="/about" className='link' activeClassName='active-link' >About</Link>
                     <Link to="/blog" className='link' activeClassName='active-link'>Blog</Link>
                     <div className='theme-switch-container'>
-                        <DarkModeSwitch style={{ display: 'inline-block' }} checked={!darkTheme} sunColor='#f7e018' moonColor='black' onChange={onToggleTheme} size={20} />
+                        <DarkModeSwitch style={{ display: 'inline-block' }} checked={!darkTheme} sunColor='#f7e018' moonColor='black' onChange={onToggleTheme} />
                     </div>
                 </div>
             </div>
