@@ -84,12 +84,6 @@ const config = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
-      resolve: 'gatsby-plugin-manifest',
-      options: {
-        "icon": "src/images/logo.png"
-      }
-    },
-    {
       resolve: "gatsby-plugin-mdx", options: {
         gatsbyRemarkPlugins: [{
           resolve: 'gatsby-remark-images'
@@ -121,7 +115,7 @@ const config = {
     }, "gatsby-plugin-sass", "gatsby-plugin-image", "gatsby-plugin-sitemap", {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        "icon": "src/images/icon.png"
+        "icon": "src/images/logo.png"
       }
     },
     {
