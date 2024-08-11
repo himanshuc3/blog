@@ -1,6 +1,6 @@
 ---
 slug: "hello-world"
-date: "2024-07-25"
+date: "2024-08-10"
 title: "🙏 Hello World (Wide Web)"
 tags: ["personal"]
 ---

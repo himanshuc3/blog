@@ -45,3 +45,10 @@ MVP:
 - Blog writeup && styling
 - Comments section
 - ~~No posts design & 404 page~~
+
+v1.2
+- Responsive design
+- Comments
+- Other production bugs
+- New logo ??
+- Blog #2
