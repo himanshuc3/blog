@@ -26,7 +26,7 @@ const IndexPage: React.FC<PageProps> = () => {
         <div className="text">
           <h1><span className="emoji-wave">👋</span> Hi, I’m <span className="chunky-underline">Himanshu</span></h1>
           <p className="ibm-plex-mono">Building UI interfaces 🎨 and engineering <a href="https://razorpay.com/" target="_blank"><span className="working-at">@Razorpay</span></a>.
-            <i> (NOT) Writing</i> about my technical experiences & <i>daily infra rants.</i></p>
+            <i> (NOt) Writing</i> about my technical experiences & <i>daily infra rants.</i></p>
           <Socials />
         </div>
         <div className="dp">
