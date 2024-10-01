@@ -31,7 +31,6 @@ Sub-tasks:
 Post build:
 - ~~Analytics~~
 - ~~Search working?~~
-- Asset and build latency? 
 
 MVP:
 - ~~Sound~~
@@ -52,3 +51,4 @@ v1.2
 - Other production bugs
 - New logo ??
 - Blog #2
+- Asset and build latency? 

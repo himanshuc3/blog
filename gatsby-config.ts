@@ -61,6 +61,10 @@ function getMarkdownPosts() {
     `
 }
 
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`
+})
+
 const config = {
   siteMetadata: {
     title: `Himanshu's bin`,
