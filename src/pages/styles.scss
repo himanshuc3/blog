@@ -69,13 +69,20 @@
         }
     }
 
+    .content{
+        display: flex; 
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
     .recent-posts {
         display: flex;
-        margin: auto;
         flex-direction: column;
+        justify-content: start;
         min-height: 100px;
-        flex: 1;
-        margin-top: 30px;
+        // flex-grow: 1;
+        margin: 30px auto !important;
+        
 
         .heading {
             margin-bottom: 10px;

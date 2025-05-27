@@ -8,23 +8,31 @@
 $size-prefix: --size-;
 
 :root {
-    @include addPrefixToMap($size, $size-prefix);
+  @include addPrefixToMap($size, $size-prefix);
 }
 
 body {
-    font-family: 'Rubik';
-    background-color: var(--variable-backgroundColor);
+  font-family: 'Rubik';
+  background-color: var(--variable-backgroundColor);
+}
+html {
+  box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
 
 .chunky-underline {
-    // @include chunky-underline(rgb(247, 224, 24, 0.7), false, 25%, 10%);
-    @include chunky-underline(var(--variable-underline), false, 25%, 10%);
+  // @include chunky-underline(rgb(247, 224, 24, 0.7), false, 25%, 10%);
+  @include chunky-underline(var(--variable-underline), false, 25%, 10%);
 }
 
 a {
-    color: black;
-    text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
 
 // TODO: Set styles for h1-h6,p,a etc
@@ -34,25 +42,25 @@ h3,
 h4,
 h5,
 h6 {
-    color: var(--variable-text);
+  color: var(--variable-text);
 }
 
 p,
 span,
 a {
-    color: var(--variable-textSecondary);
+  color: var(--variable-textSecondary);
 }
 
 ::selection {
-    background: rgba(247, 224, 24, 0.4);
-    color: black;
+  background: rgba(247, 224, 24, 0.4);
+  color: black;
 }
 
 .width-desktop {
-    width: 750px;
-    margin: auto;
+  width: 750px;
+  margin: auto;
 }
 
 .section {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
