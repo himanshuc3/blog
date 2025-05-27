@@ -18,6 +18,23 @@
     }
 }
 
+@media only screen and (max-width: 750px) {
+    #footer {
+        &>div {
+            width: 100%;
+            
+        }
+
+        .subscribe {
+            padding: 0 20px;
+        }
+
+        .bottom{
+            margin-top:20px;
+        }
+    }
+}
+
 // Fix: Too lazy to scope out these styles
 html.dark #footer {
     background: rgba(9, 9, 9, 1);

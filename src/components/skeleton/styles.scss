@@ -40,3 +40,12 @@
         }
     }
 }
+
+@media only screen and (max-width: 750px) {
+    #navbar .inner {
+        width: 80%;
+    }
+    .skeleton>div:not(#navbar):not(#footer) {
+        width: 100%;
+    }
+}
