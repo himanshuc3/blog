@@ -36,19 +36,21 @@ MVP:
 - ~~Sound~~
 - ~~Icons - Remove antd dependency and check in dark mode~~
 - ~~Theme highlight - yellow?~~
-- Logo??
+- ~~Logo??~~
 - ~~Theme across pages.~~ 
 - ~~Responsive design~~
 - ~~Blog Styling.~~
 - ~~About section -writeup~~
-- Blog writeup && styling
-- Comments section
+
 - ~~No posts design & 404 page~~
 
-v1.2
+v1.1
+
 - Responsive design
-- Comments
+- User Comments section on posts
 - Other production bugs
-- New logo ??
+- Analytics on the webpage - self hosted?
+- Blog writeup && styling
+- New logo ???
 - Blog #2
-- Asset and build latency? 
+- Asset and build latency?
