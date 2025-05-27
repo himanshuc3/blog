@@ -1,34 +1,19 @@
-import * as React from 'react'
+import React, {useContext} from 'react'
 import { graphql } from 'gatsby'
 import { Helmet } from "react-helmet"
 import Tag from '../../components/tag'
 import BaseComponent from '../../containers/base'
 import Comments from '../../components/comments'
 import './blogStyles.scss'
+import ThemeContext from '../../hooks/themeContext'
+
 
 export default function BlogPostTemplate({
     data
 }) {
     const { markdownRemark } = data // data.markdownRemark holds my post data
     const { frontmatter, html } = markdownRemark
-    const commentBox = React.createRef()
-
-    // React.useEffect(() => {
-    //     const scriptEl = document.createElement('script')
-    //     scriptEl.async = true
-    //     scriptEl.src = 'https://utteranc.es/client.js'
-    //     scriptEl.setAttribute('repo', 'himanshuc3/blog')
-    //     scriptEl.setAttribute('issue-term', 'title')
-    //     scriptEl.setAttribute('id', 'utterances')
-    //     scriptEl.setAttribute('theme', 'icy-dark')
-    //     scriptEl.setAttribute('crossorigin', 'anonymous')
-    //     console.log(commentBox?.current)
-    //     if (commentBox && commentBox.current) {
-    //         commentBox.current.appendChild(scriptEl)
-    //     } else {
-    //         console.log(`Error adding utterances comments on: ${commentBox}`)
-    //     }
-    // }, [])
+    const { darkTheme } = useContext(ThemeContext);
 
     return (
         <BaseComponent className='blog-post-wrapper'>
@@ -45,7 +30,8 @@ export default function BlogPostTemplate({
                     </div>
                 </div>
                 <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
-                <Comments commentBox={commentBox} />
+                
+                <Comments  isDarkTheme={darkTheme}/>
             </div>
         </BaseComponent>
     )

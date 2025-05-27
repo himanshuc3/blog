@@ -1,42 +1,38 @@
-import React, { useState, createContext, ReactNode } from "react";
+import React, { useState, createContext, ReactNode } from 'react';
 
 interface ContextProps {
-    darkTheme: boolean;
-    toggleTheme: () => void;
+  darkTheme: boolean;
+  toggleTheme: () => void;
 }
 
 // Useless, because controlled by in function state
 export const ThemeContext = createContext<ContextProps>({
-    darkTheme: true,
-    toggleTheme: () => { }
-})
+  darkTheme: true,
+  toggleTheme: () => {},
+});
 
 interface Props {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const ThemeProvider: React.FC<Props> = ({ children }) => {
-    const [darkTheme, setDarkTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(false);
 
-    const toggleThemeHandler = () => {
-        document.documentElement.classList.toggle("dark")
-        setDarkTheme((prevState) => !prevState);
-    };
+  const toggleThemeHandler = () => {
+    document.documentElement.classList.toggle('dark');
+    setDarkTheme((prevState) => !prevState);
+  };
 
-    return (
-        <ThemeContext.Provider
-            value={{
-                darkTheme: darkTheme,
-                toggleTheme: toggleThemeHandler,
-            }
-            }
-        >
-            {children}
-        </ThemeContext.Provider>
-    );
+  return (
+    <ThemeContext.Provider
+      value={{
+        darkTheme: darkTheme,
+        toggleTheme: toggleThemeHandler,
+      }}
+    >
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
-
-
 export default ThemeContext;
-

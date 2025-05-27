@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react';
 
-interface Props {
-    commentBox: React.Ref<HTMLDivElement>
-}
+const Comments = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
+  const commentsRef = useRef<null | HTMLDivElement>(null);
 
-const Comment: React.FC<Props> = ({ commentBox }) => (<div ref={commentBox} id="comments"></div>)
+  function createScriptEl() {
+    let scriptEl = document.createElement('script');
+    scriptEl.setAttribute('src', 'https://utteranc.es/client.js');
+    scriptEl.setAttribute('crossorigin', 'anonymous');
+    scriptEl.setAttribute('async', 'true');
+    scriptEl.setAttribute('repo', 'himanshuc3/blog');
+    scriptEl.setAttribute('issue-term', 'pathname');
+    scriptEl.setAttribute('theme', isDarkTheme ? 'github-dark' : 'github-light');
+    return scriptEl;
+  }
 
-export default Comment
+  useEffect(() => {
+    const scriptEl = createScriptEl();
+    if (commentsRef.current?.children.length) {
+      const prevScriptEl = commentsRef.current.children[0] as HTMLScriptElement;
+      prevScriptEl.remove();
+    }
+    commentsRef.current?.appendChild(scriptEl);
+  }, [isDarkTheme]);
+
+  return (
+    <div>
+      <div ref={commentsRef} className="comment-box" />
+      {/* Above element is where the comments are injected */}
+    </div>
+  );
+};
+
+export default Comments;
