@@ -31,6 +31,7 @@
     "gatsby-plugin-sass": "^6.13.1",
     "gatsby-plugin-sharp": "^5.13.1",
     "gatsby-plugin-sitemap": "^6.13.1",
+    "gatsby-plugin-smartlook": "^1.0.1",
     "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-footnotes": "^0.0.8",
     "gatsby-remark-images": "^7.13.1",

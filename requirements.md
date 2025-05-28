@@ -1,43 +1,49 @@
 ## Some tasks
 
 Pages:
+
 - Home
-    - ~~Highlighting/animations in header~~
-    - ~~Font sizes (increase?)~~
-    - ~~Text selection~~
-    - ~~Correct theme colors and consume in app~~
-    - Updates to upcoming blogs (coming soon!) : integration
-    - Responsive web design
-    - ~~sticky header?~~
+
+  - ~~Highlighting/animations in header~~
+  - ~~Font sizes (increase?)~~
+  - ~~Text selection~~
+  - ~~Correct theme colors and consume in app~~
+  - Updates to upcoming blogs (coming soon!) : integration
+  - Responsive web design
+  - ~~sticky header?~~
 
 - About
-    - ~~Not much, no personality to the rescue~~
+  - ~~Not much, no personality to the rescue~~
 - Blog listing
-    - ~~Design~~
-    - ~~Filtering content~~
+
+  - ~~Design~~
+  - ~~Filtering content~~
 
 - A blog page with styling
 
 Sub-tasks:
+
 - Animating logo (& get a logo)
 - theming across blog
-- 
+-
 - ~~Theme: light and dark~~
 - Comments
-- ~~Analytics~~ 
-    - ~~Website~~
-    - Events
+- ~~Analytics~~
+  - ~~Website~~
+  - Events
 
 Post build:
+
 - ~~Analytics~~
 - ~~Search working?~~
 
 MVP:
+
 - ~~Sound~~
 - ~~Icons - Remove antd dependency and check in dark mode~~
 - ~~Theme highlight - yellow?~~
 - ~~Logo??~~
-- ~~Theme across pages.~~ 
+- ~~Theme across pages.~~
 - ~~Responsive design~~
 - ~~Blog Styling.~~
 - ~~About section -writeup~~
@@ -46,8 +52,8 @@ MVP:
 
 v1.1
 
-- Responsive design
-- User Comments section on posts
+- ~~Responsive design~~
+- ~~User Comments section on posts~~
 - Other production bugs
 - Analytics on the webpage - self hosted?
 - Blog writeup && styling

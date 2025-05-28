@@ -1,5 +1,4 @@
 import React, { ReactNode, useContext } from 'react';
-import { Helmet } from 'react-helmet';
 
 import Skeleton from '../../components/skeleton';
 import ThemeContext from '../../hooks/themeContext';

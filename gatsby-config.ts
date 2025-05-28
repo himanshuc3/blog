@@ -7,11 +7,11 @@ interface INode {
     title: string;
     tags: string[];
     date: string;
-  }
+  };
 }
 
 interface IMarkdownRemark {
-  nodes: INode[]
+  nodes: INode[];
 }
 
 interface ISerializeParams {
@@ -19,18 +19,15 @@ interface ISerializeParams {
     site: {
       siteMetadata: {
         siteUrl: string;
-      }
+      };
     };
     allMarkdownRemark: {
-      nodes: INode[]
-    }
-  }
+      nodes: INode[];
+    };
+  };
 }
 
-
-
 function serializePostsForRss({ query: { site, allMarkdownRemark } }: ISerializeParams) {
-
   return allMarkdownRemark.nodes.map((node: INode) => {
     return Object.assign({}, node.frontmatter, {
       slug: node.frontmatter.slug,
@@ -38,9 +35,9 @@ function serializePostsForRss({ query: { site, allMarkdownRemark } }: ISerialize
       tags: node.frontmatter.tags,
       date: node.frontmatter.date,
       id: node.id,
-      url: site.siteMetadata.siteUrl + '/blog/' + node.frontmatter.slug
-    })
-  })
+      url: site.siteMetadata.siteUrl + '/blog/' + node.frontmatter.slug,
+    });
+  });
 }
 
 function getMarkdownPosts() {
@@ -58,18 +55,19 @@ function getMarkdownPosts() {
 
               }
             }
-    `
+    `;
 }
 
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`
-})
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 
 const config = {
   siteMetadata: {
     title: `Himanshu's bin`,
-    description: "Should frontend development be given the title of an SDE? Let's discuss about it.",
-    siteUrl: `https://himanshusb.in`
+    description:
+      "Should frontend development be given the title of an SDE? Let's discuss about it.",
+    siteUrl: `https://himanshusb.in`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -77,29 +75,40 @@ const config = {
   // TODO: No global variables as of now
   graphqlTypegen: true,
   plugins: [
-    "gatsby-plugin-webpack-bundle-analyser-v2",
+    {
+      resolve: `gatsby-plugin-smartlook`,
+      options: {
+        projectKey: '48a7fc18cbf83fe54cc6e79475bf407e162a097a',
+      },
+    },
+    'gatsby-plugin-webpack-bundle-analyser-v2',
     {
       resolve: 'gatsby-plugin-plausible',
       options: {
-        domain: 'himanshusb.in'
-      }
+        domain: 'himanshusb.in',
+      },
     },
-    "gatsby-plugin-react-helmet",
+    'gatsby-plugin-react-helmet',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
-      resolve: "gatsby-plugin-mdx", options: {
-        gatsbyRemarkPlugins: [{
-          resolve: 'gatsby-remark-images'
-        }]
-      }
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: 'gatsby-remark-images',
+          },
+        ],
+      },
     },
     {
-      resolve: 'gatsby-source-filesystem', options: {
+      resolve: 'gatsby-source-filesystem',
+      options: {
         name: 'content',
-        path: `${dir}/src/content`
-      }
-    }, {
+        path: `${dir}/src/content`,
+      },
+    },
+    {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
@@ -109,34 +118,41 @@ const config = {
           {
             resolve: 'gatsby-remark-footnotes',
             options: {
-              footnoteBackRefPreviousElementDisplay: "inline",
-              footnoteBackRefDisplay: "inline",
-              useCustomDivider: "<hr class='references-divider'/><h2 class='reference-header'>🛈 Footnotes</h2>"
-            }
-          }
-        ]
-      }
-    }, "gatsby-plugin-sass", "gatsby-plugin-image", "gatsby-plugin-sitemap", {
+              footnoteBackRefPreviousElementDisplay: 'inline',
+              footnoteBackRefDisplay: 'inline',
+              useCustomDivider:
+                "<hr class='references-divider'/><h2 class='reference-header'>🛈 Footnotes</h2>",
+            },
+          },
+        ],
+      },
+    },
+    'gatsby-plugin-sass',
+    'gatsby-plugin-image',
+    'gatsby-plugin-sitemap',
+    {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        "icon": "src/images/logo.png"
-      }
+        icon: 'src/images/logo.png',
+      },
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "images",
-        "path": "./src/images/"
+        name: 'images',
+        path: './src/images/',
       },
-      __key: "images"
-    }, {
+      __key: 'images',
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "pages",
-        "path": "./src/pages/"
+        name: 'pages',
+        path: './src/pages/',
       },
-      __key: "pages"
-    }, {
+      __key: 'pages',
+    },
+    {
       resolve: `gatsby-omni-font-loader`,
       options: {
         enableListener: true,
@@ -145,7 +161,8 @@ const config = {
           {
             name: `Rubik`,
             file: `https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap`,
-          }, {
+          },
+          {
             name: `IBM Plex Mono`,
             file: `https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap`,
           },
@@ -160,13 +177,12 @@ const config = {
             output: '/rss.xml',
             title: "Himanshu's bin",
             serialize: serializePostsForRss,
-            query: getMarkdownPosts()
+            query: getMarkdownPosts(),
           },
-
-        ]
-      }
-    }
-  ]
+        ],
+      },
+    },
+  ],
 };
 
 export default config;
