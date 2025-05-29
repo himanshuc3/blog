@@ -42,7 +42,7 @@ const IndexPage: React.FC<PageProps> = () => {
         </div>
         <div className="recent-posts section">
           <div className="heading">
-            <h1>🕮 Recent Articles</h1>
+            <h1>📚 Recent Articles</h1>
             <p className="heading_desc ibm-plex-mono">
               Presenting you with articles fresh out of the oven, decide for yourself if they
               satiate your reading appetite 🤓 or if I 🔥 overcooked (most likely).
