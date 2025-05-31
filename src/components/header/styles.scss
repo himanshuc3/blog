@@ -1,4 +1,9 @@
 #navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 100;
+  padding-top: 5px;
+  top: -5px;
   .inner {
     width: 750px;
     display: flex;
@@ -35,13 +40,13 @@
     }
 
     .theme-switch-container {
-      padding: 7px 10px;
+      padding: 4px 7px;
       border-radius: 10px;
       background-color: transparent;
       transition: background-color 0.3s;
     }
 
-    .theme-switch-container:hover {
+    .theme-switch-container {
       background-color: var(--variable-hoverBG);
     }
   }
@@ -49,19 +54,19 @@
 
 @keyframes fadeInn {
   0% {
-    top: -50px;
+    // backdrop-filter: blur(0px);
+    padding-top: 5px;
   }
 
   100% {
-    top: 10px;
+    padding-top: 10px;
+    // backdrop-filter: blur(10px);
   }
 }
 
 #navbar.sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  z-index: 100;
   animation: fadeInn 0.5s forwards;
+  
 
   & > .inner {
     backdrop-filter: blur(10px);

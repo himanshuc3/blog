@@ -117,7 +117,7 @@ const config = {
               footnoteBackRefPreviousElementDisplay: 'inline',
               footnoteBackRefDisplay: 'inline',
               useCustomDivider:
-                "<hr class='references-divider'/><h2 class='reference-header'>🛈 Footnotes</h2>",
+                "<hr class='references-divider'/><h2 class='reference-header'>🔖 Footnotes</h2>",
             },
           },
           {
