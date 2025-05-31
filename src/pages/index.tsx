@@ -28,11 +28,15 @@ const IndexPage: React.FC<PageProps> = () => {
               <span className="chunky-underline">Himanshu</span>
             </h1>
             <p className="ibm-plex-mono">
-              Building UI interfaces 🎨 and engineering{' '}
+              I'm a fullstack engineer currently working{' '}
               <a href="https://razorpay.com/" target="_blank">
                 <span className="working-at">@Razorpay</span>
               </a>
-              .<i> Writing</i> about my technical experiences & <i>daily infra rants.</i>
+              .
+              <br />
+              <br />
+              Writing about my <i>technical experiences</i>, <i>daily infra rants</i> &{' '}
+              <i>random thoughts</i>.
             </p>
             <Socials />
           </div>

@@ -1,8 +1,14 @@
 import React from 'react';
 
-const Star = ({ color = '#000' }: { color?: string }) => {
+const Star = ({ color = '#000', className }: { color?: string; className?: string }) => {
   return (
-    <svg width="75" height="55" viewBox="0 0 75 55" fill="none" className="flex-shrink-0">
+    <svg
+      width="75"
+      height="55"
+      viewBox="0 0 75 55"
+      fill="none"
+      className={`flex-shrink-0 ${className}`}
+    >
       <path
         d="M5.84375 41.6953C5.25 41.0859 4.95312 40.3516 4.95312 39.4922C4.95312 38.6328 5.25 37.9062 5.84375 37.3125C6.4375 36.7031 7.15625 36.3984 8 36.3984C8.84375 36.3984 9.5625 36.7031 10.1562 37.3125C10.75 37.9062 11.0469 38.6328 11.0469 39.4922C11.0469 40.3516 10.75 41.0859 10.1562 41.6953C9.5625 42.2891 8.84375 42.5859 8 42.5859C7.15625 42.5859 6.4375 42.2891 5.84375 41.6953Z"
         fill={color}

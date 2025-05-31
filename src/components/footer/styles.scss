@@ -20,29 +20,7 @@
         border-radius: 10px;
         background: var(--variable-hoverBG);
     }
-    .divider{
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        align-items: flex-end;
-        
-        svg{
-            width: 30px;
-            margin: 0 10px;
-        }
-
-       
-        
-        .hr{
-            height: 2px;
-            flex-grow: 0.4;
-            background: var(--variable-text);
-            position: relative;
-            bottom: 22px;
-            opacity: 0.3;
-            
-        }
-    }
+    
 }
 
 @media only screen and (max-width: 750px) {
