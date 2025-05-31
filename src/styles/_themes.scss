@@ -3,29 +3,38 @@
 $variable-prefix: --variable-;
 
 $themes: (
-    light:(backgroundColor: $bg-grey,
-        primary: $theme-color,
-        text: $black,
-        textSecondary: $grey,
-        hoverBG:$white-hover,
-        underline: $light-green,
-        theme: 'light', ),
-    dark:(backgroundColor: #161618, primary: $theme-color, text: $white, textSecondary: $whitish, hoverBG: $black-hover, underline: $light-green, theme: 'dark')
+  light: (
+    backgroundColor: $bg-grey,
+    primary: $theme-color,
+    text: $black,
+    textSecondary: $grey,
+    hoverBG: $white-hover,
+    underline: $light-green,
+    theme: 'light',
+  ),
+  dark: (
+    backgroundColor: #161618,
+    primary: $theme-color,
+    text: $white,
+    textSecondary: $whitish,
+    hoverBG: $black-hover,
+    underline: $light-green,
+    theme: 'dark',
+  ),
 );
 
-// We can be even more implicit and just set the dark variable and 
+// We can be even more implicit and just set the dark variable and
 // map-get rest of the variables from theme object
 html {
-    @each $key, $value in map-get($themes, light) {
-        #{$variable-prefix}#{$key}: $value;
-    }
-
+  @each $key, $value in map-get($themes, light) {
+    #{$variable-prefix}#{$key}: $value;
+  }
 }
 
 html.dark {
-    @each $key, $value in map-get($themes, dark) {
-        #{$variable-prefix}#{$key}: $value;
-    }
+  @each $key, $value in map-get($themes, dark) {
+    #{$variable-prefix}#{$key}: $value;
+  }
 
-    // background-color: ;
+  // background-color: ;
 }

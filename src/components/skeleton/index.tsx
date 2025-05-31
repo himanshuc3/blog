@@ -15,7 +15,7 @@ const Skeleton: React.FC<Props> = ({ children, className, ...props }) => {
     <div className={`${className} skeleton`}>
       <Header {...props} />
       {children}
-      <Footer />
+      <Footer {...props} />
     </div>
   );
 };
