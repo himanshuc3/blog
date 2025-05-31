@@ -1,5 +1,5 @@
 @import 'fonts.scss';
-// @import 'normalize.scss';
+@import 'normalize.scss';
 @import '_themes.scss';
 @import '_size.scss';
 @import 'mixins.scss';
@@ -65,3 +65,55 @@ a {
 .section {
   margin-bottom: 40px;
 }
+
+////////////////////////////////////////////////////////////
+// PrismJS syntax highlighting
+////////////////////////////////////////////////////////////
+
+// .gatsby-highlight-code-line {
+//   background-color: #feb;
+//   display: block;
+//   margin-right: -1em;
+//   margin-left: -1em;
+//   padding-right: 1em;
+//   padding-left: 0.75em;
+//   border-left: 0.25em solid #f99;
+// }
+
+// code[class*="syntax-"]{
+//   text-shadow: none !important;
+// }
+
+/**
+ * Add back the container background-color, border-radius, padding, margin
+ * and overflow that we removed from <pre>.
+ */
+//  .gatsby-highlight {
+//   background-color: #fdf6e3;
+//   border-radius: 0.3em;
+//   margin: 0.5em 0;
+//   padding: 0.5em 1em;
+//   overflow: auto;
+// }
+
+/**
+ * Remove the default PrismJS theme background-color, border-radius, margin,
+ * padding and overflow.
+ * 1. Make the element just wide enough to fit its content.
+ * 2. Always fill the visible space in .gatsby-highlight.
+ * 3. Adjust the position of the line numbers
+ */
+// .gatsby-highlight pre[class*="language-"] {
+//   background-color: transparent;
+//   margin: 0;
+//   padding: 0;
+//   overflow: initial;
+//   float: left; /* 1 */
+//   min-width: 100%; /* 2 */
+// }
+
+// .deckgo-highlight-code-carbon{
+  .token {
+    font-size: 18px;
+  }
+// }

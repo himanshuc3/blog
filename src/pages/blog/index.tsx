@@ -30,7 +30,7 @@ function getSortedPosts(posts: IPost[]) {
       }
       return acc;
     },
-    {},
+    {}
   );
 
   // NOTE: Object.keys serializes ig, always returns strings for keys
@@ -88,7 +88,7 @@ const BlogPage: React.FC<PageProps> = () => {
             posts.filter((post) => post.title.toLowerCase().indexOf(lowercaseSearch) != -1),
           ];
         })
-        .filter(([_, posts]) => posts.length > 0),
+        .filter(([_, posts]) => posts.length > 0)
     );
   }
 
@@ -139,7 +139,7 @@ export default BlogPage;
 
 export const Head: HeadFC = () => (
   <Helmet>
-    <title>ddHimanshu's blogss.</title>
+    <title>Himanshu's blogss.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
     <meta name="description" content="Himanshu Chhabra's blog/portfolio" />

@@ -10,10 +10,6 @@ interface INode {
   };
 }
 
-interface IMarkdownRemark {
-  nodes: INode[];
-}
-
 interface ISerializeParams {
   query: {
     site: {
@@ -124,6 +120,23 @@ const config = {
                 "<hr class='references-divider'/><h2 class='reference-header'>🛈 Footnotes</h2>",
             },
           },
+          {
+            resolve: `gatsby-remark-highlight-code`,
+            options: {
+              theme: 'carbon', // or "github", "carbon", etc.
+              terminal: 'carbon', // optional
+              lineNumbers: false,
+            },
+          },
+          // {
+          //   resolve: `gatsby-remark-prismjs`,
+          //   options: {
+          //     classPrefix: 'syntax-',
+          //     // inlineCodeMarker: null,
+          //     showLineNumbers: true,
+          //     noInlineHighlight: false,
+          //   },
+          // },
         ],
       },
     },

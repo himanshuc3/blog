@@ -1,13 +1,13 @@
-import * as React from 'react'
-import logo from '../../images/logo.png'
-import './styles.scss'
-import { Link } from 'gatsby'
+import * as React from 'react';
+import logo from '../../images/logo.png';
+import './styles.scss';
+import { Link } from 'gatsby';
 
 const Logo: React.FC<{}> = () => {
-    return <Link to='/'>
-
-        <div className='logo'>
-            {/* <div className='emojis-container'>
+  return (
+    <Link to="/" className="logo-container">
+      <div className="logo">
+        {/* <div className='emojis-container'>
 
 
             <div className='emojis'>
@@ -19,9 +19,12 @@ const Logo: React.FC<{}> = () => {
         </div>
         <div className='backshadow'></div>
         <div className='backshadow'></div> */}
-            <div id="alternate_logo_img"><img src={logo} alt="blog logo" /></div>
+        <div id="alternate_logo_img">
+          <img src={logo} alt="blog logo" />
         </div>
-    </Link >
-}
+      </div>
+    </Link>
+  );
+};
 
-export default Logo
+export default Logo;

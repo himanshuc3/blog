@@ -1,7 +1,8 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
+import React from 'react';
 import { ThemeProvider } from './src/hooks/themeContext';
-import Skeleton from './src/components/skeleton';
 import './src/styles/global.scss';
+import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
+deckDeckGoHighlightElement();
 
 export const wrapRootElement = ({ element }) => {
   return <ThemeProvider>{element}</ThemeProvider>;
