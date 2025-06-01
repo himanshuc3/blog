@@ -59,21 +59,21 @@
   }
 
   100% {
-    padding-top: 10px;
+    padding-top: 15px;
     // backdrop-filter: blur(10px);
   }
 }
 
 #navbar.sticky {
   animation: fadeInn 0.5s forwards;
-  
 
   & > .inner {
     backdrop-filter: blur(10px);
     background: rgba(150, 150, 150, 0.05);
     border-radius: 5px;
     border: 1px solid rgba(100, 100, 100, 0.1);
-    width: 500px;
+
+    // width: 500px;
     padding: 0px 20px;
   }
 

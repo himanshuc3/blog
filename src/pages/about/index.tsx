@@ -7,6 +7,24 @@ import Socials from '../../components/socials';
 import { SOCIAL_LINKS } from '../../utils/constants';
 import { ThemeContext } from '../../hooks/themeContext';
 import BaseComponent from '../../containers/base';
+import ProjectCard from '../../components/projectCard';
+import Divider from '../../components/divider';
+const projects = [
+  {
+    name: 'File Organizer',
+    description: 'A CLI tool to help declutter your assets to help your OCD.',
+    github: 'https://github.com/himanshuc3/file-organizer',
+    live: 'https://www.npmjs.com/package/file-organize',
+    techStack: ['Node.js', 'Typescript', 'Github Actions'],
+  },
+  {
+    name: 'LetterBox',
+    description: 'A customizable js library for letter art.',
+    github: 'https://github.com/himanshuc3/file-organizer',
+    live: 'https://www.npmjs.com/package/file-organize',
+    techStack: ['Typescript', 'Github Actions'],
+  },
+];
 
 const AboutPage: React.FC<PageProps> = () => {
   const { darkTheme, toggleTheme } = React.useContext(ThemeContext);
@@ -56,7 +74,7 @@ const AboutPage: React.FC<PageProps> = () => {
             </a>
             .
           </p>
-          <Socials />
+          <Socials isDarkTheme={darkTheme} />
         </div>
         <div className="right dp">
           <img src={dp} alt="" className="src" />
@@ -82,13 +100,16 @@ const AboutPage: React.FC<PageProps> = () => {
       </div>
       <div className="section projects">
         <h1>🛠️ Projects</h1>
-        <div className="in-progress">
-          Work in progress. Checkout{' '}
-          <a href={SOCIAL_LINKS.GITHUB} target="_blank" className="chunky-underline">
-            <img src={github} alt="" />
-          </a>{' '}
-          for updates.
-        </div>
+        {projects.map((project, index) => (
+          <>
+            <ProjectCard key={project.name} project={project} />
+            {index !== projects.length - 1 && (
+              <div class="project-divider">
+                <hr />
+              </div>
+            )}
+          </>
+        ))}
       </div>
     </BaseComponent>
   );

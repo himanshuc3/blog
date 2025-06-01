@@ -1,5 +1,6 @@
 .socials {
     display: flex;
+    gap: 10px;
 
     a {
         display: inline-block;
@@ -13,8 +14,7 @@
         animation-fill-mode: forwards;
     }
 
-    img {
-        width: 18px;
-        margin-right: 16px;
+    .social-icon {
+        font-size: 18px;
     }
 }

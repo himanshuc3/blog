@@ -41,10 +41,7 @@
                 margin-bottom: 10px;
             }
 
-            .socials span {
-                display: inline-block;
-                margin-right: 16px;
-            }
+            
 
 
             .emoji-sound {
@@ -106,15 +103,8 @@
 }
 
 @media only screen and (max-width: 768px) {
-    // .index-wrapper {
-        // .poster {
-
-        //     flex-direction: column-reverse;
-        //     align-items: start;
-        //     padding: 0 20px;
-        // }
+   
         .poster .dp{
             display: none;
         }
-    // }
 }

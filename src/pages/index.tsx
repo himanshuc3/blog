@@ -11,8 +11,10 @@ import './styles.scss';
 import usePostsData from '../hooks/usePostsData';
 import { IPost } from '../utils/types';
 import BaseComponent from '../containers/base';
+import { ThemeContext } from '../hooks/themeContext';
 
 const IndexPage: React.FC<PageProps> = () => {
+  const { darkTheme, toggleTheme } = useContext(ThemeContext);
   let postsData = usePostsData().sort(
     (p1: IPost, p2: IPost) => p2.date.getTime() - p1.date.getTime()
   );
@@ -38,7 +40,7 @@ const IndexPage: React.FC<PageProps> = () => {
               Writing about my <i>technical experiences</i>, <i>daily infra rants</i> &{' '}
               <i>random thoughts</i>.
             </p>
-            <Socials />
+            <Socials isDarkTheme={darkTheme} />
           </div>
           <div className="dp">
             <img src={dp} alt="My profile picture" className="image" />

@@ -16,7 +16,7 @@ const Footer = ({ darkTheme }: { darkTheme: boolean }) => {
           <a href={Resume} target="_blank" className="button">
             Resume
           </a>
-          <Socials />
+          <Socials isDarkTheme={darkTheme} />
         </div>
       </div>
     </div>

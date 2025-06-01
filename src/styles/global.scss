@@ -11,10 +11,12 @@ $size-prefix: --size-;
   @include addPrefixToMap($size, $size-prefix);
 }
 
+
 body {
   font-family: 'Rubik';
   background-color: var(--variable-backgroundColor);
 }
+
 html {
   box-sizing: border-box;
   width:100vw;

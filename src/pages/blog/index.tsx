@@ -14,11 +14,6 @@ import BaseComponent from '../../containers/base';
 
 const TAGS = ['personal'];
 
-function debug(prop: any) {
-  console.log(prop);
-  return true;
-}
-
 function getSortedPosts(posts: IPost[]) {
   let postsByYear: { [key: number]: IPost[] } = posts.reduce(
     (acc: { [key: number]: IPost[] }, curr) => {
@@ -62,7 +57,7 @@ const BlogPage: React.FC<PageProps> = () => {
     setSearchText('');
 
     const tag = e.target.dataset.tag;
-    console.log({ tag });
+
     if (typeof tag != 'string') throw new Error('Tag not a string');
     if (tag == selectedTag) {
       setSelectedTag(null);

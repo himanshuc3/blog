@@ -1,0 +1,66 @@
+.project-card {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    // background-color: white;
+    // border: 1px solid var(--variable-textSecondary);
+    // filter: contrast(990%) brightness(1000%);
+    // background: 
+    //   linear-gradient(0deg, rgba(0,0,0,1), rgba(0,0,0,0)),
+    //   url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='5.26' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    padding: 10px;
+    padding-bottom: 0px;
+    // margin-bottom: 10px;
+    border-radius: 10px;
+
+    h5 {
+        width: 150px;
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    h5, p {
+        margin-top: 0px;
+    }
+    p{
+        color: var(--variable-text);
+    }
+    
+    .project-card-links {
+        width: 100px;
+        flex-wrap: wrap;   
+    }
+    .tech-stack {
+        font-size: 14px;
+        font-weight: 400;
+        font-style: italic;
+        color: var(--variable-textSecondary);    
+    }
+
+    .project-card-links button {
+        margin-right: 5px;
+    }
+    
+    .description {
+        flex-wrap: wrap;
+        display:flex;
+        width: 10px;
+        font-style: italic;
+        flex: 1 ;
+    }
+
+    .button {
+        background: none;
+        border: none;
+        // padding: 5px 10px;
+        // border-radius: 10px;
+        // border: none;
+        // background-color: #000;
+        // color: #fff;
+        // cursor: pointer;
+        // font-size: 14px;
+        
+    }
+
+}
+

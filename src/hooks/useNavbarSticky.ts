@@ -22,7 +22,7 @@ export function useNavbarSticky<T extends HTMLElement>(
     }
 
     const observer = new IntersectionObserver(([entry]) => {
-      console.log(entry.intersectionRatio);
+     
       entry.target.classList.toggle('sticky', entry.intersectionRatio < 1);
      
     }, options);
