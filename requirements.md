@@ -60,3 +60,11 @@ v1.1
 - New logo ???
 - Blog #2
 - Asset and build latency?
+- Design improvements:
+  - Logo
+  - Typograpgy pairing
+  - Landing page section
+  - Background pattern
+  - About page
+    - Setup configuration
+    - Projects section
