@@ -36,7 +36,7 @@ const AboutPage: React.FC<PageProps> = () => {
           <h1>
             <span className="emoji-wave">👋</span> Who am I
           </h1>
-          <p>
+          <p className="sec-font">
             My name is <i>Himanshu Chhabra</i> and I’m speechless <br />
             to meet you virtually. <br />
             <br />
@@ -82,7 +82,7 @@ const AboutPage: React.FC<PageProps> = () => {
       </div>
       <div className="section">
         <h1>🧑‍💻 Setup configuration</h1>
-        <p className="description">
+        <p className="description sec-font">
           This blog is built on{' '}
           <a href="gatsbyjs.com" target="_blank" className="chunky-underline">
             Gatsby.js

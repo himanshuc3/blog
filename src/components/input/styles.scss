@@ -3,13 +3,13 @@
     height: 40px;
     background: #EEEEEC;
     border-radius: 20px;
-    width: 300px;
+    width: 350px;
     align-items: center;
     overflow: hidden;
     border: 2px solid transparent;
     position: relative;
-    top: -15px;
-    left: -5px;
+    padding: 3px 7px;
+    
 
     input {
         outline: none;
@@ -46,5 +46,16 @@
 
     &.disabled {
         cursor: not-allowed;
+    }
+
+    .submit-btn {
+        color: var(--variable-textSecondary);
+        background: var(--variable-hoverBG);
+        border-radius: 20px;
+        padding: 3px 9px;
+        cursor: pointer;
+        margin-right:0;
+        height: 100%;
+        font-size: var(--size-xxs);
     }
 }
