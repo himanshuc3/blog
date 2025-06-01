@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 import Socials from '../components/socials';
 import Posts from '../components/posts';
 import dp from '../images/dp.png';
-
+import AvailableBadge from '../components/AvailableBadge';
 import './styles.scss';
 import usePostsData from '../hooks/usePostsData';
 import { IPost } from '../utils/types';
@@ -45,6 +45,7 @@ const IndexPage: React.FC<PageProps> = () => {
             <Socials isDarkTheme={darkTheme} />
           </div>
           <div className="dp">
+            <AvailableBadge />
             <img src={dp} alt="My profile picture" className="image" />
           </div>
         </div>

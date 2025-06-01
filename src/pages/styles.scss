@@ -12,6 +12,15 @@
     min-height: 100vh;
     background-color: var(--variable-backgroundColor);
 
+    .backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 0;
+        height: 100%;
+    }
+
     .poster {
         display: flex;
         justify-content: space-around;
@@ -64,6 +73,16 @@
                 color: var(--variable-primary);
                 font-style: italic;
                 font-weight: 500;
+            }
+        }
+
+        .dp {
+            position:relative;
+
+            .badge-container{
+                position: absolute;
+                bottom: 70px;
+                right: 0;
             }
         }
 

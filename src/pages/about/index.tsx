@@ -9,20 +9,14 @@ import { ThemeContext } from '../../hooks/themeContext';
 import BaseComponent from '../../containers/base';
 import ProjectCard from '../../components/projectCard';
 import Divider from '../../components/divider';
+import AvailableBadge from '../../components/AvailableBadge';
 const projects = [
   {
     name: 'File Organizer',
     description: 'A CLI tool to help declutter your assets to help your OCD.',
-    github: 'https://github.com/himanshuc3/file-organizer',
+    github: 'https://github.com/himanshuc3/file-organize',
     live: 'https://www.npmjs.com/package/file-organize',
-    techStack: ['Node.js', 'Typescript', 'Github Actions'],
-  },
-  {
-    name: 'LetterBox',
-    description: 'A customizable js library for letter art.',
-    github: 'https://github.com/himanshuc3/file-organizer',
-    live: 'https://www.npmjs.com/package/file-organize',
-    techStack: ['Typescript', 'Github Actions'],
+    techStack: ['Node.js', 'Typescript', 'Github Actions', 'linux'],
   },
 ];
 
@@ -77,6 +71,7 @@ const AboutPage: React.FC<PageProps> = () => {
           <Socials isDarkTheme={darkTheme} />
         </div>
         <div className="right dp">
+          <AvailableBadge />
           <img src={dp} alt="" className="src" />
         </div>
       </div>

@@ -1,0 +1,59 @@
+.badge-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #ecfcca;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+
+
+    .badge-text{
+        color: #00a63e;
+    }
+
+    .circle-container{
+        position: relative;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #00c951;
+        display: inline-block;
+    }
+
+    // .abs {
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    // }
+
+    .ping-animation{
+        animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    
+
+    .green-circle{
+        display: inline-block;
+        position:relative;
+        width:100%;
+        height:100%;
+        border-radius: 50%;
+        background: #00c951;
+        top: -5px;
+        left: 0;
+        
+    }
+
+    @keyframes ping {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            opacity: 0.2;
+            transform: scale(2);
+        }
+    }
+    
+}
