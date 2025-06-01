@@ -25,20 +25,22 @@ const IndexPage: React.FC<PageProps> = () => {
       <div className="content">
         <div className="poster section">
           <div className="text">
-            <h1>
-              <span className="emoji-wave">👋</span> Hi, I’m{' '}
-              <span className="chunky-underline">Himanshu</span>
+            <h1 className="italic w-sm mb-0">
+              <span className="emoji-wave">👋</span> Hi, I’m <span>Himanshu</span>
+              <br />
+              <span className="title sec-font">
+                FULLSTACK DEVELOPER &middot; WEB3 ENTHUSIAST &middot;{' '}
+              </span>
             </h1>
-            <p className="ibm-plex-mono">
-              I'm a fullstack engineer currently working{' '}
+            <p className="sec-font mt-0">
+              Sharing my 👾 two bits on <i>🕸️ web2 challenges</i>, <i>🔐 web3 journey</i> &{' '}
+              <i>🏡 daily infra rants</i>. Building scalable solutions{' '}
               <a href="https://razorpay.com/" target="_blank">
                 <span className="working-at">@Razorpay</span>
               </a>
-              .
               <br />
               <br />
-              Writing about my <i>technical experiences</i>, <i>daily infra rants</i> &{' '}
-              <i>random thoughts</i>.
+              Interested in having a chat? Feel free to reach out on my socials.
             </p>
             <Socials isDarkTheme={darkTheme} />
           </div>
@@ -49,9 +51,11 @@ const IndexPage: React.FC<PageProps> = () => {
         <div className="recent-posts section">
           <div className="heading">
             <h1>📚 Recent Articles</h1>
-            <p className="heading_desc ibm-plex-mono">
+            <p className="heading_desc sec-font">
+              {/* <i> */}
               Presenting you with articles fresh out of the oven, decide for yourself if they
-              satiate your reading appetite 🤓 or if I 🔥 overcooked (most likely).
+              satiate your reading appetite or if I overcooked (most likely).
+              {/* </i> */}
             </p>
           </div>
 

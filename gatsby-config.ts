@@ -171,14 +171,22 @@ const config = {
         enableListener: true,
         preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
         web: [
+          // {
+          //   name: 'Primary Font',
+          //   file: `https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,300..900;1,300..900&display=swap`,
+          // },
+          // {
+          //   name: `Secondary Font`,
+          //   file: `https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap">`,
+          // },
           {
-            name: `Rubik`,
-            file: `https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap`,
+            name: 'Primary Font',
+            file: 'https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100..900;1,100..900&display=swap'
           },
           {
-            name: `IBM Plex Mono`,
-            file: `https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap">`,
-          },
+            name: 'Secondary Font',
+            file: 'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap'
+          }
         ],
       },
     },

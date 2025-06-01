@@ -1,129 +1,106 @@
 .blog-post-wrapper {
-    min-height: 100vw;
+  min-height: 100vw;
+  display: flex;
+  flex-direction: column;
+
+  .blog-post {
     display: flex;
     flex-direction: column;
+    min-height: 10px;
+    flex-grow: 1;
+    width: 700px;
+    margin: 10px auto;
+  }
 
-    .blog-post {
-        display: flex;
-        flex-direction: column;
-        min-height: 10px;
-        flex-grow: 1;
-        width: 700px;
-        margin: 10px auto;
+  .heading {
+    margin-top: 50px;
 
+    & > h1 {
+      font-size: 40px;
+      // font-size: var(--size-m);
+      font-weight: 700;
+      position: relative;
     }
 
-    .heading {
-        margin-top: 50px;
-
-        &>h1 {
-            font-size: 40px;
-            // font-size: var(--size-m);
-            font-weight: 700;
-            position: relative;
-        }
-
-        .meta {
-            display: flex;
-            position: relative;
-            align-items: center;
-            top: -30px;
-
-        }
-
-        .meta>.separator {
-            display: inline-block;
-            margin: 0 20px;
-        }
-
-
-        .meta>p {
-            color: var(--variable-textSecondary) !important;
-            display: inline-block;
-            font-size: 14px;
-            font-style: italic;
-        }
+    .meta {
+      display: flex;
+      position: relative;
+      align-items: center;
+      top: -30px;
     }
 
-    .content {
-        p {
-            text-align: justify;
-        }
-
-        p,
-        ul,
-        li {
-            font-size: 18px;
-            line-height: 30px;
-            font-weight: 400;
-            color: var(--variable-textSecondary);
-        }
-
-        a {
-            // color: #E09F3E !important;
-            // font-weight: 500;
-            color: var(--variable-text);
-            font-weight: 500;
-            position: relative;
-            transition: color 0.5s;
-        }
-
-        // a::before {
-        //     content: '';
-        //     background-color: rgba(255, 255, 0, 0.8);
-        //     position: absolute;
-        //     left: 0;
-        //     bottom: 0px;
-        //     width: 100%;
-        //     height: 0;
-        //     z-index: -1;
-        //     transition: all .3s ease-in-out;
-        // }
-
-        // a:hover::before {
-        //     bottom: 0;
-        //     height: 100%;
-        // }
-
-        a:hover {
-            color: var(--variable-primary);
-        }
-
-        img {
-            display: inline-block;
-            border-radius: 5px;
-        }
-
-
-        .references-divider {
-            display: block;
-            height: 1px;
-            border: 0;
-            border-top: 1px solid rgba(100, 100, 100, 0.5);
-        }
-
-        .footnotes {
-            padding: 20px 0;
-        }
-
-        .reference-header {
-            font-weight: 500;
-            font-size: 20px;
-            color: var(--variable-text);
-        }
-
-        .gatsby-resp-image-wrapper {
-            display: inline-block;
-            margin: 60px auto;
-        }
-
-        blockquote {
-            margin: 0 40px;
-            background: var(--variable-hoverBG);
-            border: 1px solid var(--variable-textSecondary);
-
-            padding: 5px 20px;
-            border-radius: 5px;
-        }
+    .meta > .separator {
+      display: inline-block;
+      margin: 0 20px;
     }
+
+    .meta > p {
+      color: var(--variable-textSecondary) !important;
+      display: inline-block;
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
+
+  .content {
+    p {
+      text-align: justify;
+    }
+
+    p,
+    ul,
+    li {
+      font-size: 18px;
+      line-height: 30px;
+      font-weight: 300;
+      color: var(--variable-textSecondary);
+    }
+
+    a {
+      color: var(--variable-text);
+      font-weight: 500;
+      position: relative;
+      transition: color 0.5s;
+    }
+
+    a:hover {
+      color: var(--variable-primary);
+    }
+
+    img {
+      display: inline-block;
+      border-radius: 5px;
+    }
+
+    .references-divider {
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid rgba(100, 100, 100, 0.5);
+    }
+
+    .footnotes {
+      padding: 20px 0;
+    }
+
+    .reference-header {
+      font-weight: 500;
+      font-size: 20px;
+      color: var(--variable-text);
+    }
+
+    .gatsby-resp-image-wrapper {
+      display: inline-block;
+      margin: 60px auto;
+    }
+
+    blockquote {
+      margin: 0 40px;
+      background: var(--variable-hoverBG);
+      border: 1px solid var(--variable-textSecondary);
+
+      padding: 5px 20px;
+      border-radius: 5px;
+    }
+  }
 }

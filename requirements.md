@@ -62,8 +62,8 @@ v1.1
 - Asset and build latency?
 - Design improvements:
   - Logo
-  - Typograpgy pairing
-  - Landing page section
+  - ~~Typograpgy pairing~~
+  - ~~Landing page section~~
   - Background pattern
   - About page
     - Setup configuration

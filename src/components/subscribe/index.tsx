@@ -6,12 +6,12 @@ const Subscribe: React.FC<{}> = () => {
   return (
     <div className="subscribe">
       <h2 className="heading">🚨 Stay Updated.</h2>
-      <p className="desc ibm-plex-mono">
-        Frontend explorations. Naive backend interfaces. Performance benchmarking. <br />
-        Daily life rants. Swatcch Bharat nakabhiyan & more.
+      <p className="desc sec-font">
+        Frontend explorations. Naive backend interfaces. Performance benchmarking. Daily life rants.
+        Swatcch Bharat nakabhiyan & more.
       </p>
       <Input disabled={true} placeholder="Coming Soon..." />
-      {/* <p className='comming-soon ibm-plex-mono'>Comming soon</p> */}
+      {/* <p className='comming-soon sec-font'>Comming soon</p> */}
     </div>
   );
 };

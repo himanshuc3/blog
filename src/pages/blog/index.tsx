@@ -92,9 +92,7 @@ const BlogPage: React.FC<PageProps> = () => {
       <div className="poster section">
         <div className="heading">
           <h1>Articles</h1>
-          <p className="ibm-plex-mono">
-            Feel free to pick and destroy the writings, one at a time.
-          </p>
+          <p className="sec-font">Feel free to pick and destroy the writings, one at a time.</p>
         </div>
         <div className="filter">
           <div>
@@ -115,7 +113,7 @@ const BlogPage: React.FC<PageProps> = () => {
             return (
               <div>
                 <div className="filters">
-                  <h1 className="ibm-plex-mono">{year}</h1>
+                  <h1 className="sec-font">{year}</h1>
                 </div>
 
                 <div className="posts">

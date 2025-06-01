@@ -25,14 +25,14 @@ export default function BlogPostTemplate({
                 <div className='heading'>
                     <h1>{frontmatter.title}</h1>
                     <div className='meta'>
-                        <p className='ibm-plex-mono'>🗓️ {frontmatter.date}</p>
+                        <p className='sec-font'>🗓️ {frontmatter.date}</p>
                         <span className='separator'>&middot;</span>
                         <div className='tags'>
                             {frontmatter.tags.map(tag => <Tag text={tag} />)}
                         </div>
                     </div>
                 </div>
-                <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
+                <div className="content sec-font" dangerouslySetInnerHTML={{ __html: html }} />
                 {/* <Divider darkTheme={darkTheme} />
                 <div style={{ marginBottom: '20px' }}></div> */}
                 <Comments  isDarkTheme={darkTheme}/>

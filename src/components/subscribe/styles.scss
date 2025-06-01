@@ -6,7 +6,7 @@
     background: var(--variable-hoverBG);
 
     .heading {
-        font-size: var(--size-xs);
+        font-size: var(--size-s);
         margin-top: 0 !important;
         font-weight: 500;
         position: relative;
@@ -15,7 +15,7 @@
     }
 
     .desc {
-        font-size: 14px;
+        font-size: var(--size-xs);
         font-weight: 400;
         line-height: 20px;
         position: relative;

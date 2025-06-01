@@ -11,7 +11,7 @@ const ProjectCard = ({ project }) => {
   return (
     <div className="project-card">
       <h5>{project.name}</h5>
-      <p className="ibm-plex-mono description">
+      <p className="sec-font description">
         {project.description}
         <br />
         <div className="tech-stack">

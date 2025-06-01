@@ -11,9 +11,15 @@ $size-prefix: --size-;
   @include addPrefixToMap($size, $size-prefix);
 }
 
+// Font weight utility classes
+@each $weight-name, $weight-value in $font-weights {
+  .w-#{$weight-name} {
+    font-weight: $weight-value;
+  }
+}
 
 body {
-  font-family: 'Rubik';
+  @extend .pr-font;
   background-color: var(--variable-backgroundColor);
 }
 
@@ -21,6 +27,16 @@ html {
   box-sizing: border-box;
   width:100vw;
 }
+
+.mt-0{
+  margin-top: 0;
+}
+
+.mb-0{
+  margin-bottom: 0;
+}
+
+
 
 *,
 *::before,
