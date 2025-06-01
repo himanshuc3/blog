@@ -18,20 +18,23 @@ const Input: React.FC<Props> = ({
   icon,
   onChange = noop,
   className,
+  buttonText,
   ...props
 }) => {
   return (
     <div className={`input ${disabled ? 'disabled' : ''} ${className}`}>
       {icon || <SearchOutlined style={{ color: '#777575', margin: '0 10px' }} />}
       <input
+        required
         type="email"
         placeholder={placeholder}
+        name="email"
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
         {...props}
       />
-      <button disabled={disabled} className="submit-btn">
-        subscribe
+      <button disabled={disabled} className="submit-btn w-b">
+        {buttonText || 'subscribe'}
         {/* <ArrowRightOutlined style={{ width: '10px', marginLeft: '5px' }} /> */}
       </button>
     </div>

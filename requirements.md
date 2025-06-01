@@ -67,4 +67,4 @@ v1.1
   - Background pattern
   - About page
     - Setup configuration
-    - Projects section
+    - ~~Projects section~~

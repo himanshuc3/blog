@@ -8,7 +8,7 @@
     overflow: hidden;
     border: 2px solid transparent;
     position: relative;
-    padding: 3px 7px;
+    // padding: 3px 7px;
     
 
     input {
@@ -56,6 +56,16 @@
         cursor: pointer;
         margin-right:0;
         height: 100%;
+        position:relative;
         font-size: var(--size-xxs);
+        transition: all 0.2s ease-in-out;
+        border: 2px solid transparent;
     }
+
+    .submit-btn:hover{
+        padding: 0 10px;
+    
+    }
+
 }
+

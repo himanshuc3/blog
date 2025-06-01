@@ -96,7 +96,12 @@ const BlogPage: React.FC<PageProps> = () => {
         </div>
         <div className="filter">
           <div>
-            <Input onChange={onSearchInput} value={searchText} />
+            <Input
+              onChange={onSearchInput}
+              value={searchText}
+              placeholder="Search..."
+              buttonText="Search"
+            />
             <div className="tags" onClick={onTagSelect}>
               {TAGS.map((tag) => (
                 <Tag text={tag} highlighted={selectedTag === tag} />
