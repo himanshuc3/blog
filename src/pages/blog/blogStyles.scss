@@ -43,9 +43,7 @@
   }
 
   .content {
-    p {
-      // text-align: justify;
-    }
+    
     strong {
       font-weight: 700;
     }
@@ -127,12 +125,22 @@
     }
 
     blockquote {
-      margin: 0 40px;
-      background: var(--variable-hoverBG);
-      border: 1px solid var(--variable-textSecondary);
+      position:relative;
+      margin: 30px 40px;
 
+      background-color: var(--variable-hoverBG);
+
+      
       padding: 5px 20px;
       border-radius: 5px;
+
+      // &::before{
+      //   content: "ℹ️";
+      //   font-size: 20px;
+      //   position: absolute;
+      //   top: -10px;
+      //   left: -10px;
+      // }
     }
   }
 }

@@ -30,7 +30,7 @@ function getSortedPosts(posts: IPost[]) {
 
   // NOTE: Object.keys serializes ig, always returns strings for keys
   return Object.keys(postsByYear)
-    .sort((y1, y2) => +y1 - +y2)
+    .sort((y1, y2) => +y2 - +y1)
     .map((year): [number, IPost[]] => [+year, postsByYear[+year]]);
 }
 

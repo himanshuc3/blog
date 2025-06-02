@@ -34,4 +34,4 @@ While in 90% of your use cases, you’ll make do with `skip-worktree` , here’s
 | `--assume-unchanged` | **Hint to Git**: "I won’t change this file"   |
 | `--skip-worktree`    | **Directive to Git**: "Ignore my local edits" |
 
-> NOTE: If the file shouldn’t be tracked at all (for everyone), use .gitignore instead.
+> 📝**Note.** If the file shouldn’t be tracked at all (for everyone), use `.gitignore` instead.
