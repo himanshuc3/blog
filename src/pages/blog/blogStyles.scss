@@ -44,7 +44,10 @@
 
   .content {
     p {
-      text-align: justify;
+      // text-align: justify;
+    }
+    strong {
+      font-weight: 700;
     }
 
     p,
@@ -52,8 +55,37 @@
     li {
       font-size: 18px;
       line-height: 30px;
-      font-weight: 300;
+      font-weight: 400;
       color: var(--variable-textSecondary);
+    }
+
+    code {
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-style: italic;
+      background-color: var(--variable-hoverBG);
+    }
+
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      color: var(--variable-textSecondary);
+      
+      
+      th, td {
+        padding: 8px 12px;
+        border: 1px solid var(--variable-textSecondary);
+        text-align: left;
+      }
+      
+      th {
+        background-color: var(--variable-hoverBG);
+        font-weight: 700;
+        color: var(--variable-text);
+      }
+      
+      
     }
 
     a {
