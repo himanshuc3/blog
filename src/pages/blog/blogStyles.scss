@@ -68,7 +68,7 @@
       overflow: auto;
     }
 
-    .codeblock-text {
+    code {
       padding: 2px 4px;
       border-radius: 4px;
       font-style: italic;
@@ -107,6 +107,7 @@
     }
 
     img {
+      overflow: hidden;
       display: inline-block;
       border-radius: 5px;
     }
