@@ -6,9 +6,9 @@
     width: 350px;
     align-items: center;
     overflow: hidden;
-    border: 2px solid transparent;
+    
+    border: 2px solid white;
     position: relative;
-    // padding: 3px 7px;
     
 
     input {
@@ -38,10 +38,6 @@
         &:disabled {
             cursor: not-allowed;
         }
-    }
-
-    &:focus-within {
-        border: 2px solid black;
     }
 
     &.disabled {
