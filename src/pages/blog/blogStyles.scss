@@ -53,11 +53,15 @@
     li {
       font-size: 18px;
       line-height: 30px;
-      font-weight: 400;
+      font-weight: 500;
       color: var(--variable-textSecondary);
     }
 
-    code {
+    .grvsc-container {
+      margin: 30px 0;
+    }
+
+    :not(.grvsc-container)  code {
       padding: 2px 4px;
       border-radius: 4px;
       font-style: italic;

@@ -120,23 +120,21 @@ const config = {
                 "<h2 class='reference-header'>🔖 Footnotes</h2>",
             },
           },
+          
           {
-            resolve: `gatsby-remark-highlight-code`,
+            resolve: `gatsby-remark-vscode`,
             options: {
-              theme: 'carbon', // or "github", "carbon", etc.
-              terminal: 'carbon', // optional
-              lineNumbers: false,
-            },
-          },
-          // {
-          //   resolve: `gatsby-remark-prismjs`,
-          //   options: {
-          //     classPrefix: 'syntax-',
-          //     // inlineCodeMarker: null,
-          //     showLineNumbers: true,
-          //     noInlineHighlight: false,
-          //   },
-          // },
+              
+              theme: {
+                default: 'Solarized Light',
+                parentSelector: {
+                  // Any CSS selector will work!
+                  'html.dark': 'Solarized Dark',
+                }
+              } 
+            }
+          }
+         
         ],
       },
     },

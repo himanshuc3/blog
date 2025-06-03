@@ -6,9 +6,6 @@ import BaseComponent from '../../containers/base'
 import Comments from '../../components/comments'
 import './blogStyles.scss'
 import ThemeContext from '../../hooks/themeContext'
-import Divider from '../../components/divider'
-// require('prismjs/themes/prism-tomorrow.css');
-// require('prismjs/plugins/line-numbers/prism-line-numbers.css')
 
 
 export default function BlogPostTemplate({

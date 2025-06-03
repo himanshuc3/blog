@@ -13,17 +13,17 @@ In the midst of this chaos my friends, you notice you've got nothing but one cod
 
 `update-index` command updates the index - staging area - entries for one or more files. In simpler terms, it helps you git ignore files valid only to your local index - unlike `.gitignore`, which ignores files for every user commiting to that repo.
 
-```bash
+```bash {numberLines}
 # --no-skip-worktree to reverse the command
 git update-index --skip-worktree package.json
 ```
 
-👉Result of running the command:
+**Result of running the command:**
 
-- Git _stops tracking changes_ to `package.json` (locally).
-- You can still pull updates from the repo.
-- Your local changes _won’t show up_ in `git status`, and you won’t accidentally commit them.
-- _Persists across branch_ changes on your local.
+- 🛑 Git _stops tracking changes_ to `package.json` (locally).
+- ⏳ You can still pull updates from the repo without needing to stash your changes.
+- 🙌 Your local changes _won’t show up_ in `git status`, and you won’t accidentally commit them.
+- 🛟 _Persists across branch_ changes on your local.
 
 There’s an alternative flag called `--assume-unchanged` which achieves a similar function, they defer slightly in how they work in git internals.
 
@@ -34,4 +34,4 @@ While in 90% of your use cases, you’ll make do with `skip-worktree` , here’s
 | `--assume-unchanged` | **Hint to Git**: "I won’t change this file"   |
 | `--skip-worktree`    | **Directive to Git**: "Ignore my local edits" |
 
-> 📝**Note.** If the file shouldn’t be tracked at all (for everyone), use `.gitignore` instead.
+> 📝 **Note.** If the file shouldn’t be tracked at all (for everyone), use `.gitignore` instead.
