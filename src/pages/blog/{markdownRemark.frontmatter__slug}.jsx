@@ -7,6 +7,9 @@ import Comments from '../../components/comments'
 import './blogStyles.scss'
 import ThemeContext from '../../hooks/themeContext'
 
+require('prismjs/themes/prism-solarizedlight.css');
+require('prismjs/plugins/line-numbers/prism-line-numbers.css');
+
 
 export default function BlogPostTemplate({
     data

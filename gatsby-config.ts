@@ -108,6 +108,14 @@ const config = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
+          {
+            resolve: 'gatsby-remark-prismjs',
+            options: {
+              classPrefix: 'codeblock-',
+              showLineNumbers: true,
+              noInlineHighlight: false,
+            }
+          },
           'gatsby-remark-images',
           // 'gatsby-remark-lazy-load',
           'gatsby-remark-external-links',
@@ -134,14 +142,7 @@ const config = {
           //     } 
           //   }
           // }
-          {
-            resolve: 'gatsby-remark-prismjs',
-            options: {
-              classPrefix: 'codeblock-',
-              showLineNumbers: true,
-              noInlineHighlight: false,
-            }
-          }
+          
         ],
       },
     },
