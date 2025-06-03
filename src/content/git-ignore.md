@@ -14,7 +14,7 @@ Amidst the madness, you finally get a notification—someone reviewed your PR. B
 
 The `git update-index` command updates the index - staging area - entries for one or more files. In simpler terms, it helps you git ignore files valid only to your local index - unlike `.gitignore`, which ignores files for every user commiting to that repo.
 
-```bash
+```bash {numberLines}
 # --no-skip-worktree to reverse the command
 git update-index --skip-worktree package.json
 ```
