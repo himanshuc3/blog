@@ -95,7 +95,7 @@ const config = {
             resolve: 'gatsby-remark-images',
           },
             `gatsby-transformer-remark`,
-            `gatsby-remark-vscode`,
+            `gatsby-remark-prismjs`,
         ],
       },
     },
@@ -110,14 +110,14 @@ const config = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          // {
-          //   resolve: 'gatsby-remark-prismjs',
-          //   options: {
-          //     classPrefix: 'codeblock-',
-          //     showLineNumbers: true,
-          //     noInlineHighlight: false,
-          //   }
-          // },
+          {
+            resolve: 'gatsby-remark-prismjs',
+            options: {
+              classPrefix: 'codeblock-',
+              showLineNumbers: true,
+              noInlineHighlight: false,
+            }
+          },
           'gatsby-remark-images',
           // 'gatsby-remark-lazy-load',
           'gatsby-remark-external-links',
@@ -131,19 +131,19 @@ const config = {
             },
           },
           
-          {
-            resolve: `gatsby-remark-vscode`,
-            options: {
+          // {
+          //   resolve: `gatsby-remark-vscode`,
+          //   options: {
               
-              theme: {
-                default: 'Solarized Light',
-                parentSelector: {
-                  // Any CSS selector will work!
-                  'html.dark': 'Solarized Dark',
-                }
-              } 
-            }
-          }
+          //     theme: {
+          //       default: 'Solarized Light',
+          //       parentSelector: {
+          //         // Any CSS selector will work!
+          //         'html.dark': 'Solarized Dark',
+          //       }
+          //     } 
+          //   }
+          // }
           
         ],
       },
