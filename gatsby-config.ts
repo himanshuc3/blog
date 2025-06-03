@@ -121,20 +121,27 @@ const config = {
             },
           },
           
-          {
-            resolve: `gatsby-remark-vscode`,
-            options: {
+          // {
+          //   resolve: `gatsby-remark-vscode`,
+          //   options: {
               
-              theme: {
-                default: 'Solarized Light',
-                parentSelector: {
-                  // Any CSS selector will work!
-                  'html.dark': 'Solarized Dark',
-                }
-              } 
+          //     theme: {
+          //       default: 'Solarized Light',
+          //       parentSelector: {
+          //         // Any CSS selector will work!
+          //         'html.dark': 'Solarized Dark',
+          //       }
+          //     } 
+          //   }
+          // }
+          {
+            resolve: 'gatsby-remark-prismjs',
+            options: {
+              classPrefix: 'codeblock-',
+              showLineNumbers: true,
+              noInlineHighlight: false,
             }
           }
-         
         ],
       },
     },
