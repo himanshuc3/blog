@@ -1,24 +1,25 @@
 ---
 slug: 'git-ignore'
-date: '2025-03-06'
+date: '2025-06-03'
 title: '🌲 Git better at ignore-ing'
 tags: ['TIL', 'git', 'bash']
 ---
 
-**Let’s take a contrived example:** It’s been a _hectic day_, filled with _code reviews_, _brainstorming sessions_ and _unstable CI builds_ causing your one line bug-fix to be delayed by a week (only if this was fictional).
+**Let’s consider a relatable (albeit slightly exaggerated) scenario.**
+It’s been a long, chaotic day—packed with _code reviews_, endless _brainstorming sessions_, and a _CI pipeline_ that seems determined to sabotage your simple one-line bug fix for an entire week. If only this were fiction.
 
-In the midst of this chaos my friends, you notice you've got nothing but one code review comment on your PR. Low and behold, it’s of those stupid shared config files (`env`, `config`, `playwright.js`, `package.json` etc.) that slipped through the cracks of your commits.
+Amidst the madness, you finally get a notification—someone reviewed your PR. But to your dismay, it’s just one comment. And not even a meaningful one. It’s about a rogue change in a shared config `file—env`, `config.js`, `playwright.config.js`, or the dreaded `package.json`—one of those files that sneaked into your commit unnoticed.
 
 ## 🥁 Enters update-index
 
-`update-index` command updates the index - staging area - entries for one or more files. In simpler terms, it helps you git ignore files valid only to your local index - unlike `.gitignore`, which ignores files for every user commiting to that repo.
+The `git update-index` command updates the index - staging area - entries for one or more files. In simpler terms, it helps you git ignore files valid only to your local index - unlike `.gitignore`, which ignores files for every user commiting to that repo.
 
 ```bash {numberLines}
 # --no-skip-worktree to reverse the command
 git update-index --skip-worktree package.json
 ```
 
-**Result of running the command:**
+**🧠 What this does:**
 
 - 🛑 Git _stops tracking changes_ to `package.json` (locally).
 - ⏳ You can still pull updates from the repo without needing to stash your changes.
@@ -27,7 +28,7 @@ git update-index --skip-worktree package.json
 
 There’s an alternative flag called `--assume-unchanged` which achieves a similar function, they defer slightly in how they work in git internals.
 
-While in 90% of your use cases, you’ll make do with `skip-worktree` , here’s a general brief of hw they differ:
+While in 90% of your use cases, you’ll make do with `skip-worktree`, here’s a general brief of they differ:
 
 | Flag                 | Purpose                                       |
 | -------------------- | --------------------------------------------- |
