@@ -68,3 +68,10 @@ v1.1
   - About page
     - Setup configuration
     - ~~Projects section~~
+
+v1.2
+
+- Working Syntax highlighting in production
+- SEO:
+  - Better visibility of blogs
+  - Face cards for social media

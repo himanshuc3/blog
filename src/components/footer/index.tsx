@@ -13,7 +13,11 @@ const Footer = ({ darkTheme }: { darkTheme: boolean }) => {
         <Subscribe />
         <Divider darkTheme={darkTheme} />
         <div className="bottom">
-          <a href={Resume} target="_blank" className="button">
+          <a
+            href="https://drive.google.com/file/d/1FP0_-j3YMKtRxoqHqJlEh6jozooPkPlw/view?usp=sharing"
+            target="_blank"
+            className="button"
+          >
             Resume
           </a>
           <Socials isDarkTheme={darkTheme} />
