@@ -3,6 +3,7 @@ slug: 'git-ignore'
 date: '2025-06-03'
 title: '🌲 Git better at ignore-ing'
 tags: ['TIL', 'git', 'bash']
+seoDescription: 'Understand how git assume-unchanged command works & save your time from stashing local config changes using git stash.'
 ---
 
 **Let’s consider a relatable (albeit slightly exaggerated) scenario.**

@@ -2,6 +2,7 @@ import React, {useContext} from 'react'
 import { graphql } from 'gatsby'
 import { Helmet } from "react-helmet"
 import Tag from '../../components/tag'
+import { SEO } from '../../components/Seo'
 import BaseComponent from '../../containers/base'
 import Comments from '../../components/comments'
 import './blogStyles.scss'
@@ -20,7 +21,7 @@ export default function BlogPostTemplate({
 
     return (
         <BaseComponent className='blog-post-wrapper'>
-            <Helmet title={`${frontmatter.title}`} />
+            <SEO title={frontmatter.title} description={frontmatter.seoDescription} keywords={frontmatter.tags} />
             <div className='blog-post'>
                 <div className='heading'>
                     <h1>{frontmatter.title}</h1>
@@ -33,19 +34,11 @@ export default function BlogPostTemplate({
                     </div>
                 </div>
                 <div className="content sec-font" dangerouslySetInnerHTML={{ __html: html }} />
-                {/* <Divider darkTheme={darkTheme} />
-                <div style={{ marginBottom: '20px' }}></div> */}
                 <Comments  isDarkTheme={darkTheme}/>
             </div>
         </BaseComponent>
     )
 }
-
-export const Head = () =>
-    <>
-        <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
-        <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
-    </>
 
 export const pageQuery = graphql`
     query($id: String!){
@@ -56,6 +49,7 @@ export const pageQuery = graphql`
                 slug
                 title,
                 tags,
+                seoDescription
             }
         }
     

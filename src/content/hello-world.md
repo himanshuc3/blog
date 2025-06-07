@@ -3,6 +3,7 @@ slug: 'hello-world'
 date: '2024-08-10'
 title: '🙏 Hello World (Wide Web)'
 tags: ['personal']
+seoDescription: 'My entry into the space of writing subjective opinions on technical  topics and ideas. Let"s deep dive and learn together.'
 ---
 
 _नमस्ते &middot; Hello &middot; Konnichiwa &middot; হেৰি &middot; สวัสดี &middot; مرحبًا &middot; Ni hao_

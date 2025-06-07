@@ -1,5 +1,4 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
 import PostListing from '../postListing'
 import './styles.scss'
 

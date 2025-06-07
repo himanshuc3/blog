@@ -12,6 +12,7 @@ import usePostsData from '../hooks/usePostsData';
 import { IPost } from '../utils/types';
 import BaseComponent from '../containers/base';
 import { ThemeContext } from '../hooks/themeContext';
+import { SEO } from '../components/Seo';
 
 const IndexPage: React.FC<PageProps> = () => {
   const { darkTheme, toggleTheme } = useContext(ThemeContext);
@@ -53,10 +54,8 @@ const IndexPage: React.FC<PageProps> = () => {
           <div className="heading">
             <h1>📚 Recent Articles</h1>
             <p className="heading_desc sec-font">
-              {/* <i> */}
               Presenting you with articles fresh out of the oven, decide for yourself if they
               satiate your reading appetite or if I overcooked (most likely).
-              {/* </i> */}
             </p>
           </div>
 
@@ -69,11 +68,4 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => (
-  <Helmet>
-    <title>Himanshu's bin.</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
-    <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </Helmet>
-);
+export const Head: HeadFC = () => <SEO />;

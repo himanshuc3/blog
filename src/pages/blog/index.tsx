@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { Helmet } from 'react-helmet';
 
+import { SEO } from '../../components/Seo';
 import Tag from '../../components/tag';
 import { IPost } from '../../utils/types';
 import Posts from '../../components/posts';
@@ -12,7 +12,7 @@ import './styles.scss';
 import usePostsData from '../../hooks/usePostsData';
 import BaseComponent from '../../containers/base';
 
-const TAGS = ['personal'];
+const TAGS = ['personal', 'TIL'];
 
 function getSortedPosts(posts: IPost[]) {
   let postsByYear: { [key: number]: IPost[] } = posts.reduce(
@@ -136,10 +136,8 @@ const BlogPage: React.FC<PageProps> = () => {
 export default BlogPage;
 
 export const Head: HeadFC = () => (
-  <Helmet>
-    <title>Himanshu's blogss.</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
-    <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
-  </Helmet>
+  <SEO
+    title="Himanshu's blog"
+    description="Chronological list of blogs written by me on technical topics."
+  />
 );

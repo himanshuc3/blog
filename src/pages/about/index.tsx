@@ -2,26 +2,38 @@ import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 import './styles.scss';
 import dp from '../../images/dp.png';
-import github from '../../images/github.png';
+import { SEO } from '../../components/Seo';
 import Socials from '../../components/socials';
 import { SOCIAL_LINKS } from '../../utils/constants';
 import { ThemeContext } from '../../hooks/themeContext';
 import BaseComponent from '../../containers/base';
 import ProjectCard from '../../components/projectCard';
-import Divider from '../../components/divider';
 import AvailableBadge from '../../components/AvailableBadge';
 const projects = [
   {
-    name: 'File Organizer',
-    description: 'A CLI tool to help declutter your assets to help your OCD.',
+    name: '📁 File Organizer',
+    description: `A CLI tool to help declutter your assets to help your OCD.`,
     github: 'https://github.com/himanshuc3/file-organize',
     live: 'https://www.npmjs.com/package/file-organize',
     techStack: ['Node.js', 'Typescript', 'Github Actions', 'linux'],
   },
+  {
+    name: '📝 Convex hull algorithms',
+    description: () => (
+      <span>
+        A paper on proposing constant workspace convex hull algorithms under the guidance of{' '}
+        <a href="https://www.iitg.ac.in/rinkulu/" target="_blank" className="chunky-underline">
+          Prof. R. Inkulu.
+        </a>
+      </span>
+    ),
+    live: 'https://arxiv.org/abs/2411.10043',
+    techStack: ['geometry', 'convex hull', 'DSA'],
+  },
 ];
 
 const AboutPage: React.FC<PageProps> = () => {
-  const { darkTheme, toggleTheme } = React.useContext(ThemeContext);
+  const { darkTheme } = React.useContext(ThemeContext);
 
   return (
     <BaseComponent className="about-wrapper">
@@ -112,10 +124,4 @@ const AboutPage: React.FC<PageProps> = () => {
 
 export default AboutPage;
 
-export const Head: HeadFC = () => (
-  <>
-    <title>About Himanshu.</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link>
-    <meta name="description" content="Himanshu Chhabra's blog/portfolio" />
-  </>
-);
+export const Head: HeadFC = () => <SEO title="Himanshu Chhabra's blog" description="" />;

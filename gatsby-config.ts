@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 const dir = __dirname;
 
 interface INode {
@@ -54,16 +58,17 @@ function getMarkdownPosts() {
     `;
 }
 
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
+
 
 const config = {
   siteMetadata: {
-    title: `Himanshu's bin`,
+    title: `Himanshu's Blog`,
     description:
-      "Should frontend development be given the title of an SDE? Let's discuss about it.",
+      'Welcome to my webspace. I am a fullstack engineer with a curiousity to debate and rant on topics like javascript, golang, computational geometry and tooling with a sprinkle of liberal views.',
+    twitterUserName: '@_himanshuc3',
     siteUrl: `https://himanshusb.in`,
+    image: './src/images/logo.png',
+    keywords: ['computer science', 'javascript', 'golang', 'computational geometry', 'blog']
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin

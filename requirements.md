@@ -73,5 +73,10 @@ v1.2
 
 - Working Syntax highlighting in production
 - SEO:
+
   - Better visibility of blogs
   - Face cards for social media
+
+  <!-- NOTE:  -->
+  <!-- 1. SEO: short-tail vs long-tail, LSI keywords (professional headshot), user intent, match & exceed (can I compete on the keyword?) -->
+  <!-- 2. SEO Key Metrics: Keyword difficulty,  -->

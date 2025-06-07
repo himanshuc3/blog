@@ -11,7 +11,7 @@ const ProjectCard = ({ project }) => {
     <div className="project-card">
       <h5>{project.name}</h5>
       <p className="description sec-font">
-        {project.description}
+        {typeof project.description === 'function' ? project.description() : project.description}
         <br />
         <div className="tech-stack">
           <span>Tech Stack: &#160;</span>
