@@ -11,8 +11,7 @@ import { useEffect, useRef, useState, RefObject } from 'react';
 export function useNavbarSticky<T extends HTMLElement>(
   navbarRef: RefObject<HTMLElement>,
   options: IntersectionObserverInit = { threshold: [1] }
-): {isIntersecting: boolean} {
-  const [isIntersecting, setIsIntersecting] = useState(true);
+){
 
   useEffect(() => {
     const navbar = navbarRef.current;
@@ -21,8 +20,8 @@ export function useNavbarSticky<T extends HTMLElement>(
       return;
     }
 
+
     const observer = new IntersectionObserver(([entry]) => {
-     
       entry.target.classList.toggle('sticky', entry.intersectionRatio < 1);
      
     }, options);
@@ -33,6 +32,4 @@ export function useNavbarSticky<T extends HTMLElement>(
       observer.disconnect();
     };
   }, [navbarRef, options]);
-
-  return {isIntersecting};
 } 
