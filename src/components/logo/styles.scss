@@ -1,154 +1,28 @@
 @import '../../styles/colors.scss';
 
-
-$width: 60px;
-$height: 60px;
-
-@keyframes logoanimation {
-    0% {
-        transform: translateY($height);
-        background: rgb(255, 255, 255);
-        border-width: 0px;
-    }
-
-    25% {
-        transform: translateY(0);
-        // background: blue;
-    }
-
-
-
-    50% {
-        transform: translateY(-$height);
-
-    }
-
-    75% {
-        transform: translateY(-#{$height*2});
-    }
-
-    100% {
-        transform: translateY(-#{$height*3});
-        background: #ffff00;
-        border-width: 4px;
-    }
-}
-
-@keyframes backdrop_animation {
-    0% {
-        transform: translate(0, 0);
-
-    }
-
-    100% {
-        transform: translate(-5px, 5px);
-
-    }
-}
-
-@keyframes emoji-stack-animation {
-    0% {
-        transform: translate(0, 0);
-
-    }
-
-    100% {
-        transform: translate(5px, -5px);
-
-    }
-}
+$height: 50px;
 
 .logo {
-    width: $width;
-    height: $height;
-    position: relative;
+  position: relative;
 
-    .emojis-container {
-        position: relative;
-        overflow: hidden;
-        border-radius: 5px;
-        width: $width;
-        height: $height;
-        z-index: 100;
-        animation: 0.25s emoji-stack-animation 3s forwards;
-    }
+  #alternate_logo_img img {
+    width: #{$height};
+  }
 
-    .emojis {
-        position: relative;
-        z-index: 2;
-        animation: logoanimation 3s forwards;
-        overflow: hidden;
-    }
-
-    .emojis>div {
-        width: $width;
-        height: $height;
-
-        font-size: 2.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-
-    .emojis #logo_img {
-        width: $width;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        &>img {
-            width: 55px;
-        }
-    }
-
-    h1 {
-        position: absolute;
-        font-style: italic;
-        font-weight: 500;
-        font-size: 2.5rem;
-        bottom: -40px;
-        right: -10px;
-    }
-
-    .backshadow {
-        z-index: 1;
-        width: $width;
-        height: $height;
-        background: #D0C45C;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 5px;
-    }
-
-    .backshadow:nth-child(2) {
-        background: #A69B42;
-        top: 0;
-        left: 0;
-        animation: 0.25s backdrop_animation 3s forwards;
-    }
-
-
-    #alternate_logo_img img {
-        width: #{$height*0.8};
-
-    }
-
-    .hiden {
-        display: none;
-    }
+  .hiden {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-    .logo-container img{
-        width: 40px !important;
-        height: 40px;
-    }
-    .logo-container #alternate_logo_img{
-        height: 100% ;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  .logo-container img {
+    width: 40px !important;
+    height: 40px;
+  }
+  .logo-container #alternate_logo_img {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

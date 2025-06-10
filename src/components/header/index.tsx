@@ -3,7 +3,6 @@ import { Link } from 'gatsby';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 import Logo from '../logo';
-import logo from '../../images/logo.png';
 import './styles.scss';
 import { debounce, isBrowser } from '../../utils/helpers';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
@@ -17,14 +16,15 @@ const DEFAULT_THRESHOLD = 50;
 
 const Header: React.FC<Props> = ({ onToggleTheme, darkTheme }) => {
   const isMobile = useMediaQuery('(max-width: 900px)');
-  const ref = useRef(null);
-  const { isIntersecting } = useNavbarSticky(ref);
+  // const ref = useRef(null);
+  // const { isIntersecting } = useNavbarSticky(ref);
 
   return (
-    <nav id="navbar" ref={ref}>
+    <nav id="navbar">
+      <div className="backdrop"></div>
       <div className="inner">
         <Logo />
-        <div className="menu">
+        <div className="menu sec-font">
           <Link to="/about" className="link" activeClassName="active-link">
             About
           </Link>
