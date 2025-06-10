@@ -47,7 +47,6 @@ const SOCIALS: { src: React.ComponentType; to: string }[] = [
 ];
 
 const Socials = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
-  console.log(isDarkTheme);
   return (
     <div className="socials">
       {SOCIALS.map(({ src: Src, to }) => (

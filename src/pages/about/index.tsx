@@ -124,4 +124,9 @@ const AboutPage: React.FC<PageProps> = () => {
 
 export default AboutPage;
 
-export const Head: HeadFC = () => <SEO title="Himanshu Chhabra's blog" description="" />;
+export const Head: HeadFC = () => (
+  <SEO
+    title="Get to know me: Himanshu Chhabra"
+    description="My name is Himanshu Chhabra and I’m speechless to meet you virtually. If you’re a fidgety individual, eternally confused about life and constantly making non optimal life decisions, you’ve found yourself a duplicate. Let’s connect on insta or x."
+  />
+);

@@ -31,7 +31,7 @@ export const SEO = ({ title, description, pathname, children, keywords }: ISEOMe
 
   return (
     <Helmet
-      title={title}
+      title={seo.title}
       meta={[
         {
           name: `description`,

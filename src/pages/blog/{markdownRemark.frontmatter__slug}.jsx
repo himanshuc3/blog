@@ -34,7 +34,7 @@ export default function BlogPostTemplate({
                     </div>
                 </div>
                 <div className="content sec-font" dangerouslySetInnerHTML={{ __html: html }} />
-                <Comments  isDarkTheme={darkTheme}/>
+                <Comments isDarkTheme={darkTheme}/>
             </div>
         </BaseComponent>
     )
