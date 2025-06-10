@@ -4,16 +4,9 @@ import {
   GithubOutlined,
   LinkedinOutlined,
   TwitterOutlined,
-  InstagramOutlined,
   WifiOutlined,
 } from '@ant-design/icons';
 
-import email from '../../images/email.png';
-import github from '../../images/github.png';
-import instagram from '../../images/instagram.png';
-import linkedin from '../../images/linkedin.png';
-import x from '../../images/x.png';
-import rssfeed from '../../images/rss.png';
 import './styles.scss';
 import { SOCIAL_LINKS } from '../../utils/constants';
 
@@ -31,10 +24,6 @@ const SOCIALS: { src: React.ComponentType; to: string }[] = [
   {
     src: LinkedinOutlined,
     to: SOCIAL_LINKS.LINKEDIN,
-  },
-  {
-    src: InstagramOutlined,
-    to: SOCIAL_LINKS.INSTA,
   },
   {
     src: WifiOutlined,
