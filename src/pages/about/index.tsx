@@ -1,7 +1,8 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
+import { StaticImage } from 'gatsby-plugin-image';
+
 import './styles.scss';
-import dp from '../../images/dp.webp';
 import { SEO } from '../../components/Seo';
 import Socials from '../../components/socials';
 import { SOCIAL_LINKS } from '../../utils/constants';
@@ -84,7 +85,7 @@ const AboutPage: React.FC<PageProps> = () => {
         </div>
         <div className="right dp">
           <AvailableBadge />
-          <img src={dp} alt="" className="src" />
+          <StaticImage src="../../images/dp.webp" alt="" className="src" />
         </div>
       </div>
       <div className="section">

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
+import { StaticImage } from 'gatsby-plugin-image';
 
 import { SEO } from '../../components/Seo';
 import Tag from '../../components/tag';
 import { IPost } from '../../utils/types';
 import Posts from '../../components/posts';
 import Input from '../../components/input';
-import NoPostsImage from '../../images/cena.png';
-
-import './styles.scss';
 import usePostsData from '../../hooks/usePostsData';
 import BaseComponent from '../../containers/base';
+
+import './styles.scss';
 
 const TAGS = ['personal', 'TIL'];
 
@@ -111,7 +111,7 @@ const BlogPage: React.FC<PageProps> = () => {
         </div>
         {filteredPosts.length == 0 ? (
           <div className="no-posts">
-            <img src={NoPostsImage} alt="no posts available" />
+            <StaticImage src="../../images/cena.png" alt="no posts available" />
           </div>
         ) : (
           filteredPosts.map(([year, posts]) => {

@@ -1,11 +1,10 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { Helmet } from 'react-helmet';
+import { StaticImage } from 'gatsby-plugin-image';
 
 // TODO: Replace with absolute paths
 import Socials from '../components/socials';
 import Posts from '../components/posts';
-import dp from '../images/dp.webp';
 import AvailableBadge from '../components/AvailableBadge';
 import './styles.scss';
 import usePostsData from '../hooks/usePostsData';
@@ -47,7 +46,7 @@ const IndexPage: React.FC<PageProps> = () => {
           </div>
           <div className="dp">
             <AvailableBadge />
-            <img src={dp} alt="My profile picture" className="image" />
+            <StaticImage src="../images/dp.webp" alt="My profile picture" className="image" />
           </div>
         </div>
         <div className="recent-posts section">
