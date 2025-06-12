@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 // TODO: Replace with absolute paths
 import Socials from '../components/socials';
 import Posts from '../components/posts';
-import dp from '../images/dp.png';
+import dp from '../images/dp.webp';
 import AvailableBadge from '../components/AvailableBadge';
 import './styles.scss';
 import usePostsData from '../hooks/usePostsData';
