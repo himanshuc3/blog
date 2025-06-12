@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 import './styles.scss';
-import dp from '../../images/dp.png';
+import dp from '../../images/dp.webp';
 import { SEO } from '../../components/Seo';
 import Socials from '../../components/socials';
 import { SOCIAL_LINKS } from '../../utils/constants';

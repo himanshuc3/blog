@@ -17,10 +17,10 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "@mdx-js/react": "^2.3.0",
+    "@nathanpate/gatsby-omni-font-loader": "^2.0.5",
     "@theme-toggles/react": "^4.1.0",
     "antd": "^5.19.1",
     "gatsby": "^5.13.5",
-    "gatsby-omni-font-loader": "^2.0.2",
     "gatsby-plugin-feed": "^5.13.1",
     "gatsby-plugin-image": "^3.13.1",
     "gatsby-plugin-manifest": "^5.13.1",

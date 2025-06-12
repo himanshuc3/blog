@@ -176,7 +176,7 @@ const config = {
       __key: 'pages',
     },
     {
-      resolve: `gatsby-omni-font-loader`,
+      resolve: `@nathanpate/gatsby-omni-font-loader`,
       options: {
         enableListener: true,
         mode: "async",
