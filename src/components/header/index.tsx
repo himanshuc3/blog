@@ -1,23 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'gatsby';
-import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import { DarkModeSwitch, Props } from 'react-toggle-dark-mode';
 
 import Logo from '../logo';
 import './styles.scss';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useNavbarSticky } from '../../hooks/useNavbarSticky';
+import usePageScrollLoader from '../../hooks/usePageScrollLoader';
 
 interface Props {
   [key: string]: any;
 }
 
-const Header: React.FC<Props> = ({ onToggleTheme, darkTheme }) => {
+const Header: React.FC<Props> = ({ onToggleTheme, darkTheme, isScrollLoader }) => {
   const isMobile = useMediaQuery('(max-width: 900px)');
   const ref = useRef(null);
-  useNavbarSticky(ref);
+  const scrollBarRef = useRef(null);
 
+  useNavbarSticky(ref);
+  if (isScrollLoader) {
+    usePageScrollLoader(scrollBarRef);
+  }
   return (
     <nav id="navbar" ref={ref}>
+      <div className="scroll-loader" ref={scrollBarRef}></div>
       <div className="inner">
         <div className="backdrop"></div>
         <Logo />

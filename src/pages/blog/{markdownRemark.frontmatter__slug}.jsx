@@ -19,8 +19,10 @@ export default function BlogPostTemplate({
     const { frontmatter, html } = markdownRemark
     const { darkTheme } = useContext(ThemeContext);
 
+    
+
     return (
-        <BaseComponent className='blog-post-wrapper'>
+        <BaseComponent className='blog-post-wrapper' isScrollLoader={true}>
             <SEO title={frontmatter.title} description={frontmatter.seoDescription} keywords={frontmatter.tags} />
             <div className='blog-post'>
                 <div className='heading'>

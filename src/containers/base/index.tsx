@@ -6,13 +6,19 @@ import ThemeContext from '../../hooks/themeContext';
 interface Props {
   children: ReactNode;
   className: string;
+  isScrollLoader?: boolean;
 }
 
-const BaseComponent: React.FC<Props> = ({ children, className }) => {
+const BaseComponent: React.FC<Props> = ({ children, className, isScrollLoader }) => {
   const { darkTheme, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <Skeleton darkTheme={darkTheme} className={className} onToggleTheme={toggleTheme}>
+    <Skeleton
+      darkTheme={darkTheme}
+      className={className}
+      onToggleTheme={toggleTheme}
+      isScrollLoader={isScrollLoader}
+    >
       {children}
     </Skeleton>
   );
