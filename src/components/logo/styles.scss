@@ -6,7 +6,7 @@ $height: 50px;
   position: relative;
 
   #alternate_logo_img img {
-    width: #{$height};
+    width: #{$height*0.8};
   }
 
   .hiden {

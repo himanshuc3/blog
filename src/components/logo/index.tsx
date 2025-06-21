@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StaticImage } from 'gatsby-plugin-image';
 import { Link } from 'gatsby';
+import logo from '../../images/logo.png';
 
 import './styles.scss';
 
@@ -9,7 +9,7 @@ const Logo: React.FC<{}> = () => {
     <Link to="/" className="logo-container">
       <div className="logo">
         <div id="alternate_logo_img">
-          <StaticImage src="../../images/logo.png" alt="blog logo" />
+          <img src={logo} alt="blog logo" />
         </div>
       </div>
     </Link>
