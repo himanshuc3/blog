@@ -1,3 +1,5 @@
+@import '../../styles/fonts.scss';
+
 .about-wrapper {
     display: flex;
     flex-direction: column;
@@ -20,8 +22,9 @@
 
     .poster .left {
         h1 {
-            font-size: var(--size-s);
+            font-size: var(--size-m);
             font-weight: 500;
+            
         }
 
         p {
@@ -43,8 +46,9 @@
 
 
         &>h1 {
-            font-size: 24px;
+            font-size: var(--size-s);
             font-weight: 500;
+            @extend .sec-font;
         }
 
         &>.description {

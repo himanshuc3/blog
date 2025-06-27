@@ -6,13 +6,13 @@ import { SEO } from '../../components/Seo';
 import Tag from '../../components/tag';
 import { IPost } from '../../utils/types';
 import Posts from '../../components/posts';
-import Input from '../../components/input';
+import Search from '../../components/Search';
 import usePostsData from '../../hooks/usePostsData';
 import BaseComponent from '../../containers/base';
 
 import './styles.scss';
 
-const TAGS = ['personal', 'TIL'];
+const TAGS = ['personal', 'TIL', 'git', 'bash'];
 
 function getSortedPosts(posts: IPost[]) {
   let postsByYear: { [key: number]: IPost[] } = posts.reduce(
@@ -92,16 +92,13 @@ const BlogPage: React.FC<PageProps> = () => {
       <div className="poster section">
         <div className="heading">
           <h1>Articles</h1>
-          <p className="sec-font">Feel free to pick and destroy the writings, one at a time.</p>
+          <p className="sec-font">
+            Technical conundrums, infrastructure woes, and blogs formated in big-endianess.
+          </p>
         </div>
         <div className="filter">
           <div>
-            <Input
-              onChange={onSearchInput}
-              value={searchText}
-              placeholder="Search..."
-              buttonText="Search"
-            />
+            <Search onChange={onSearchInput} />
             <div className="tags" onClick={onTagSelect}>
               {TAGS.map((tag) => (
                 <Tag text={tag} highlighted={selectedTag === tag} />

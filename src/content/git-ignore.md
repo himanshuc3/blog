@@ -1,7 +1,7 @@
 ---
 slug: 'git-ignore'
 date: '2025-06-03'
-title: '🌲 Git better at ignore-ing'
+title: 'Git better at ignore-ing'
 tags: ['TIL', 'git', 'bash']
 seoDescription: 'Understand how git assume-unchanged command works & save your time from stashing local config changes using git stash.'
 ---
@@ -11,7 +11,7 @@ It’s been a long, chaotic day—packed with _code reviews_, endless _brainstor
 
 Amidst the madness, you finally get a notification—someone reviewed your PR. But to your dismay, it’s just one comment. And not even a meaningful one. It’s about a rogue change in a shared config `file—env`, `config.js`, `playwright.config.js`, or the dreaded `package.json`—one of those files that sneaked into your commit unnoticed.
 
-## 🥁 Enters update-index
+## Enters update-index
 
 The `git update-index` command updates the index - staging area - entries for one or more files. In simpler terms, it helps you git ignore files valid only to your local index - unlike `.gitignore`, which ignores files for every user commiting to that repo.
 

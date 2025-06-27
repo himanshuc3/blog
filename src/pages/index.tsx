@@ -25,7 +25,7 @@ const IndexPage: React.FC<PageProps> = () => {
       <div className="content">
         <div className="poster section">
           <div className="text">
-            <h1 className="italic w-sm mb-0">
+            <h1 className="w-sm mb-0 italic">
               <span className="emoji-wave">👋</span> Hi, I’m <span>Himanshu</span>
               <br />
               <span className="title sec-font">
@@ -51,7 +51,7 @@ const IndexPage: React.FC<PageProps> = () => {
         </div>
         <div className="recent-posts section">
           <div className="heading">
-            <h1>📚 Recent Articles</h1>
+            <h1 className="sec-font">Recent Articles</h1>
             <p className="heading_desc sec-font">
               Presenting you with articles fresh out of the oven, decide for yourself if they
               satiate your reading appetite or if I overcooked (most likely).

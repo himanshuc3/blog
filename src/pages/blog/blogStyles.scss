@@ -17,9 +17,9 @@
 
     & > h1 {
       font-size: 40px;
-      // font-size: var(--size-m);
       font-weight: 700;
       position: relative;
+      color: var(--variable-primary);
     }
 
     .meta {
@@ -31,14 +31,13 @@
 
     .meta > .separator {
       display: inline-block;
-      margin: 0 20px;
+      margin: 0 10px;
     }
 
     .meta > p {
       color: var(--variable-textSecondary) !important;
       display: inline-block;
-      font-size: 14px;
-      font-style: italic;
+      font-size: 20px;
     }
   }
 
@@ -51,9 +50,18 @@
     ul,
     li {
       font-size: 18px;
-      line-height: 30px;
-      font-weight: 500;
+      line-height: 1.6em;
+      font-weight: 400;
       color: var(--variable-textSecondary);
+    }
+
+    h2,h3,h4,h5,h6 {
+      margin-top: 40px;
+      color: var(--variable-text);
+    }
+
+    h2{
+      font-size: var(--size-s);
     }
 
     .grvsc-container {
@@ -69,9 +77,8 @@
     }
 
     code {
-      padding: 2px 4px;
+      padding: 2px 8px;
       border-radius: 4px;
-      font-style: italic;
       background-color: var(--variable-hoverBG);
     }
 

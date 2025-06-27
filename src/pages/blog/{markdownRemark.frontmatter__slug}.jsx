@@ -7,6 +7,7 @@ import BaseComponent from '../../containers/base'
 import Comments from '../../components/comments'
 import './blogStyles.scss'
 import ThemeContext from '../../hooks/themeContext'
+import { DATE_OPTS } from '../../utils/constants'
 
 require('prismjs/themes/prism-solarizedlight.css');
 require('prismjs/plugins/line-numbers/prism-line-numbers.css');
@@ -26,9 +27,9 @@ export default function BlogPostTemplate({
             <SEO title={frontmatter.title} description={frontmatter.seoDescription} keywords={frontmatter.tags} />
             <div className='blog-post'>
                 <div className='heading'>
-                    <h1>{frontmatter.title}</h1>
+                    <h1 className='sec-font'>{frontmatter.title}</h1>
                     <div className='meta'>
-                        <p className='sec-font'>🗓️ {frontmatter.date}</p>
+                        <p className='sec-font'>Written on {(new Date(frontmatter.date)).toLocaleDateString('en-US', DATE_OPTS)}</p>
                         <span className='separator'>&middot;</span>
                         <div className='tags'>
                             {frontmatter.tags.map(tag => <Tag text={tag} />)}

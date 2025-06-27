@@ -5,12 +5,13 @@ $variable-prefix: --variable-;
 $themes: (
   light: (
     backgroundColor: $bg-grey,
-    primary: $theme-color,
+    primary: $theme-color-light,
     text: $black,
     textSecondary: $grey,
     hoverBG: $white-hover,
     underline: $light-green,
     theme: 'light',
+    subtext: $bg-light-grey,
   ),
   dark: (
     backgroundColor: #161618,
@@ -20,6 +21,7 @@ $themes: (
     hoverBG: $black-hover,
     underline: $light-green,
     theme: 'dark',
+    subtext: $bg-light-black
   ),
 );
 

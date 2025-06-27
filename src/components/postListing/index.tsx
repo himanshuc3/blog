@@ -15,18 +15,18 @@ interface Props {
 const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
   return (
     <Link className="post-heading" data-id={id} data-unique={id} to={`/blog/${slug}`}>
-      <div data-id={id} className="left">
-        <h1>{title}</h1>
+      <div className=" meta left" data-id={id}>
+        <span className="date" data-id={id}>
+          {date.toLocaleDateString('en-US', DATE_OPTS)}
+        </span>
+      </div>
+      <div data-id={id} className="right">
+        <h1 className="sec-font">{title}</h1>
         <div className="tags sec-font" data-id={id}>
           {tags.map((tag) => (
             <Tag text={tag} />
           ))}
         </div>
-      </div>
-      <div className="sec-font meta right" data-id={id}>
-        <span className="date" data-id={id}>
-          {date.toLocaleDateString('en-US', DATE_OPTS)}
-        </span>
       </div>
     </Link>
   );

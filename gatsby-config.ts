@@ -133,20 +133,6 @@ const config = {
               useCustomDivider: "<h2 class='reference-header'>🔖 Footnotes</h2>",
             },
           },
-
-          // {
-          //   resolve: `gatsby-remark-vscode`,
-          //   options: {
-
-          //     theme: {
-          //       default: 'Solarized Light',
-          //       parentSelector: {
-          //         // Any CSS selector will work!
-          //         'html.dark': 'Solarized Dark',
-          //       }
-          //     }
-          //   }
-          // }
         ],
       },
     },
@@ -184,7 +170,7 @@ const config = {
         web: [
           {
             name: 'Primary Font',
-            file: 'https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100..900;1,100..900&display=swap',
+            file: 'https://fonts.googleapis.com/css2?family=Sanchez:ital@0;1&display=swap',
           },
           {
             name: 'Secondary Font',

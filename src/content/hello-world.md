@@ -1,7 +1,7 @@
 ---
 slug: 'hello-world'
 date: '2024-08-10'
-title: '🙏 Hello World (Wide Web)'
+title: 'Hello World (Wide Web)'
 tags: ['personal']
 seoDescription: 'My entry into the space of writing subjective opinions on technical  topics and ideas. Let"s deep dive and learn together.'
 ---

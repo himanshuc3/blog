@@ -50,11 +50,7 @@ const AboutPage: React.FC<PageProps> = () => {
             <br />
             If you’re a fidgety individual, eternally confused about <br /> life and constantly
             making non optimal life decisions, <br /> you’ve found yourself a duplicate. Let’s
-            connect on <br />
-            <a href={SOCIAL_LINKS.INSTA} target="_blank" className="chunky-underline link">
-              insta
-            </a>{' '}
-            or{' '}
+            connect on{' '}
             <a href={SOCIAL_LINKS.X} className="chunky-underline" target="_blank">
               x
             </a>
@@ -90,7 +86,7 @@ const AboutPage: React.FC<PageProps> = () => {
         </div>
       </div>
       <div className="section">
-        <h1>🧑‍💻 Setup configuration</h1>
+        <h1>Setup configuration</h1>
         <p className="description sec-font">
           This blog is built on{' '}
           <a href="gatsbyjs.com" target="_blank" className="chunky-underline">
@@ -108,7 +104,7 @@ const AboutPage: React.FC<PageProps> = () => {
         </p>
       </div>
       <div className="section projects">
-        <h1>🛠️ Projects</h1>
+        <h1>Projects</h1>
         {projects.map((project, index) => (
           <>
             <ProjectCard key={project.name} project={project} />
