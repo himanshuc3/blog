@@ -1,3 +1,5 @@
+
+
 .blog-post-wrapper {
   min-height: 100vw;
   display: flex;
@@ -49,10 +51,10 @@
     p,
     ul,
     li {
-      font-size: 18px;
-      line-height: 1.6em;
+      font-size: 1.3rem;
+      line-height: 1.7em;
       font-weight: 400;
-      color: var(--variable-textSecondary);
+      color: var(--variable-text);
     }
 
     h2,h3,h4,h5,h6 {
@@ -103,6 +105,7 @@
     }
 
     a {
+      // @extend .chunky-underline;
       color: var(--variable-text);
       font-weight: 500;
       position: relative;

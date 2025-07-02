@@ -58,8 +58,6 @@ function getMarkdownPosts() {
     `;
 }
 
-
-
 const config = {
   siteMetadata: {
     title: `Himanshu's Blog`,
@@ -68,7 +66,7 @@ const config = {
     twitterUserName: '@_himanshuc3',
     siteUrl: `https://himanshusb.in`,
     image: './src/images/logo.png',
-    keywords: ['computer science', 'javascript', 'golang', 'computational geometry', 'blog']
+    keywords: ['computer science', 'javascript', 'golang', 'computational geometry', 'blog'],
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -165,7 +163,7 @@ const config = {
       resolve: `@nathanpate/gatsby-omni-font-loader`,
       options: {
         enableListener: true,
-        mode: "async",
+        mode: 'async',
         preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
         web: [
           {

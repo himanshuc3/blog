@@ -73,7 +73,8 @@
     top: 0;
     z-index:1001;
     height: 6px;
-    background-color: #3BB762;
+    background-color: var(--variable-primary);
+    opacity: 0.7;
   }
 }
 

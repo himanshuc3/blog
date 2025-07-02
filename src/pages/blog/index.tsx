@@ -11,6 +11,7 @@ import usePostsData from '../../hooks/usePostsData';
 import BaseComponent from '../../containers/base';
 
 import './styles.scss';
+import useHoverIsolation from '../../hooks/useHoverIsolation';
 
 const TAGS = ['personal', 'TIL', 'git', 'bash'];
 
@@ -46,6 +47,7 @@ function filterPostsByTag(postsByYear: Array<[number, IPost[]]>, tag: string) {
 const BlogPage: React.FC<PageProps> = () => {
   const [selectedTag, setSelectedTag] = useState<null | string>(null);
   const [searchText, setSearchText] = useState<string>('');
+  useHoverIsolation('html', '.post-heading');
   let postsData: IPost[] = usePostsData();
 
   let sortedPosts = getSortedPosts(postsData);
@@ -91,7 +93,7 @@ const BlogPage: React.FC<PageProps> = () => {
     <BaseComponent className="blog-wrapper">
       <div className="poster section">
         <div className="heading">
-          <h1>Articles</h1>
+          <h1>📘 Articles</h1>
           <p className="sec-font">
             Technical conundrums, infrastructure woes, and blogs formated in big-endianess.
           </p>
@@ -111,19 +113,21 @@ const BlogPage: React.FC<PageProps> = () => {
             <StaticImage src="../../images/cena.png" alt="no posts available" />
           </div>
         ) : (
-          filteredPosts.map(([year, posts]) => {
-            return (
-              <div>
-                <div className="filters">
+          <div className="post-list">
+            {filteredPosts.map(([year, posts]) => {
+              return (
+                <div className="yearly-posts-container">
+                  {/* <div className="filters">
                   <h1 className="sec-font">{year}</h1>
-                </div>
+                  </div> */}
 
-                <div className="posts">
-                  <Posts posts={posts} />
+                  <div className="posts">
+                    <Posts posts={posts} />
+                  </div>
                 </div>
-              </div>
-            );
-          })
+              );
+            })}
+          </div>
         )}
       </div>
     </BaseComponent>
