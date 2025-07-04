@@ -1,6 +1,6 @@
 ---
 slug: 'guide-svelte-state'
-date: '2025-08-10'
+date: '2025-07-03'
 title: 'Guide to svelte state for react devs'
 tags: ['svelte', 'react']
 seoDescription: 'State of svelte for react devs'
@@ -33,11 +33,11 @@ As much as I'd like to cover the intricacies of event handling, idiomatic design
 
 Let's get started.
 
-### Let’s Rune your day
+## Let’s Rune your day
 
 Runes constitute the **primary tools** for **state management** in Svelte. To quote from the [official Svelte docs](https://svelte.dev/docs/svelte/what-are-runes):
 
-> If you think of Svelte as a language, runes are part of the syntax — they are _keywords_.
+> If you think of Svelte as a language, runes are part of the syntax — they are keywords.
 
 Our exploration will be limited to the following set of runes: `$state`, `$derived` and `$effect`. Starting with a snippet of code, we have the same functionality implemented in Svelte and React. The annotations highlight the **1:1 mapping** between syntax in the two libraries (Even though svelte is a framework, we’ll refer to it as a library for the purposes of this article).
 
@@ -47,7 +47,7 @@ Our exploration will be limited to the following set of runes: `$state`, `$deriv
 
 We’ll break down the code piece by piece to highlight the key differences and potential gotchas, so you’re not caught off guard at work.
 
-### State reactivity using proxies
+## State reactivity using proxies
 
 In **Fig. 1**, we declare and initialize a local store using `$state(0)` — _new syntax alert_! Under the hood, Svelte sets up a **proxy** to enable reactivity. In simple terms, proxies intercept any read or write operations on the state object. The state is consumed in a way that feels similar to React, although updating state in Svelte often requires a slight mental shift to get used to.
 
@@ -55,7 +55,7 @@ In Svelte, state is **mutable**, whether it's a primitive or an object. This is 
 
 Sweet! Let’s move on to other syntax features.
 
-### Deprecating `$:` in favor of `$derived` & `$effect`
+## Deprecating `$:` in favor of `$derived` & `$effect`
 
 In Svelte, any variables or functions defined **outside of runes** are declared and run exactly once when the **component is initialized**.
 
@@ -77,13 +77,13 @@ $effect(() => {
 
 There are a [few points to note above](https://www.notion.so/State-of-svelte-for-react-devs-21f0fa2658158003ab3fc3e89d1f742b?pvs=21):
 
-1. **`$effect`** (_new syntax alert_) — acts as a drop-in replacement for `useEffect`, with runtime fine-grained dependency tracking.
-2. **`derivedDoubled`** uses **`$derived`** (_new syntax alert_) — it automatically updates based on variables referenced in the expression `upvotes.count * 2`. According to the Svelte docs, it updates synchronously using _push-pull reactivity_, ensuring that any function accessing derived state receives consistent values in sync with its dependencies.
+1. `$effect` (_new syntax alert_) — acts as a drop-in replacement for `useEffect`, with runtime fine-grained dependency tracking.
+2. `derivedDoubled` uses `$derived` (_new syntax alert_) — it automatically updates based on variables referenced in the expression `upvotes.count * 2`. According to the Svelte docs, it updates synchronously using _push-pull reactivity_, ensuring that any function accessing derived state receives consistent values in sync with its dependencies.
 3. **`doubled`** — remains unchanged when `upvotes.count` updates, behaving similarly to React’s `useRef`.
 
 ℹ️ **Note:** Use [`derived.by(fn)`](http://derived.by/) for more complex logic instead of the shorthand `derived(expression)`.
 
-### Reactivity is fine-grained
+## Reactivity is fine-grained
 
 ```jsx
 	const upvotes = $state({
@@ -122,7 +122,7 @@ Key Takeaways:
 
 NOTE: Svelte optimizes away redundant assignments such as `upvotes.count = upvotes.count` or `upvotes.count += 0` will invalidate state updates.
 
-### Synchronous state updates
+## Synchronous state updates
 
 **Task** — We want to execute `fetchCountLogs` immediately on update of `upvotes.counts` . In React, we couldn’t directly use the next state due to asynchronous updates. Therefore, we are bound to create a new variable called `newUpvotes` which needs to be referenced everywhere if we were to use the updated value of `upvotes.count`.
 
@@ -130,7 +130,7 @@ NOTE: Svelte optimizes away redundant assignments such as `upvotes.count = upvot
 
 Svelte takes a different approach, decoupling state updates from batched DOM re-renders. This allows `fetchCountLogs` to run immediately after incrementing the value of `upvotes.count` , consuming the latest value of the state.
 
-### Overriding immutable reactivity in `$derived`
+## Overriding immutable reactivity in `$derived`
 
 Coming to the fourth point mentioned in **Fig. 1**, derived state is rarely mutated manually and therefore declared as a `const` in 99% of usecases. A rare case, mentioned in [svelte docs](https://svelte.dev/docs/svelte/$derived#Overriding-derived-values), displays the case of optimistic UI updates, where we want to override `$derived` manually, hence declaring it as `let`.
 
@@ -138,7 +138,7 @@ Coming to the fourth point mentioned in **Fig. 1**, derived state is rarely muta
 
 While it helps make the website feel snappy, it should be used in **rare instances** and in features which aren’t critical to write failures. **For Example**, liking a video on youtube can have optimistic updates, since the count is an estimate to begin with, commenting on the post could only be shown as sent when the server request is marked completed.
 
-### An alternative to custom `react-like` hooks
+## An alternative to custom `react-like` hooks
 
 By now, we already have all the tools required for creating custom hooks using `runes`. It’s a straightforward vanilla solution with an uncanny resemblance to react hooks syntax. I’ve implemented a `usePrevious` hook which tracks the previous value of the state variable using runes.
 
@@ -148,7 +148,7 @@ Working version for the above example is present [here](https://svelte.dev/playg
 
 > It is worth noticing that `runes` can only be used in files with extension `svelte.{ts,js}` .
 
-### What lies ahead?
+## What lies ahead?
 
 Despite having discussed exhaustively about the properties of component state management and reactivity, there’s certain topics necessary to make your life easier working with svelte:
 

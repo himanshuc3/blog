@@ -13,7 +13,7 @@ import BaseComponent from '../../containers/base';
 import './styles.scss';
 import useHoverIsolation from '../../hooks/useHoverIsolation';
 
-const TAGS = ['personal', 'TIL', 'git', 'bash'];
+const TAGS = ['personal', 'TIL', 'git', 'bash', 'svelte', 'react'];
 
 function getSortedPosts(posts: IPost[]) {
   let postsByYear: { [key: number]: IPost[] } = posts.reduce(
