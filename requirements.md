@@ -9,7 +9,7 @@ Pages:
   - ~~Text selection~~
   - ~~Correct theme colors and consume in app~~
   - Updates to upcoming blogs (coming soon!) : integration
-  - Responsive web design
+  - ~~Responsive web design~~
   - ~~sticky header?~~
 
 - About
@@ -19,15 +19,14 @@ Pages:
   - ~~Design~~
   - ~~Filtering content~~
 
-- A blog page with styling
+- ~~A blog page with styling~~
 
 Sub-tasks:
 
 - Animating logo (& get a logo)
-- theming across blog
--
+- ~~theming across blog~~
 - ~~Theme: light and dark~~
-- Comments
+- ~~Comments~~
 - ~~Analytics~~
   - ~~Website~~
   - Events
@@ -47,31 +46,36 @@ MVP:
 - ~~Responsive design~~
 - ~~Blog Styling.~~
 - ~~About section -writeup~~
-
 - ~~No posts design & 404 page~~
 
 v1.1
 
 - ~~Responsive design~~
 - ~~User Comments section on posts~~
-- Other production bugs
-- Analytics on the webpage - self hosted?
-- Blog writeup && styling
-- New logo ???
-- Blog #2
-- Asset and build latency?
+- ~~ Other production bugs~~
+- ~~Analytics on the webpage - self hosted?~~
+- ~~Blog writeup && styling~~
+- ~~New logo ???~~
+- ~~Blog #2~~
+- ~~Asset and build latency?~~
 - Design improvements:
-  - Logo
+  - ~~Logo~~
   - ~~Typograpgy pairing~~
   - ~~Landing page section~~
-  - Background pattern
+  - Background pattern - NOT SETUP
   - About page
-    - Setup configuration
+    - ~~Setup configuration~~
     - ~~Projects section~~
 
 v1.2
 
 - Working Syntax highlighting in production
+- Blog styles:
+  - Image dimensions
+  - Information custom wrappers
+- Marking new blogs
+- Marking upcoming blogs
+- Floating/fixed Index in articles
 - SEO:
 
   - Better visibility of blogs

@@ -10,7 +10,7 @@ _नमस्ते &middot; Hello &middot; Konnichiwa &middot; হেৰি &mi
 
 Above are greetings in seven different languages: Hindi, English, Japanese, Assamese, Thai, Arabic and Malay, in order from left to right. I welcome you aboard to my little crapping digital space (r.i.p the luxury of physical space 🇮🇳).
 
-> ℹ️ **Fun Fact.** These are all the languages I’ve spoken in or national language of the places I’ve travelled to.
+> **Fun Fact** &mdash; These are all the languages I’ve spoken in or national language of the places I’ve travelled to.
 
 No, This is not an article on [localization](https://developer.mozilla.org/en-US/docs/Glossary/Internationalization). And yes, I did google most of the translations. Now while the introductory article is usually kept a way of testing the waters, I am going to throw caution to the wind, virtue of the solid average content[^1] at display from the get go.
 
