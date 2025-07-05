@@ -4,33 +4,45 @@
   align-items: flex-end;
   margin-bottom: 40px;
   border-radius: 10px;
-  transition: all 0.6s;
+
+  h1,p,div, span {
+
+    transition: all 0.2s ease-in-out;
+  }
 
   &.dimmed {
     .right h1,
-    .date {
+    .right .status,
+    .date,
+     {
       color: var(--variable-hoverBG);
     }
   }
 
   .right {
     position: relative;
+    display: flex;
+    flex-shrink: 1;
+    flex-grow: 1;
+    width: 10px;
 
     h1 {
       font-size: 25px;
-      transition: all 0.6s;
       font-weight:600;
       margin: 0;
       text-decoration: underline;
       text-decoration-color: transparent;
       text-decoration-thickness: 5px;
       color: var(--variable-textSecondary);
+
     }
 
-    .tags {
+
+    .post-tags {
       position: absolute;
-      top: -25px;
-      display: none;
+      bottom: -17px;
+      opacity: 0;
+      font-weight: 500;
     }
   }
 
@@ -40,7 +52,6 @@
       display: inline-block;
       font-size: 14px;
       font-weight: 700;
-      transition: all 0.6s;
     }
   }
 
@@ -58,6 +69,9 @@
     .right h1 {
       color: var(--variable-text);
       // text-decoration-color: var(--variable-primary);
+    }
+    .right .post-tags {
+      opacity: 1;
     }
   }
 }

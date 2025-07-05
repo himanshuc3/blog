@@ -75,6 +75,7 @@ v1.2
   - Information custom wrappers
 - Marking new blogs
 - Marking upcoming blogs
+- Replace illustration for "no articles found" filter
 - Floating/fixed Index in articles
 - SEO:
 
