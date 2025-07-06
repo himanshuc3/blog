@@ -157,11 +157,27 @@
         font-style: italic;
       }
 
-      // background-color: var(--variable-hoverBG);
 
-      // padding: 5px 20px;
-      // border-radius: 5px;
     }
+
+
+    // blockquote {
+    //   position: relative;
+    //   display: flex;
+    //   margin: 40px 0;
+    //   justify-content: center;
+    //   border-left: 4px solid var(--variable-underline);
+
+
+    //   & > p{
+    //     width: 80%;
+    //     margin: 0 10px;
+    //     font-size: 18px;
+    //     font-style: italic;
+    //   }
+
+
+    // }
 
     
   }

@@ -43,7 +43,7 @@ Our exploration will be limited to the following set of runes: `$state`, `$deriv
 
 ![new-img.png](images/svelte-react-comp.png)
 
-- Runes were introduced in `v5` — the latest major version at the time of writing this article. All state can be safely migrated to use runes, with the added benefit of improved performance. The official migration guide is available [here](https://svelte.dev/docs/svelte/v5-migration-guide).
+> Runes were introduced in `v5` — the latest major version at the time of writing this article. All state can be safely migrated to use runes, with the added benefit of improved performance. The official migration guide is available [here](https://svelte.dev/docs/svelte/v5-migration-guide).
 
 We’ll break down the code piece by piece to highlight the key differences and potential gotchas, so you’re not caught off guard at work.
 

@@ -1,6 +1,5 @@
 import React, {useContext} from 'react'
 import { graphql } from 'gatsby'
-import { Helmet } from "react-helmet"
 import Tag from '../../components/tag'
 import { SEO } from '../../components/Seo'
 import BaseComponent from '../../containers/base'
