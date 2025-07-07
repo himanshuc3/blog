@@ -98,6 +98,9 @@ const config = {
           'gatsby-remark-external-links',
           {
             resolve: 'gatsby-remark-images',
+            options:{
+              backgroundColor: 'transparent'
+            }
           },
           `gatsby-transformer-remark`,
         ],
@@ -113,16 +116,14 @@ const config = {
     {
       resolve: 'gatsby-transformer-remark',
       options: {
-        plugins: [
-          'gatsby-remark-images',
-          {
-            resolve: 'gatsby-remark-footnotes',
-            options: {
-              footnoteBackRefPreviousElementDisplay: 'inline',
-              footnoteBackRefDisplay: 'inline',
-              useCustomDivider: "<h2 class='reference-header'>🔖 Footnotes</h2>",
-            },
-          },
+        plugins: [{
+          resolve:'gatsby-remark-images',
+          options:{
+            backgroundColor: 'transparent'
+          }
+        }
+          
+          
         ],
       },
     },
