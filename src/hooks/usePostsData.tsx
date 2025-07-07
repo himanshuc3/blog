@@ -15,10 +15,10 @@ interface IEdge {
 
 function usePostsData() {
   const {
-    allMarkdownRemark: { edges },
+    allMdx: { edges },
   } = useStaticQuery(graphql`
     query {
-      allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+      allMdx(sort: { frontmatter: { date: DESC } }) {
         edges {
           node {
             id
@@ -33,7 +33,6 @@ function usePostsData() {
       }
     }
   `);
-  console.log(edges);
 
   return edges
     .filter((edge: IEdge) => !!edge.node.frontmatter.date)

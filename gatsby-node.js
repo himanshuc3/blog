@@ -1,13 +1,48 @@
-const { createFilePath } = require('gatsby-source-filesystem')
+const {createFilePath} = require("gatsby-source-filesystem")
+const path = require('path')
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
-    const { createNodeField } = actions
-    if (node.internal.type === 'MarkdownRemark') {
-        const value = createFilePath({ node, getNode })
-        createNodeField({
-            name: `slug`,
-            node,
-            value
-        })
+  const { createNodeField } = actions
+
+  if (node.internal.type === "Mdx") {
+    const slug = createFilePath({ node, getNode, basePath: "content" })
+    console.log('Pikachu:', slug)
+
+    createNodeField({
+      name: "slug",
+      node,
+      value: slug,
+    })
+  }
+}
+
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  const result = await graphql(`
+    {
+      allMdx {
+        nodes {
+          id
+          fields{
+            slug
+          }
+          internal {
+            contentFilePath
+          }
+        }
+      }
     }
+  `)
+
+  result.data.allMdx.nodes.forEach(node => {
+    console.log("Creating page at pokemon:", `/blog/${node.fields.slug}`)
+    createPage({
+      path: `/blog${node.fields.slug}`, // ✅ use custom slug
+      component: `${path.resolve("./src/templates/BlogArticle.tsx")}?__contentFilePath=${node.internal.contentFilePath}`,
+      context: {
+        id: node.id,
+      },
+    })
+  })
 }

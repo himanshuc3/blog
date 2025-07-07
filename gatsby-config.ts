@@ -21,14 +21,14 @@ interface ISerializeParams {
         siteUrl: string;
       };
     };
-    allMarkdownRemark: {
+    allMdx: {
       nodes: INode[];
     };
   };
 }
 
-function serializePostsForRss({ query: { site, allMarkdownRemark } }: ISerializeParams) {
-  return allMarkdownRemark.nodes.map((node: INode) => {
+function serializePostsForRss({ query: { site, allMdx } }: ISerializeParams) {
+  return allMdx.nodes.map((node: INode) => {
     return Object.assign({}, node.frontmatter, {
       slug: node.frontmatter.slug,
       title: node.frontmatter.title,
@@ -42,7 +42,7 @@ function serializePostsForRss({ query: { site, allMarkdownRemark } }: ISerialize
 
 function getMarkdownPosts() {
   return `
-           {   allMarkdownRemark(sort: { frontmatter: { date: DESC } }){
+           {   allMdx(sort: { frontmatter: { date: DESC } }){
                         nodes{
                           id
                           frontmatter{
@@ -93,6 +93,7 @@ const config = {
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
+        extensions: ['.mdx'],
         gatsbyRemarkPlugins: [
           {
             resolve: 'gatsby-remark-images',
