@@ -10,10 +10,6 @@ import { MDXProvider } from '@mdx-js/react';
 import Tag from '../components/tag';
 import { DATE_OPTS } from '../utils/constants';
 import './blogStyles.scss';
-
-// require('prismjs/themes/prism-solarizedlight.css');
-// require('prismjs/plugins/line-numbers/prism-line-numbers.css');
-
 const components = {
   // h2: (props) => <h1 style={{ color: 'tomato', backgroundColor: 'red' }} {...props} />,
   // Add other custom MDX element overrides here

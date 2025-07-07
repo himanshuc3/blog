@@ -99,14 +99,6 @@ const config = {
             resolve: 'gatsby-remark-images',
           },
           `gatsby-transformer-remark`,
-          {
-            resolve: 'gatsby-remark-prismjs',
-            options: {
-              classPrefix: 'codeblock-',
-              showLineNumbers: true,
-              noInlineHighlight: false,
-            },
-          },
         ],
       },
     },
