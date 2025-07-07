@@ -10,7 +10,7 @@ import CodeBlock from '../components/code';
 import { MDXProvider } from '@mdx-js/react';
 import Tag from '../components/tag';
 import { DATE_OPTS } from '../utils/constants';
-import InfoQuote from '../components/infoQuote';
+import InfoQuote from '../components/InfoQuote';
 import './blogStyles.scss';
 const components = {
   pre: (props) => {
