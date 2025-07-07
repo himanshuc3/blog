@@ -46,7 +46,7 @@
   .content {
     strong {
       font-weight: 500;
-      color: var(--variable-text) ;
+      color: var(--variable-text);
     }
 
     p,
@@ -58,28 +58,36 @@
       color: var(--variable-textSecondary);
     }
 
-
-    h2,h3,h4,h5,h6 {
+    hr {
+      display: block;
+      height: 2px;
+      border: none !important;
+      background-color: var(--variable-hoverBG);
+      border-top: 1px solid #ccc;
+      margin-top: 30px;
+    }
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: var(--variable-primary);
       margin-top: 40px;
     }
-    
 
-    h2{
+    h2 {
       font-size: var(--size-s);
     }
 
-    a { 
+    a {
       @extend .chunky-underline;
     }
 
-
-    pre *{
-      font-size: 0.9rem ;
-      
+    pre * {
+      font-size: 0.9rem;
     }
 
-    :not(pre) >code {
+    :not(pre) > code {
       padding: 2px 8px;
       border-radius: 4px;
       background-color: var(--variable-hoverBG);
@@ -108,9 +116,6 @@
       }
     }
 
-    
-
-  
     img {
       overflow: hidden;
       display: inline-block;
@@ -145,19 +150,13 @@
       margin: 40px 0;
       justify-content: center;
 
-
-      & > p{
+      & > p {
         width: 80%;
         margin: 0 10px;
         font-size: 18px;
         font-weight: 600;
         color: var(--variable-text);
       }
-
-
     }
-
-
-    
   }
 }

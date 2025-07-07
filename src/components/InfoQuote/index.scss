@@ -5,12 +5,16 @@
   position:relative;
   
 
-  & > p {
+  &  p {
+    border-top: 2px solid var(--variable-hoverBG);
+    border-bottom: 2px solid var(--variable-hoverBG);
     font-size: 0.9rem !important;
     font-weight: 500;
-    border-radius: 5px;
+    // border-radius: 5px;
     padding: 15px 20px;
-    background-color:var(--variable-hoverBG) ;
+    // background-color:var(--variable-hoverBG) ;
     color: var(--variable-textSecondary);
   }
+
+  
 }

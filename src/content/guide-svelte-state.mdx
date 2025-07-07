@@ -85,8 +85,8 @@ There are a [few points to note from the snippet](https://svelte.dev/playground/
 3. **`doubled`** — remains unchanged when `upvotes.count` updates, behaving similarly to React’s `useRef`.
 
 <InfoQuote>
-  ℹ️ **Note:** Use [`derived.by(fn)`](https://svelte.dev/docs/svelte/$derived#$derived.by) for more
-  complex logic instead of the shorthand `derived(expression)`.
+  ℹ️ Use [`derived.by(fn)`](https://svelte.dev/docs/svelte/$derived#$derived.by) for more complex
+  logic instead of the shorthand `derived(expression)`.
 </InfoQuote>
 
 ## Reactivity is fine-grained
@@ -128,8 +128,8 @@ React offers better visibility into reactive statement while svelte works for th
 cleaner syntax and implicitly takes care of the dependencies.
 
 <InfoQuote>
-  ℹ️ **Note:** svelte optimizes away redundant assignments such as `upvotes.count = upvotes.count`
-  or `upvotes.count += 0` will invalidate state updates.
+  ℹ️ Svelte optimizes away redundant assignments such as `upvotes.count = upvotes.count` or
+  `upvotes.count += 0` will invalidate state updates.
 </InfoQuote>
 
 ## Synchronous state updates
@@ -174,9 +174,13 @@ I hope this article helped you understand the basics of runes and state manageme
 
 Feel free to comment on what you liked, disliked or hated. Or reach out directly on [Twitter](https://x.com/_himanshuc3).
 
-[^1]: Tutorial on svelte reactivity by Vladimir Klepov
-[^2]: svelte official documentation for deep dive
-[^3]: Hows and whats of Object Proxy - MDN docs
-[^4]: XKCD comic strip #2341 - Empericism
-[^5]: The yellow book by Shymanta Das and Dyutimitra Sarmah
-[^6]: Explore custom hooks at userunes.com
+---
+
+## Footnotes
+
+- [Vladimir Klepov](https://thoughtspile.github.io/2023/04/22/svelte-state/) Highly recommend his deep dive into svelte reactivity
+- [Svelte Docs](https://svelte.dev/docs) to get lost in the rabit hole of the framework
+- [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) It's more than just documentation
+- [XKCD Comics](https://imgs.xkcd.com/comics/dependency.png) While [Empericism](https://xkcd.com/2855/) was more apt for the article, one of my favorites is a take on the fragile nature of proprietary projects
+- [Shymanta D, Dyutimitra S.](https://academypublisher.in/2024/10/07/the-yellow-house/) The Yellow House is one of numerous psychological case studies, distinguished by its clean and concise presentation
+- [UseRunes](https://userunes.com/) - Explore custom hooks

@@ -88,6 +88,6 @@ v1.2
 
 - MVP of Blog#3
 - Images - dimensions, xkcd comic edit,
-- Anchor - target_blank not working
+- ~~Anchor - target_blank not working~~
 - Footnotes - not working
-- Styling inside infoquote
+- ~~Styling inside infoquote~~
