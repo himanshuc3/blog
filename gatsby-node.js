@@ -36,7 +36,6 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
 
   result.data.allMdx.nodes.forEach(node => {
-    console.log("Creating page at pokemon:", `/blog/${node.fields.slug}`)
     createPage({
       path: `/blog${node.fields.slug}`, // ✅ use custom slug
       component: `${path.resolve("./src/templates/BlogArticle.tsx")}?__contentFilePath=${node.internal.contentFilePath}`,

@@ -95,12 +95,7 @@ const config = {
       options: {
         extensions: ['.mdx'],
         gatsbyRemarkPlugins: [
-          // {
-          //   resolve: 'gatsby-remark-prismjs',
-          //   options: {
-          //     showLineNumbers: true,
-          //   },
-          // },
+          'gatsby-remark-external-links',
           {
             resolve: 'gatsby-remark-images',
           },
@@ -120,8 +115,6 @@ const config = {
       options: {
         plugins: [
           'gatsby-remark-images',
-          // 'gatsby-remark-lazy-load',
-          'gatsby-remark-external-links',
           {
             resolve: 'gatsby-remark-footnotes',
             options: {
