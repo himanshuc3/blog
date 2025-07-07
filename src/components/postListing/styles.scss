@@ -1,72 +1,76 @@
 .post-heading {
-    cursor: pointer;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  border-radius: 10px;
+
+  h1,p,div, span {
+    transition: all 0.2s ease-in-out;
+  }
+
+  &.dimmed {
+    .right h1,
+    .right .status,
+    .date,
+     {
+      color: var(--variable-hoverBG);
+    }
+  }
+
+  .right {
+    position: relative;
     display: flex;
-    align-items: flex-end;
-    margin-bottom: 40px;
-    border-radius: 10px;
-    transition: all 0.3s;
+    flex-shrink: 1;
+    flex-grow: 1;
+    width: 10px;
 
-
-
-    .right {
-        position:relative;
-
-        h1 {
-            font-size: var(--size-s);
-            transition: color 0.3s;
-            font-weight: 500;
-            margin: 0;
-            text-decoration: underline;
-            text-decoration-color: transparent;
-            text-decoration-thickness: 3px;
-            color: var(--variable-textSecondary);
-            // font-style: italic;
-        }
-
-
-
-        .tags {
-            position: absolute;
-            top: -25px;
-            display: none;
-        }
-
+    h1 {
+      font-size: 25px;
+      font-weight:600;
+      margin: 0;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-decoration-thickness: 5px;
+      color: var(--variable-textSecondary);
 
     }
 
-    .left {
-        width: 150px;
-        .date {
-            display: inline-block;
-            font-size: 16px;
-            padding: 2px;
-            transition: all 0.3s;
-            
-        }
+
+    .post-tags {
+      position: absolute;
+      bottom: -17px;
+      opacity: 0;
+      font-weight: 500;
+    }
+  }
+
+  .left {
+    width: 150px;
+    .date {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 700;
+    }
+  }
+
+  .selected {
+    color: black;
+  }
+
+  &:hover {
+
+    .date {
+      color: var(--variable-text);
+      // border-bottom-color:var(--variable-primary);
     }
 
-
-
-    .selected {
-        color: black;
-        
+    .right h1 {
+      color: var(--variable-text);
+      // text-decoration-color: var(--variable-primary);
     }
-
-    &:hover {
-
-        .date {
-            color: var(--variable-text);
-            // border-bottom-color:var(--variable-primary);
-        }
-
-        // .tags {
-        //     display: block;
-        // }
-
-        .right h1 {
-            color: var(--variable-primary);
-            // text-decoration-color: var(--variable-primary);
-        }
-
+    .right .post-tags {
+      opacity: 1;
     }
+  }
 }

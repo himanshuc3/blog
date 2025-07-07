@@ -16,6 +16,7 @@
         flex: 1;
 
         .heading {
+            margin-top: 50px;
             margin-bottom: -15px;
             &>h1 {
                 font-size: var(--size-l);
@@ -33,18 +34,38 @@
             }
         }
 
+        
         .filter {
             position: relative;
             top: -30px;
         }
-
+        
         &>h1 {
             font-size: var(--size-l);
         }
+        
 
-        .filters>h1 {
-            font-weight: 500;
-            font-size: var(--size-s);
+        .post-list {
+            .yearly-posts-container{
+                margin-top: 40px;
+            }
+            .yearly-posts-container:not(:last-child){
+                border-bottom: 2px solid var(--variable-hoverBG);
+            }
+        }
+
+        .yearly-posts-container{
+            position: relative;
+
+
+            .filters>h1 {
+                font-weight: 500;
+                font-size: var(--size-s);
+            
+                position:absolute;
+                left: -90px;
+                top: -10px;
+            }
         }
     }
 

@@ -21,14 +21,14 @@ interface ISerializeParams {
         siteUrl: string;
       };
     };
-    allMarkdownRemark: {
+    allMdx: {
       nodes: INode[];
     };
   };
 }
 
-function serializePostsForRss({ query: { site, allMarkdownRemark } }: ISerializeParams) {
-  return allMarkdownRemark.nodes.map((node: INode) => {
+function serializePostsForRss({ query: { site, allMdx } }: ISerializeParams) {
+  return allMdx.nodes.map((node: INode) => {
     return Object.assign({}, node.frontmatter, {
       slug: node.frontmatter.slug,
       title: node.frontmatter.title,
@@ -42,7 +42,7 @@ function serializePostsForRss({ query: { site, allMarkdownRemark } }: ISerialize
 
 function getMarkdownPosts() {
   return `
-           {   allMarkdownRemark(sort: { frontmatter: { date: DESC } }){
+           {   allMdx(sort: { frontmatter: { date: DESC } }){
                         nodes{
                           id
                           frontmatter{
@@ -58,8 +58,6 @@ function getMarkdownPosts() {
     `;
 }
 
-
-
 const config = {
   siteMetadata: {
     title: `Himanshu's Blog`,
@@ -68,7 +66,7 @@ const config = {
     twitterUserName: '@_himanshuc3',
     siteUrl: `https://himanshusb.in`,
     image: './src/images/logo.png',
-    keywords: ['computer science', 'javascript', 'golang', 'computational geometry', 'blog']
+    keywords: ['computer science', 'javascript', 'golang', 'computational geometry', 'blog'],
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -95,19 +93,16 @@ const config = {
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
+        extensions: ['.mdx'],
         gatsbyRemarkPlugins: [
+          'gatsby-remark-external-links',
           {
             resolve: 'gatsby-remark-images',
+            options:{
+              backgroundColor: 'transparent'
+            }
           },
           `gatsby-transformer-remark`,
-          {
-            resolve: 'gatsby-remark-prismjs',
-            options: {
-              classPrefix: 'codeblock-',
-              showLineNumbers: true,
-              noInlineHighlight: false,
-            },
-          },
         ],
       },
     },
@@ -121,18 +116,14 @@ const config = {
     {
       resolve: 'gatsby-transformer-remark',
       options: {
-        plugins: [
-          'gatsby-remark-images',
-          // 'gatsby-remark-lazy-load',
-          'gatsby-remark-external-links',
-          {
-            resolve: 'gatsby-remark-footnotes',
-            options: {
-              footnoteBackRefPreviousElementDisplay: 'inline',
-              footnoteBackRefDisplay: 'inline',
-              useCustomDivider: "<h2 class='reference-header'>🔖 Footnotes</h2>",
-            },
-          },
+        plugins: [{
+          resolve:'gatsby-remark-images',
+          options:{
+            backgroundColor: 'transparent'
+          }
+        }
+          
+          
         ],
       },
     },
@@ -165,7 +156,7 @@ const config = {
       resolve: `@nathanpate/gatsby-omni-font-loader`,
       options: {
         enableListener: true,
-        mode: "async",
+        mode: 'async',
         preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
         web: [
           {

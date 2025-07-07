@@ -1,3 +1,5 @@
+@import '../styles/_common.scss';
+
 .blog-post-wrapper {
   min-height: 100vw;
   display: flex;
@@ -43,43 +45,55 @@
 
   .content {
     strong {
-      font-weight: 700;
+      font-weight: 500;
+      color: var(--variable-text);
     }
 
     p,
     ul,
     li {
-      font-size: 18px;
-      line-height: 1.6em;
-      font-weight: 400;
+      font-size: 1.1rem;
+      line-height: 1.7em;
+      font-weight: 500;
       color: var(--variable-textSecondary);
     }
 
-    h2,h3,h4,h5,h6 {
+    hr {
+      display: block;
+      height: 2px;
+      border: none !important;
+      background-color: var(--variable-hoverBG);
+      border-top: 1px solid #ccc;
+      margin-top: 30px;
+    }
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--variable-primary);
       margin-top: 40px;
-      color: var(--variable-text);
     }
 
-    h2{
+    h2 {
       font-size: var(--size-s);
     }
 
-    .grvsc-container {
-      margin: 30px 0;
+    a {
+      @extend .chunky-underline;
     }
 
-    .gatsby-highlight {
-      background-color: #fdf6e3;
-      border-radius: 0.3em;
-      margin: 0.5em 0;
-      padding: 0.2em 1em;
-      overflow: auto;
+    pre * {
+      font-size: 0.9rem;
     }
 
-    code {
+    :not(pre) > code {
       padding: 2px 8px;
       border-radius: 4px;
       background-color: var(--variable-hoverBG);
+      color: var(--variable-textSecondary);
+      font-family: 'Consolas', 'Menlo', 'Monaco', 'Liberation Mono', 'Courier New', monospace;
+      font-weight: 500;
     }
 
     table {
@@ -100,17 +114,6 @@
         font-weight: 700;
         color: var(--variable-text);
       }
-    }
-
-    a {
-      color: var(--variable-text);
-      font-weight: 500;
-      position: relative;
-      transition: color 0.5s;
-    }
-
-    a:hover {
-      color: var(--variable-primary);
     }
 
     img {
@@ -143,12 +146,17 @@
 
     blockquote {
       position: relative;
-      margin: 30px 40px;
+      display: flex;
+      margin: 40px 0;
+      justify-content: center;
 
-      background-color: var(--variable-hoverBG);
-
-      padding: 5px 20px;
-      border-radius: 5px;
+      & > p {
+        width: 80%;
+        margin: 0 10px;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--variable-text);
+      }
     }
   }
 }

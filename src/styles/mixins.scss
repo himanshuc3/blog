@@ -6,17 +6,11 @@
 
 @mixin chunky-underline($color, $block: false, $size: 20%, $position: 0%) {
   text-decoration: underline;
-  text-decoration-color: var(--variable-textSecondary);
+  text-decoration-color: var(--variable-underline);
   text-decoration-thickness: 3px;
   transition: all 0.3s;
+  color: var(--variable-text);
   
-
-  &:hover{
-    text-decoration-color: var(--variable-text);
-    color: var(--variable-text);
-    
-    // text-decoration
-  }
 
   @if $block {
     // Add this pseudoelement if you want to make it block-ish

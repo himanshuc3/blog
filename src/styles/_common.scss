@@ -1,0 +1,6 @@
+@import './mixins';
+
+.chunky-underline {
+  // @include chunky-underline(rgb(247, 224, 24, 0.7), false, 25%, 10%);
+  @include chunky-underline(var(--variable-underline), false, 25%, 10%);
+}
