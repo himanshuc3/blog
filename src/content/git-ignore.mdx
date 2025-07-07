@@ -29,12 +29,10 @@ git update-index --skip-worktree package.json
 
 There’s an alternative flag called `--assume-unchanged` which achieves a similar function, they defer slightly in how they work in git internals.
 
-While in 90% of your use cases, you’ll make do with `skip-worktree`, here’s a general brief of they differ:
+While in 90% of your use cases, you’ll make do with `skip-worktree`, here’s a general brief of how they differ:
 
-| Flag                 | Purpose                                       |
-| -------------------- | --------------------------------------------- |
-| `--assume-unchanged` | **Hint to Git**: "I won’t change this file"   |
-| `--skip-worktree`    | **Directive to Git**: "Ignore my local edits" |
+- `assume-unchanged` - **Hint to Git**: "I won’t change this file"
+- `skip-worktree` - "Ignore my local edits"
 
 <InfoQuote>
   If the file shouldn’t be tracked at all (for everyone), use `.gitignore` instead.
