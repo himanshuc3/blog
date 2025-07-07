@@ -1,29 +1,66 @@
 // src/components/Code.js
-import React from 'react';
-import Highlight, { themes } from 'prism-react-renderer';
+import React, { useContext, useState } from 'react';
+import { CopyOutlined, CheckOutlined } from '@ant-design/icons';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark, coldarkCold } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import ThemeContext from '../../hooks/themeContext';
+import './index.scss';
 
-const Code = ({ children, language = 'js', title }) => {
-  const code = typeof children === 'string' ? children.trim() : '';
+const DARK_THEME = {
+  ...atomDark,
+};
 
+const LIGHT_THEME = {
+  ...coldarkCold,
+  'pre[class*="language-"]': {
+    backgroundColor: 'rgba(0,0,0,0.03)',
+  },
+};
+
+const Code = ({ children, language = 'js', title, className, highlightLines = [] }) => {
+  const { darkTheme } = useContext(ThemeContext);
+  const lang = className.replace(/language-/, '') || 'js';
+  const [copied, setCopied] = useState(false);
+  function handleCopy() {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+    navigator.clipboard.writeText(children.trim());
+  }
   return (
-    <div style={{ margin: '2rem 0', fontSize: '0.9rem' }}>
-      {title && (
-        <div
-          style={{
-            background: '#1e1e1e',
-            color: '#fff',
-            padding: '0.5rem 1rem',
-            fontSize: '0.75rem',
-            fontFamily: 'monospace',
-            borderTopLeftRadius: '0.5rem',
-            borderTopRightRadius: '0.5rem',
-          }}
-        >
-          {title}
-        </div>
-      )}
-
-      <Highlight code={children} language="jsx" />
+    <div className="codeblock">
+      <button className="button" onClick={handleCopy} disabled={copied}>
+        {copied ? 'copied' : 'copy'}
+      </button>
+      <SyntaxHighlighter
+        language={lang}
+        style={darkTheme ? DARK_THEME : LIGHT_THEME}
+        showLineNumbers={false}
+        customStyle={{
+          borderRadius: '10px',
+          padding: '30px',
+          border: '1px solid var(--variable-hoverBG)',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word',
+          overflowX: 'auto',
+        }}
+        codeTagProps={{
+          style: {
+            whiteSpace: 'pre-wrap', // ✅ enable actual wrapping inside <code>
+            wordBreak: 'break-word',
+          },
+        }}
+        wrapLines
+        lineProps={(lineNumber) => {
+          const style = highlightLines.includes(lineNumber)
+            ? { backgroundColor: 'rgba(255, 229, 100, 0.2)' }
+            : {};
+          return { style };
+        }}
+      >
+        {children.trim()}
+      </SyntaxHighlighter>
     </div>
   );
 };

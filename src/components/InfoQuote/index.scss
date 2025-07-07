@@ -1,0 +1,16 @@
+.info-quote {
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 5px;
+  position:relative;
+  
+
+  & > p {
+    font-size: 0.9rem !important;
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 15px 20px;
+    background-color:var(--variable-hoverBG) ;
+    color: var(--variable-textSecondary);
+  }
+}

@@ -85,3 +85,9 @@ v1.2
   <!-- NOTE:  -->
   <!-- 1. SEO: short-tail vs long-tail, LSI keywords (professional headshot), user intent, match & exceed (can I compete on the keyword?) -->
   <!-- 2. SEO Key Metrics: Keyword difficulty,  -->
+
+- MVP of Blog#3
+- Images - dimensions, xkcd comic edit,
+- Anchor - target_blank not working
+- Footnotes - not working
+- Styling inside infoquote

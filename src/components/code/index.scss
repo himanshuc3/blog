@@ -1,0 +1,20 @@
+.codeblock {
+  position: relative;
+  margin: 2rem 0;
+   font-size: 0.9rem;
+  .button {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    background:transparent;
+    border: 1px solid var(--variable-hoverBG);
+    
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    z-index: 2;
+    color: var(--variable-textSecondary);
+    font-weight: 600;
+  }
+}

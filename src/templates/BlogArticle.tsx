@@ -6,12 +6,29 @@ import { SEO } from '../components/Seo';
 import BaseComponent from '../containers/base';
 import Comments from '../components/comments';
 import ThemeContext from '../hooks/themeContext';
+import CodeBlock from '../components/code';
 import { MDXProvider } from '@mdx-js/react';
 import Tag from '../components/tag';
 import { DATE_OPTS } from '../utils/constants';
+import InfoQuote from '../components/infoQuote';
 import './blogStyles.scss';
 const components = {
-  // h2: (props) => <h1 style={{ color: 'tomato', backgroundColor: 'red' }} {...props} />,
+  pre: (props) => {
+    const codeChild = props.children?.props;
+
+    return <CodeBlock {...codeChild} />;
+  },
+  code: (props) => {
+    return <code {...props} />;
+  },
+  InfoQuote: (props) => {
+    return <InfoQuote {...props} />;
+  },
+
+  // h2: (props) => {
+  //   console.log('pink', props);
+  //   return <h1 style={{ color: 'tomato', backgroundColor: 'red' }} {...props} />;
+  // },
   // Add other custom MDX element overrides here
 };
 
