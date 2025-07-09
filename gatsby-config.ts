@@ -42,17 +42,22 @@ function serializePostsForRss({ query: { site, allMdx } }: ISerializeParams) {
 
 function getMarkdownPosts() {
   return `
-           {   allMdx(sort: { frontmatter: { date: DESC } }){
-                        nodes{
-                          id
-                          frontmatter{
-                            date
-                            slug
-                            title
-                            tags
-                          }
-                        }
-
+           {
+              site {
+                siteMetadata {
+                  siteUrl
+                }
+              }
+              allMdx(sort: { frontmatter: { date: DESC } }){
+                nodes {
+                  id
+                  frontmatter {
+                    date
+                    slug
+                    title
+                    tags
+                  }
+                }
               }
             }
     `;
@@ -60,13 +65,13 @@ function getMarkdownPosts() {
 
 const config = {
   siteMetadata: {
-    title: `Himanshu's Blog`,
+    title: `Himanshu's bin`,
     description:
-      'Welcome to my webspace. I am a fullstack engineer with a curiousity to debate and rant on topics like javascript, golang, computational geometry and tooling with a sprinkle of liberal views.',
+      'Himanshu Chhabra a fullstack engineer with a curiousity to debate and rant on topics like javascript, golang, computational geometry and tooling with a sprinkle of liberal views.',
     twitterUserName: '@_himanshuc3',
     siteUrl: `https://himanshusb.in`,
     image: './src/images/logo.png',
-    keywords: ['computer science', 'javascript', 'golang', 'computational geometry', 'blog'],
+    keywords: ['javascript', 'golang', 'web development', 'fullstack', 'computational geometry', 'tooling'],
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
