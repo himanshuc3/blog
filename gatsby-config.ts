@@ -79,13 +79,12 @@ const config = {
   // TODO: No global variables as of now
   graphqlTypegen: true,
   plugins: [
-    'gatsby-plugin-webpack-bundle-analyser-v2',
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx'],
         mdxOptions: {
-
+          
         },
         gatsbyRemarkPlugins: [
           'gatsby-remark-external-links',
@@ -95,9 +94,18 @@ const config = {
               backgroundColor: 'transparent'
             }
           },
+          {
+            resolve: 'gatsby-remark-footnotes',
+            options: {
+              footnoteBackRefPreviousElementDisplay: 'inline',
+              footnoteBackRefDisplay: 'inline',
+              useCustomDivider: "<h2 class='reference-header'>🔖 Footnotes</h2>",
+            },
+          },
         ],
       },
     },
+    'gatsby-plugin-webpack-bundle-analyser-v2',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
@@ -107,6 +115,9 @@ const config = {
         projectKey: '48a7fc18cbf83fe54cc6e79475bf407e162a097a',
       },
     },
+    'gatsby-plugin-sass',
+    'gatsby-plugin-image',
+    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -114,9 +125,6 @@ const config = {
         path: `${dir}/src/content`,
       },
     },
-    'gatsby-plugin-sass',
-    'gatsby-plugin-image',
-    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
