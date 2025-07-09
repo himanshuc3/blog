@@ -84,7 +84,9 @@ const config = {
       options: {
         extensions: ['.mdx'],
         mdxOptions: {
-          
+          remarkPlugins: [
+            require('remark-gfm'),
+          ],
         },
         gatsbyRemarkPlugins: [
           'gatsby-remark-external-links',
