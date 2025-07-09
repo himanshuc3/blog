@@ -6,12 +6,21 @@
   flex-direction: column;
 
   .blog-post {
+    position:relative;
     display: flex;
     flex-direction: column;
     min-height: 10px;
     flex-grow: 1;
     width: 700px;
     margin: 10px auto;
+  }
+
+  .blog-post-sidebar {
+    position: absolute;
+    top: 2rem;
+    right: -17rem;
+    padding: 1rem;
+    border-left: 1px solid var(--variable-border);
   }
 
   .heading {

@@ -11,6 +11,7 @@ import { MDXProvider } from '@mdx-js/react';
 import Tag from '../components/tag';
 import { DATE_OPTS } from '../utils/constants';
 import InfoQuote from '../components/InfoQuote';
+import BlogSidebar from '../components/BlogSidebar';
 import './blogStyles.scss';
 const components = {
   pre: (props) => {
@@ -32,8 +33,26 @@ const components = {
   // Add other custom MDX element overrides here
 };
 
-export default function BlogPostTemplate({ data, children }) {
-  const { frontmatter } = data.mdx;
+interface BlogPostProps {
+  data: {
+    mdx: {
+      frontmatter: {
+        title: string;
+        date: string;
+        tags: string[];
+        seoDescription?: string;
+      };
+      tableOfContents: {
+        items: any[];
+      };
+      body: string;
+    };
+  };
+  children: React.ReactNode;
+}
+
+export default function BlogPostTemplate({ data, children }: BlogPostProps) {
+  const { frontmatter, tableOfContents } = data.mdx;
   const { darkTheme } = useContext(ThemeContext);
 
   return (
@@ -43,25 +62,28 @@ export default function BlogPostTemplate({ data, children }) {
         description={frontmatter.seoDescription}
         keywords={frontmatter.tags}
       />
-      <div className="blog-post">
-        <MDXProvider components={components}>
-          <div className="heading">
-            <h1 className="sec-font">{frontmatter.title}</h1>
-            <div className="meta">
-              <p className="sec-font">
-                Written on {new Date(frontmatter.date).toLocaleDateString('en-US', DATE_OPTS)}
-              </p>
-              <span className="separator">&middot;</span>
-              <div className="tags">
-                {frontmatter.tags.map((tag) => (
-                  <Tag text={tag} />
-                ))}
+      <div className="blog-content">
+        <div className="blog-post">
+          <MDXProvider components={components}>
+            <div className="heading">
+              <h1 className="sec-font">{frontmatter.title}</h1>
+              <div className="meta">
+                <p className="sec-font">
+                  Written on {new Date(frontmatter.date).toLocaleDateString('en-US', DATE_OPTS)}
+                </p>
+                <span className="separator">&middot;</span>
+                <div className="tags">
+                  {frontmatter.tags.map((tag) => (
+                    <Tag text={tag} />
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="content sec-font">{children}</div>
-        </MDXProvider>
-        <Comments isDarkTheme={darkTheme} />
+            <div className="content sec-font">{children}</div>
+          </MDXProvider>
+          <Comments isDarkTheme={darkTheme} />
+        </div>
+        <BlogSidebar tableOfContents={tableOfContents} isDarkTheme={darkTheme} />
       </div>
     </BaseComponent>
   );
@@ -70,7 +92,6 @@ export default function BlogPostTemplate({ data, children }) {
 export const pageQuery = graphql`
   query BlogPostById($id: String!) {
     mdx(id: { eq: $id }) {
-      body
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         slug
@@ -78,6 +99,8 @@ export const pageQuery = graphql`
         tags
         seoDescription
       }
+      body
+      tableOfContents
     }
   }
 `;
