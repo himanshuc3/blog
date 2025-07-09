@@ -42,17 +42,22 @@ function serializePostsForRss({ query: { site, allMdx } }: ISerializeParams) {
 
 function getMarkdownPosts() {
   return `
-           {   allMdx(sort: { frontmatter: { date: DESC } }){
-                        nodes{
-                          id
-                          frontmatter{
-                            date
-                            slug
-                            title
-                            tags
-                          }
-                        }
-
+           {
+              site {
+                siteMetadata {
+                  siteUrl
+                }
+              }
+              allMdx(sort: { frontmatter: { date: DESC } }){
+                nodes {
+                  id
+                  frontmatter {
+                    date
+                    slug
+                    title
+                    tags
+                  }
+                }
               }
             }
     `;
@@ -60,80 +65,73 @@ function getMarkdownPosts() {
 
 const config = {
   siteMetadata: {
-    title: `Himanshu's Blog`,
+    title: `Himanshu's bin`,
     description:
-      'Welcome to my webspace. I am a fullstack engineer with a curiousity to debate and rant on topics like javascript, golang, computational geometry and tooling with a sprinkle of liberal views.',
+      'Himanshu Chhabra is a fullstack engineer with a curiousity to debate and rant on topics like javascript, golang, computational geometry and tooling with a sprinkle of liberal views.',
     twitterUserName: '@_himanshuc3',
     siteUrl: `https://himanshusb.in`,
     image: './src/images/logo.png',
-    keywords: ['computer science', 'javascript', 'golang', 'computational geometry', 'blog'],
+    keywords: ['javascript', 'golang', 'web development', 'fullstack', 'computational geometry', 'tooling'],
   },
-  // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
-  // If you use VSCode you can also use the GraphQL plugin
-  // Learn more at: https://gatsby.dev/graphql-typegen
-  // TODO: No global variables as of now
   graphqlTypegen: true,
   plugins: [
     {
-      resolve: `gatsby-plugin-smartlook`,
-      options: {
-        projectKey: '48a7fc18cbf83fe54cc6e79475bf407e162a097a',
-      },
-    },
-    'gatsby-plugin-webpack-bundle-analyser-v2',
-    {
-      resolve: 'gatsby-plugin-plausible',
-      options: {
-        domain: 'himanshusb.in',
-      },
-    },
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
-    {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        extensions: ['.mdx'],
+        extensions: ['.mdx', '.md'],
+        mdxOptions: {
+          remarkPlugins: [
+            require('remark-gfm'),
+          ],
+        },
         gatsbyRemarkPlugins: [
+          'gatsby-remark-images',
           'gatsby-remark-external-links',
           {
-            resolve: 'gatsby-remark-images',
-            options:{
-              backgroundColor: 'transparent'
-            }
+            resolve: 'gatsby-remark-footnotes',
+            options: {
+              footnoteBackRefPreviousElementDisplay: 'inline',
+              footnoteBackRefDisplay: 'inline',
+              useCustomDivider: "<h2 class='reference-header'>🔖 Footnotes</h2>",
+            },
           },
-          `gatsby-transformer-remark`,
+          {
+            resolve: 'gatsby-remark-prismjs',
+            options: {
+              classPrefix: 'codeblock-',
+              showLineNumbers: true,
+              noInlineHighlight: false,
+            },
+          },
         ],
       },
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: '@nathanpate/gatsby-omni-font-loader',
       options: {
-        name: 'content',
-        path: `${dir}/src/content`,
-      },
-    },
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [{
-          resolve:'gatsby-remark-images',
-          options:{
-            backgroundColor: 'transparent'
-          }
-        }
-          
-          
+        enableListener: true,
+        preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
+        web: [
+          {
+            name: 'Primary Font',
+            file: 'https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100..900;1,100..900&display=swap',
+          },
+          {
+            name: 'Secondary Font',
+            file: 'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap',
+          },
         ],
       },
     },
     'gatsby-plugin-sass',
     'gatsby-plugin-image',
-    'gatsby-plugin-sitemap',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
-      resolve: 'gatsby-plugin-manifest',
+      resolve: 'gatsby-source-filesystem',
       options: {
-        icon: 'src/images/logo.png',
+        name: 'content',
+        path: `${dir}/src/content`,
       },
     },
     {
@@ -151,24 +149,6 @@ const config = {
         path: './src/pages/',
       },
       __key: 'pages',
-    },
-    {
-      resolve: `@nathanpate/gatsby-omni-font-loader`,
-      options: {
-        enableListener: true,
-        mode: 'async',
-        preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
-        web: [
-          {
-            name: 'Primary Font',
-            file: 'https://fonts.googleapis.com/css2?family=Sanchez:ital@0;1&display=swap',
-          },
-          {
-            name: 'Secondary Font',
-            file: 'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap',
-          },
-        ],
-      },
     },
     {
       resolve: 'gatsby-plugin-feed',
