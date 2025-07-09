@@ -151,6 +151,12 @@ const config = {
       __key: 'pages',
     },
     {
+      resolve: '@stackql/gatsby-plugin-smartlook',
+      options: {
+        projectKey: process.env.SMARTLOOK_PROJECT_KEY,
+      },
+    },
+    {
       resolve: 'gatsby-plugin-feed',
       options: {
         feeds: [
