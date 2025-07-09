@@ -79,26 +79,14 @@ const config = {
   // TODO: No global variables as of now
   graphqlTypegen: true,
   plugins: [
-    {
-      resolve: `gatsby-plugin-smartlook`,
-      options: {
-        projectKey: '48a7fc18cbf83fe54cc6e79475bf407e162a097a',
-      },
-    },
     'gatsby-plugin-webpack-bundle-analyser-v2',
-    {
-      resolve: 'gatsby-plugin-plausible',
-      options: {
-        domain: 'himanshusb.in',
-      },
-    },
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx'],
+        mdxOptions: {
+
+        },
         gatsbyRemarkPlugins: [
           'gatsby-remark-external-links',
           {
@@ -107,8 +95,16 @@ const config = {
               backgroundColor: 'transparent'
             }
           },
-          `gatsby-transformer-remark`,
         ],
+      },
+    },
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    {
+      resolve: `@stackql/gatsby-plugin-smartlook`,
+      options: {
+        projectKey: '48a7fc18cbf83fe54cc6e79475bf407e162a097a',
       },
     },
     {
@@ -116,20 +112,6 @@ const config = {
       options: {
         name: 'content',
         path: `${dir}/src/content`,
-      },
-    },
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [{
-          resolve:'gatsby-remark-images',
-          options:{
-            backgroundColor: 'transparent'
-          }
-        }
-          
-          
-        ],
       },
     },
     'gatsby-plugin-sass',
