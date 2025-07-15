@@ -79,10 +79,38 @@ const config = {
   // TODO: No global variables as of now
   graphqlTypegen: true,
   plugins: [
+    // Source filesystem plugins should come before MDX plugin
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'content',
+        path: `${dir}/src/content`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: `${dir}/src/images/`,
+      },
+      __key: 'images',
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'pages',
+        path: `${dir}/src/pages/`,
+      },
+      __key: 'pages',
+    },
+    // Sharp plugins before MDX
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    // MDX plugin configuration
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        extensions: ['.mdx'],
+        extensions: ['.mdx', '.md'],
         mdxOptions: {
           remarkPlugins: [
             require('remark-gfm'),
@@ -92,8 +120,12 @@ const config = {
           'gatsby-remark-external-links',
           {
             resolve: 'gatsby-remark-images',
-            options:{
-              backgroundColor: 'transparent'
+            options: {
+              backgroundColor: 'transparent',
+              maxWidth: 1200,
+              linkImagesToOriginal: false,
+              showCaptions: true,
+              quality: 80,
             }
           },
           {
@@ -104,13 +136,21 @@ const config = {
               useCustomDivider: "<h2 class='reference-header'>🔖 Footnotes</h2>",
             },
           },
+          {
+            resolve: 'gatsby-remark-prismjs',
+            options: {
+              classPrefix: 'language-',
+              inlineCodeMarker: null,
+              aliases: {},
+              showLineNumbers: false,
+              noInlineHighlight: false,
+            },
+          },
         ],
       },
     },
     'gatsby-plugin-webpack-bundle-analyser-v2',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
     {
       resolve: `@stackql/gatsby-plugin-smartlook`,
       options: {
@@ -121,33 +161,10 @@ const config = {
     'gatsby-plugin-image',
     'gatsby-plugin-sitemap',
     {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'content',
-        path: `${dir}/src/content`,
-      },
-    },
-    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         icon: 'src/images/logo.png',
       },
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: './src/images/',
-      },
-      __key: 'images',
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'pages',
-        path: './src/pages/',
-      },
-      __key: 'pages',
     },
     {
       resolve: `@nathanpate/gatsby-omni-font-loader`,

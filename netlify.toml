@@ -1,0 +1,15 @@
+[build]
+  command = "gatsby clean && gatsby build"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "8"
+  GATSBY_TELEMETRY_DISABLED = "1"
+
+# Redirects for better SEO
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  condition = "not path" 
