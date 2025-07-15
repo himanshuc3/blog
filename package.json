@@ -16,9 +16,12 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
+    "@mdx-js/mdx": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@nathanpate/gatsby-omni-font-loader": "^2.0.5",
+    "@stackql/gatsby-plugin-smartlook": "^1.0.1",
     "@theme-toggles/react": "^4.1.0",
+    "ajv": "^8.17.1",
     "antd": "^5.19.1",
     "gatsby": "^5.13.5",
     "gatsby-omni-font-loader": "^2.0.2",
@@ -26,12 +29,10 @@
     "gatsby-plugin-image": "^3.13.1",
     "gatsby-plugin-manifest": "^5.13.1",
     "gatsby-plugin-mdx": "^5.14.1",
-    "gatsby-plugin-plausible": "^0.0.7",
     "gatsby-plugin-react-helmet": "^6.13.1",
     "gatsby-plugin-sass": "^6.13.1",
     "gatsby-plugin-sharp": "^5.13.1",
     "gatsby-plugin-sitemap": "^6.13.1",
-    "gatsby-plugin-smartlook": "^1.0.1",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.32",
     "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-footnotes": "^0.0.8",
@@ -49,6 +50,7 @@
     "react-helmet": "^6.1.0",
     "react-syntax-highlighter": "^15.6.1",
     "react-toggle-dark-mode": "^1.1.1",
+    "remark-gfm": "^4.0.1",
     "sass": "^1.71.1"
   },
   "devDependencies": {
