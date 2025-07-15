@@ -11,7 +11,7 @@ import { MDXProvider } from '@mdx-js/react';
 import Tag from '../components/tag';
 import { DATE_OPTS } from '../utils/constants';
 import InfoQuote from '../components/InfoQuote';
-import BlogSidebar from '../components/BlogSidebar';
+// import BlogSidebar from '../components/BlogSidebar';
 import './blogStyles.scss';
 const components = {
   pre: (props) => {
@@ -83,7 +83,7 @@ export default function BlogPostTemplate({ data, children }: BlogPostProps) {
           </MDXProvider>
           <Comments isDarkTheme={darkTheme} />
         </div>
-        <BlogSidebar tableOfContents={tableOfContents} isDarkTheme={darkTheme} />
+        {/* <BlogSidebar tableOfContents={tableOfContents} isDarkTheme={darkTheme} /> */}
       </div>
     </BaseComponent>
   );
