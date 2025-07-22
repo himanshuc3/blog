@@ -1,161 +1,177 @@
 @import '../styles/_common.scss';
 
 .blog-post-wrapper {
-  min-height: 100vw;
-  display: flex;
-  flex-direction: column;
+  .blog-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+  }
 
   .blog-post {
-    display: flex;
-    flex-direction: column;
-    min-height: 10px;
-    flex-grow: 1;
-    width: 700px;
-    margin: 10px auto;
-  }
+    min-width: 0;
 
-  .heading {
-    margin-top: 50px;
+    .heading {
+      margin-bottom: 2rem;
 
-    & > h1 {
-      font-size: 40px;
-      font-weight: 700;
-      position: relative;
-      color: var(--variable-primary);
-    }
-
-    .meta {
-      display: flex;
-      position: relative;
-      align-items: center;
-      top: -30px;
-    }
-
-    .meta > .separator {
-      display: inline-block;
-      margin: 0 10px;
-    }
-
-    .meta > p {
-      color: var(--variable-textSecondary) !important;
-      display: inline-block;
-      font-size: 20px;
-    }
-  }
-
-  .content {
-    strong {
-      font-weight: 500;
-      color: var(--variable-text);
-    }
-
-    p,
-    ul,
-    li {
-      font-size: 1.1rem;
-      line-height: 1.7em;
-      font-weight: 500;
-      color: var(--variable-textSecondary);
-    }
-
-    hr {
-      display: block;
-      height: 2px;
-      border: none !important;
-      background-color: var(--variable-hoverBG);
-      border-top: 1px solid #ccc;
-      margin-top: 30px;
-    }
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: var(--variable-primary);
-      margin-top: 40px;
-    }
-
-    h2 {
-      font-size: var(--size-s);
-    }
-
-    a {
-      @extend .chunky-underline;
-    }
-
-    pre * {
-      font-size: 0.9rem;
-    }
-
-    :not(pre) > code {
-      padding: 2px 8px;
-      border-radius: 4px;
-      background-color: var(--variable-hoverBG);
-      color: var(--variable-textSecondary);
-      font-family: 'Consolas', 'Menlo', 'Monaco', 'Liberation Mono', 'Courier New', monospace;
-      font-weight: 500;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-      color: var(--variable-textSecondary);
-
-      th,
-      td {
-        padding: 8px 12px;
-        border: 1px solid var(--variable-textSecondary);
-        text-align: left;
+      h1 {
+        margin: 0 0 1rem;
+        font-size: 2.5rem;
+        line-height: 1.2;
       }
 
-      th {
-        background-color: var(--variable-hoverBG);
-        font-weight: 700;
-        color: var(--variable-text);
+      .meta {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--variable-textSecondary);
+
+        .separator {
+          font-size: 1.2rem;
+        }
+
+        .tags {
+          display: flex;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
       }
     }
 
-    img {
-      overflow: hidden;
-      display: inline-block;
-      border-radius: 5px;
+    .content {
+      h2, h3, h4, h5, h6 {
+        margin: 2rem 0 1rem;
+        scroll-margin-top: 2rem;
+      }
+
+      p {
+        margin: 1rem 0;
+        line-height: 1.7;
+      }
+
+      .inline-code {
+        background: var(--variable-hover);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 0.9em;
+        font-family: monospace;
+      }
+
+      .code-block-wrapper {
+        margin: 1.5rem 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--variable-hover);
+
+        .code-language {
+          padding: 0.5rem 1rem;
+          font-size: 0.8rem;
+          color: var(--variable-textSecondary);
+          background: var(--variable-border);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        pre {
+          margin: 0;
+          padding: 1rem;
+          overflow-x: auto;
+        }
+      }
+
+      .image-wrapper {
+        margin: 2rem 0;
+        text-align: center;
+
+        img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+        }
+
+        figcaption {
+          margin-top: 0.5rem;
+          color: var(--variable-textSecondary);
+          font-size: 0.9rem;
+          font-style: italic;
+        }
+      }
+
+      .custom-blockquote {
+        margin: 2rem 0;
+        padding: 1rem 1.5rem;
+        border-left: 4px solid var(--variable-border);
+        background: var(--variable-hover);
+        border-radius: 4px;
+
+        p {
+          margin: 0;
+          font-style: italic;
+        }
+      }
+
+      .table-wrapper {
+        margin: 2rem 0;
+        overflow-x: auto;
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 0.9rem;
+
+          th, td {
+            padding: 0.75rem;
+            border: 1px solid var(--variable-border);
+            text-align: left;
+          }
+
+          th {
+            background: var(--variable-hover);
+            font-weight: 600;
+          }
+
+          tr:nth-child(even) {
+            background: var(--variable-hover);
+          }
+        }
+      }
+
+      a {
+        color: var(--variable-primary);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s ease;
+
+        &:hover {
+          border-bottom-color: var(--variable-primary);
+        }
+      }
+
+      ul, ol {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+
+        li {
+          margin: 0.5rem 0;
+          line-height: 1.7;
+        }
+      }
     }
+  }
 
-    .references-divider {
-      display: block;
-      height: 1px;
-      border: 0;
-      border-top: 1px solid rgba(100, 100, 100, 0.5);
-    }
-
-    .footnotes {
-      padding: 20px 0;
-    }
-
-    .reference-header {
-      font-weight: 500;
-      font-size: 20px;
-      color: var(--variable-text);
-    }
-
-    .gatsby-resp-image-wrapper {
-      display: inline-block;
-      margin: 60px auto;
-    }
-
-    blockquote {
-      position: relative;
-      display: flex;
-      margin: 40px 0;
-      justify-content: center;
-
-      & > p {
-        width: 80%;
-        margin: 0 10px;
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--variable-text);
+  @media (max-width: 768px) {
+    .blog-post {
+      .heading {
+        h1 {
+          font-size: 2rem;
+        }
       }
     }
   }

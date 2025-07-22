@@ -39,7 +39,7 @@ function filterPostsByTag(postsByYear: Array<[number, IPost[]]>, tag: string) {
   return postsByYear
     .map(([year, posts]) => {
       const filteredPosts: IPost[] = posts.filter((post) => post.tags.includes(tag));
-      return [year, filteredPosts];
+      return [year, filteredPosts] as [number, IPost[]];
     })
     .filter(([_, posts]) => Array.isArray(posts) && posts.length);
 }
@@ -103,7 +103,7 @@ const BlogPage: React.FC<PageProps> = () => {
             <Search onChange={onSearchInput} />
             <div className="tags" onClick={onTagSelect}>
               {TAGS.map((tag) => (
-                <Tag text={tag} highlighted={selectedTag === tag} />
+                <Tag key={tag} text={tag} highlighted={selectedTag === tag} />
               ))}
             </div>
           </div>
@@ -116,7 +116,7 @@ const BlogPage: React.FC<PageProps> = () => {
           <div className="post-list">
             {filteredPosts.map(([year, posts]) => {
               return (
-                <div className="yearly-posts-container">
+                <div key={year} className="yearly-posts-container">
                   {/* <div className="filters">
                   <h1 className="sec-font">{year}</h1>
                   </div> */}
