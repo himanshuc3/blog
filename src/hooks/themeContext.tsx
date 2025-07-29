@@ -30,9 +30,8 @@ export const ThemeProvider: React.FC<Props> = ({ children }) => {
   const toggleThemeHandler = () => {
     document.documentElement.classList.toggle('dark');
     setDarkTheme((prevState) => !prevState);
-    setTimeout(() => {
-      localStorage.setItem('theme', darkTheme ? 'light' : 'dark');
-    }, 0);
+
+    localStorage.setItem('theme', darkTheme ? 'light' : 'dark');
   };
 
   return (
