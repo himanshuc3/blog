@@ -6,7 +6,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
   if (node.internal.type === "Mdx") {
     const slug = createFilePath({ node, getNode, basePath: "content" })
-    console.log('Pikachu:', slug)
+    
 
     createNodeField({
       name: "slug",
