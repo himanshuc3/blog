@@ -95,4 +95,4 @@ v1.2
 v1.3
 
 - Improve SEO for blog articles and blog pages.
-- Theme switch very slow on production
+- Dark theme switch latency
