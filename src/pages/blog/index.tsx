@@ -47,7 +47,7 @@ function filterPostsByTag(postsByYear: Array<[number, IPost[]]>, tag: string) {
 const BlogPage: React.FC<PageProps> = () => {
   const [selectedTag, setSelectedTag] = useState<null | string>(null);
   const [searchText, setSearchText] = useState<string>('');
-  useHoverIsolation('html', '.post-heading');
+  // useHoverIsolation('html', '.post-heading');
   let postsData: IPost[] = usePostsData();
 
   let sortedPosts = getSortedPosts(postsData);

@@ -55,11 +55,11 @@ const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
           {filteredTags.map((tag, idx) => (
             <span>
               {tag}
-              {idx != filteredTags.length - 1 ? ' - ' : ''}
+              {idx != filteredTags.length - 1 ? ' · ' : ''}
             </span>
           ))}
         </div>
-        <h1 className="sec-font">
+        <h1 className="sec-font heading-title">
           {superscript()}
           {title}
         </h1>
