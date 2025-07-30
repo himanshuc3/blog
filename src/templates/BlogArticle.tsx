@@ -49,7 +49,7 @@ export default function BlogPostTemplate({ data, children }) {
             <h1 className="sec-font">{frontmatter.title}</h1>
             <div className="meta">
               <p className="sec-font">
-                Written on {new Date(frontmatter.date).toLocaleDateString('en-US', DATE_OPTS)}
+                Published on {new Date(frontmatter.date).toLocaleDateString('en-US', DATE_OPTS)}
               </p>
               <span className="separator">&middot;</span>
               <div className="tags">
