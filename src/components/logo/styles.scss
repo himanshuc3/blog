@@ -4,9 +4,15 @@ $height: 50px;
 
 .logo {
   position: relative;
+  width: 200px;
+
+  #alternate_logo_img {
+    
+    display: inline-flex;
+  }
 
   #alternate_logo_img img {
-    width: #{$height*0.8};
+    width: #{$height*0.6};
   }
 
   .hiden {
@@ -16,8 +22,8 @@ $height: 50px;
 
 @media only screen and (max-width: 768px) {
   .logo-container img {
-    width: 40px !important;
-    height: 40px;
+    width: 30px !important;
+    height: 30px;
   }
   .logo-container #alternate_logo_img {
     height: 100%;

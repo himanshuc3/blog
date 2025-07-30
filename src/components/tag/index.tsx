@@ -1,6 +1,5 @@
 import React from 'react';
 import './styles.scss';
-import Icon, { FireTwoTone } from '@ant-design/icons';
 
 type Props = {
   text: string;

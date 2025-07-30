@@ -3,7 +3,6 @@ import { Link } from 'gatsby';
 import './styles.scss';
 import { DATE_OPTS } from '../../utils/constants';
 import { StarOutlined, CloudUploadOutlined } from '@ant-design/icons';
-import Tag from '../tag';
 import Status from './status';
 
 interface Props {

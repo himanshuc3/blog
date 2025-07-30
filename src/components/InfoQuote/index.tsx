@@ -1,5 +1,4 @@
 import React from 'react';
-import { InfoCircleFilled } from '@ant-design/icons';
 
 import './index.scss';
 

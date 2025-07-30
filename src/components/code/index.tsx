@@ -1,6 +1,5 @@
 // src/components/Code.js
 import React, { useContext, useState } from 'react';
-import { CopyOutlined, CheckOutlined } from '@ant-design/icons';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark, coldarkCold } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ThemeContext from '../../hooks/themeContext';

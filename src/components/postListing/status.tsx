@@ -1,5 +1,4 @@
 import React from 'react';
-import { FireOutlined } from '@ant-design/icons';
 
 import './status.scss';
 

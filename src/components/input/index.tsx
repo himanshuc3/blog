@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import SearchOutlined from '@ant-design/icons/SearchOutlined';
-import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
 import './styles.scss';
 import { noop } from '../../utils/helpers';
 

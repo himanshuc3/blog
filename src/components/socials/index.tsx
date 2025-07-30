@@ -10,8 +10,6 @@ import {
 import './styles.scss';
 import { SOCIAL_LINKS } from '../../utils/constants';
 
-interface Props {}
-
 const SOCIALS: { src: React.ComponentType; to: string }[] = [
   {
     src: TwitterOutlined,
@@ -24,10 +22,6 @@ const SOCIALS: { src: React.ComponentType; to: string }[] = [
   {
     src: LinkedinOutlined,
     to: SOCIAL_LINKS.LINKEDIN,
-  },
-  {
-    src: WifiOutlined,
-    to: '/rss.xml',
   },
   {
     src: MailOutlined,
