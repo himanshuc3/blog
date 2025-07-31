@@ -11,26 +11,46 @@ import { ThemeContext } from '../../hooks/themeContext';
 import BaseComponent from '../../containers/base';
 import ProjectCard from '../../components/projectCard';
 import AvailableBadge from '../../components/AvailableBadge';
+
 const projects = [
   {
-    name: '📁 File Organizer',
-    description: `A CLI tool to help declutter your assets to help your OCD.`,
-    github: 'https://github.com/himanshuc3/file-organize',
-    live: 'https://www.npmjs.com/package/file-organize',
-    techStack: ['Node.js', 'Typescript', 'Github Actions', 'linux'],
+    name: '🐍 Octosnake',
+    description: `A github themed snake game with twists that lure you to score more.`,
+    keywords: ['typescript', 'p5.js'],
+    actions: [
+      {
+        name: 'Source',
+        link: 'https://github.com/himanshuc3/usb-snake',
+      },
+    ],
+    tag: 'unfinished',
   },
   {
-    name: '📝 Convex hull algorithms',
-    description: () => (
-      <span>
-        A paper on proposing constant workspace convex hull algorithms under the guidance of{' '}
-        <a href="https://www.iitg.ac.in/rinkulu/" target="_blank" className="chunky-underline">
-          Prof. R. Inkulu.
-        </a>
-      </span>
-    ),
-    live: 'https://arxiv.org/abs/2411.10043',
-    techStack: ['geometry', 'convex hull', 'DSA'],
+    name: '🗂️ File Organizer',
+    description: `A CLI tool to help declutter your assets to help your OCD.`,
+    keywords: ['node.js', 'typescript', 'linux'],
+    actions: [
+      {
+        name: 'Source',
+        link: 'https://github.com/himanshuc3/file-organize',
+      },
+      {
+        name: 'Demo',
+        link: 'https://www.npmjs.com/package/file-organize',
+      },
+    ],
+  },
+  {
+    name: '📃 Convex hull algorithms',
+    description:
+      'A paper on proposing constant workspace convex hull algorithms under the guidance of Prof. R. Inkulu.',
+    keywords: ['geometry', 'convex hull', 'DSA'],
+    actions: [
+      {
+        name: 'Source',
+        link: 'https://arxiv.org/abs/2411.10043',
+      },
+    ],
   },
 ];
 
@@ -104,17 +124,21 @@ const AboutPage: React.FC<PageProps> = () => {
         </p>
       </div>
       <div className="section projects">
-        <h1>Projects</h1>
-        {projects.map((project, index) => (
-          <>
+        <h1>
+          Projects{' '}
+          <a
+            className="sec-font projects-all-text"
+            href="https://github.com/himanshuc3"
+            target="_blank"
+          >
+            See All
+          </a>
+        </h1>
+        <div className="projects-grid">
+          {projects.map((project) => (
             <ProjectCard key={project.name} project={project} />
-            {index !== projects.length - 1 && (
-              <div class="project-divider">
-                <hr />
-              </div>
-            )}
-          </>
-        ))}
+          ))}
+        </div>
       </div>
     </BaseComponent>
   );

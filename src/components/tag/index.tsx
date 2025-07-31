@@ -3,7 +3,7 @@ import './styles.scss';
 
 type Props = {
   text: string;
-  highlighted: boolean;
+  highlighted?: boolean;
 };
 
 const Tag: React.FC<Props> = ({ text, highlighted = false }) => {

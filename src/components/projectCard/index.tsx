@@ -1,40 +1,39 @@
 import React from 'react';
-import { GithubOutlined, LinkOutlined } from '@ant-design/icons';
-
+import Tag from '../tag';
 import './styles.scss';
 
-const ProjectCard = ({ project }) => {
-  function handleClick(link: string) {
-    window.open(link, '_blank');
+interface ProjectCardProps {
+  project: {
+    name: string;
+    description: string;
+    actions: { name: string; link: string }[];
+    keywords: string[];
+    tag?: string;
+  };
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+  function handleClick(action: { name: string; link: string }) {
+    window.open(action.link, '_blank');
   }
+
   return (
     <div className="project-card">
-      <h5>{project.name}</h5>
-      <p className="description sec-font">
-        {typeof project.description === 'function' ? project.description() : project.description}
-        <br />
-        <div className="tech-stack">
-          <span>Tech Stack: &#160;</span>
-          {project.techStack.map((tech, index) => (
-            <span key={tech}>
-              {tech} {index !== project.techStack.length - 1 ? <span>&#183; &#160;</span> : null}
-            </span>
-          ))}
-        </div>
-      </p>
-      <div className="project-card-links">
-        {project.github && (
-          <button onClick={() => handleClick(project.github)} className="action-btn sec-font">
-            <GithubOutlined
-              style={{ color: 'var(--variable-textSecondary)', marginRight: '5px' }}
-            />
+      {project.tag && <span className="project-tag sec-font">{project.tag}</span>}
+      <h3 className="project-title sec-font">{project.name}</h3>
+      <div>
+        {project.keywords.map((keyword) => (
+          <Tag text={keyword} />
+        ))}
+      </div>
+      <p className="project-description sec-font">{project.description}</p>
+
+      <div className="project-actions sec-font">
+        {project.actions.map((action) => (
+          <button key={action.name} className="action-button" onClick={() => handleClick(action)}>
+            {action.name}
           </button>
-        )}
-        {project.live && (
-          <button onClick={() => handleClick(project.live)} className="action-btn sec-font">
-            <LinkOutlined style={{ color: 'var(--variable-textSecondary)', marginRight: '5px' }} />
-          </button>
-        )}
+        ))}
       </div>
     </div>
   );
