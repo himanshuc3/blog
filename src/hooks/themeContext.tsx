@@ -17,7 +17,6 @@ interface Props {
 
 // Helper function to get initial theme
 function getInitialTheme(): boolean {
-  console.log('🎨 getInitialTheme called!'); // You'll see this only once
   // Check if we're in browser environment
   if (typeof window !== 'undefined') {
     // Check if theme was pre-applied by our inline script
