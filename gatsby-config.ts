@@ -60,7 +60,7 @@ function getMarkdownPosts() {
 
 const config = {
   siteMetadata: {
-    title: 'Himanshu\'s humble abode',
+    title: "Himanshu's humble abode",
     description:
       'Welcome to my webspace. I am a fullstack engineer with a curiousity to debate and rant on topics like javascript, golang, computational geometry and tooling with a sprinkle of liberal views.',
     twitterUserName: '@_himanshuc3',
@@ -98,9 +98,9 @@ const config = {
           'gatsby-remark-external-links',
           {
             resolve: 'gatsby-remark-images',
-            options:{
-              backgroundColor: 'transparent'
-            }
+            options: {
+              backgroundColor: 'transparent',
+            },
           },
           `gatsby-transformer-remark`,
         ],
@@ -116,14 +116,13 @@ const config = {
     {
       resolve: 'gatsby-transformer-remark',
       options: {
-        plugins: [{
-          resolve:'gatsby-remark-images',
-          options:{
-            backgroundColor: 'transparent'
-          }
-        }
-          
-          
+        plugins: [
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              backgroundColor: 'transparent',
+            },
+          },
         ],
       },
     },
@@ -133,45 +132,6 @@ const config = {
       resolve: 'gatsby-plugin-sitemap',
       options: {
         excludes: ['/404/', '/404.html'],
-        query: `
-          {
-            site {
-              siteMetadata {
-                siteUrl
-              }
-            }
-            allSitePage {
-              nodes {
-                path
-              }
-            }
-            allMdx {
-              nodes {
-                frontmatter {
-                  slug
-                  date
-                }
-              }
-            }
-          }
-        `,
-        resolveSiteUrl: ({site}) => site.siteMetadata.siteUrl,
-        serialize: ({ site, allSitePage, allMdx }) => {
-          const pages = allSitePage.nodes.map(page => ({
-            url: site.siteMetadata.siteUrl + page.path,
-            changefreq: page.path === '/' ? 'weekly' : 'monthly',
-            priority: page.path === '/' ? 1.0 : 0.8,
-          }));
-          
-          const blogPosts = allMdx.nodes.map(node => ({
-            url: site.siteMetadata.siteUrl + '/blog/' + node.frontmatter.slug,
-            changefreq: 'monthly',
-            priority: 0.9,
-            lastmod: node.frontmatter.date,
-          }));
-          
-          return [...pages, ...blogPosts];
-        },
       },
     },
     {
@@ -179,8 +139,8 @@ const config = {
       options: {
         host: 'https://himanshusb.in',
         sitemap: 'https://himanshusb.in/sitemap-index.xml',
-        policy: [{userAgent: '*', allow: '/'}]
-      }
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
     },
     // Performance & Core Web Vitals optimization
     {

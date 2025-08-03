@@ -46,7 +46,6 @@ const components = {
   },
 
   // h2: (props) => {
-  //   console.log('pink', props);
   //   return <h1 style={{ color: 'tomato', backgroundColor: 'red' }} {...props} />;
   // },
   // Add other custom MDX element overrides here

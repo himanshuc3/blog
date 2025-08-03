@@ -3,12 +3,14 @@ import React, { useState, createContext, ReactNode, useEffect } from 'react';
 interface ContextProps {
   darkTheme: boolean;
   toggleTheme: () => void;
+  isHydrated: boolean;
 }
 
 // Useless, because controlled by in function state
 export const ThemeContext = createContext<ContextProps>({
   darkTheme: true,
   toggleTheme: () => {},
+  isHydrated: false,
 });
 
 interface Props {
@@ -42,14 +44,26 @@ function getInitialTheme(): boolean {
 
 export const ThemeProvider: React.FC<Props> = ({ children }) => {
   const [darkTheme, setDarkTheme] = useState(getInitialTheme);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     // Sync state with what's already applied to DOM
     const isDarkMode = document.documentElement.classList.contains('dark');
 
-    setDarkTheme(isDarkMode);
+    // Only update state if it doesn't match current DOM state
+    if (darkTheme !== isDarkMode) {
+      setDarkTheme(isDarkMode);
+    }
 
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    // Ensure localStorage is in sync
+    const storedTheme = localStorage.getItem('theme');
+    const expectedTheme = isDarkMode ? 'dark' : 'light';
+    if (storedTheme !== expectedTheme) {
+      localStorage.setItem('theme', expectedTheme);
+    }
+
+    // Mark as hydrated
+    setIsHydrated(true);
   }, []);
 
   const toggleThemeHandler = () => {
@@ -74,6 +88,7 @@ export const ThemeProvider: React.FC<Props> = ({ children }) => {
       value={{
         darkTheme: darkTheme,
         toggleTheme: toggleThemeHandler,
+        isHydrated: isHydrated,
       }}
     >
       {children}

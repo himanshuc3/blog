@@ -23,7 +23,6 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme, isScrollLoader }) =
   if (isScrollLoader) {
     usePageScrollLoader(scrollBarRef);
   }
-  console.log(darkTheme);
   return (
     <nav id="navbar" ref={ref}>
       <div className="inner">
