@@ -12,16 +12,36 @@ import Tag from '../components/tag';
 import { DATE_OPTS } from '../utils/constants';
 import InfoQuote from '../components/InfoQuote';
 import './blogStyles.scss';
+interface ComponentProps {
+  children?: React.ReactNode;
+  [key: string]: any;
+}
+
+interface BlogPostTemplateProps {
+  data: {
+    mdx: {
+      frontmatter: {
+        title: string;
+        seoDescription: string;
+        tags: string[];
+        date: string;
+        slug: string;
+      };
+    };
+  };
+  children: React.ReactNode;
+}
+
 const components = {
-  pre: (props) => {
-    const codeChild = props.children?.props;
+  pre: (props: ComponentProps) => {
+    const codeChild = React.isValidElement(props.children) ? props.children.props : {};
 
     return <CodeBlock {...codeChild} />;
   },
-  code: (props) => {
+  code: (props: ComponentProps) => {
     return <code {...props} />;
   },
-  InfoQuote: (props) => {
+  InfoQuote: (props: any) => {
     return <InfoQuote {...props} />;
   },
 
@@ -32,7 +52,7 @@ const components = {
   // Add other custom MDX element overrides here
 };
 
-export default function BlogPostTemplate({ data, children }) {
+export default function BlogPostTemplate({ data, children }: BlogPostTemplateProps) {
   const { frontmatter } = data.mdx;
   const { darkTheme } = useContext(ThemeContext);
 
@@ -42,6 +62,13 @@ export default function BlogPostTemplate({ data, children }) {
         title={frontmatter.title}
         description={frontmatter.seoDescription}
         keywords={frontmatter.tags}
+        pathname={`/blog/${frontmatter.slug}`}
+        article={{
+          publishedTime: new Date(frontmatter.date).toISOString(),
+          modifiedTime: new Date(frontmatter.date).toISOString(),
+          author: 'Himanshu Chhabra',
+          tags: frontmatter.tags,
+        }}
       />
       <div className="blog-post">
         <MDXProvider components={components}>
@@ -53,8 +80,8 @@ export default function BlogPostTemplate({ data, children }) {
               </p>
               <span className="separator">&middot;</span>
               <div className="tags">
-                {frontmatter.tags.map((tag) => (
-                  <Tag text={tag} />
+                {frontmatter.tags.map((tag: string, index: number) => (
+                  <Tag key={index} text={tag} />
                 ))}
               </div>
             </div>

@@ -1,4 +1,4 @@
-export const DATE_OPTS = {
+export const DATE_OPTS: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: 'short',
   day: 'numeric',

@@ -69,4 +69,21 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <SEO />;
+export const Head: HeadFC = () => (
+  <SEO
+    title="Himanshu's Bin | Fullstack Developer & Web3 Enthusiast"
+    description="Hi, I'm Himanshu Chhabra - a fullstack developer at Razorpay sharing insights on JavaScript, Golang, computational geometry, and web3. Explore my technical blog with tutorials, rants, and industry experiences."
+    keywords={[
+      'Himanshu Chhabra',
+      'fullstack developer',
+      'JavaScript',
+      'Golang',
+      'React',
+      'web development',
+      'Razorpay',
+      'web3',
+      'computational geometry',
+      'technical blog',
+    ]}
+  />
+);
