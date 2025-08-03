@@ -27,7 +27,7 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme, isScrollLoader }) =
     <nav id="navbar" ref={ref}>
       <div className="inner">
         <div className="scroll-loader" ref={scrollBarRef}></div>
-        {/* <div className="backdrop"></div> */}
+
         <Logo />
         <div className="menu sec-font">
           <Link to="/about" className="link" activeClassName="active-link">
