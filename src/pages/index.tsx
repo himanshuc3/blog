@@ -15,7 +15,7 @@ import { SEO } from '../components/Seo';
 import useHoverIsolation from '../hooks/useHoverIsolation';
 
 const IndexPage: React.FC<PageProps> = () => {
-  const { darkTheme, toggleTheme } = useContext(ThemeContext);
+  const { darkTheme } = useContext(ThemeContext);
   // useHoverIsolation('html', '.post-heading');
   let postsData = usePostsData().sort(
     (p1: IPost, p2: IPost) => p2.date.getTime() - p1.date.getTime()

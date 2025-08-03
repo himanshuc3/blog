@@ -48,17 +48,9 @@ export const ThemeProvider: React.FC<Props> = ({ children }) => {
     // Sync state with what's already applied to DOM
     const isDarkMode = document.documentElement.classList.contains('dark');
 
-    // Only update state if it doesn't match current DOM state
-    if (darkTheme !== isDarkMode) {
-      setDarkTheme(isDarkMode);
-    }
+    setDarkTheme(isDarkMode);
 
-    // Ensure localStorage is in sync
-    const storedTheme = localStorage.getItem('theme');
-    const expectedTheme = isDarkMode ? 'dark' : 'light';
-    if (storedTheme !== expectedTheme) {
-      localStorage.setItem('theme', expectedTheme);
-    }
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, []);
 
   const toggleThemeHandler = () => {
