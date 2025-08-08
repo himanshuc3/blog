@@ -79,18 +79,22 @@
         }
 
         .dp {
-            position:relative;
+
+            .img-container{
+                position: relative;
+            }
 
             .badge-container{
                 position: absolute;
-                bottom: 70px;
+                bottom: 0;
                 right: 0;
+            }
+
+            img {
+                width: 200px;
             }
         }
 
-        .dp>img {
-            width: 200px;
-        }
     }
 
     .content{

@@ -45,8 +45,10 @@ const IndexPage: React.FC<PageProps> = () => {
             <Socials isDarkTheme={darkTheme} />
           </div>
           <div className="dp">
-            <AvailableBadge />
-            <img src={dp} alt="My profile picture" className="image" />
+            <div className="img-container">
+              <AvailableBadge />
+              <img src={dp} alt="My profile picture" className="image" />
+            </div>
           </div>
         </div>
         <div className="recent-posts section">
