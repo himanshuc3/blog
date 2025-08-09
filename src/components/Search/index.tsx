@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SearchOutlined } from '@ant-design/icons';
+import { FaSearch } from 'react-icons/fa';
 import './styles.scss';
 
 interface Props {
@@ -31,7 +31,7 @@ export default function Search({
 
   return (
     <div className={`search-container ${className || ''}`}>
-      <SearchOutlined style={{ color: '#777575', margin: '0 10px 0 0' }} />
+      <FaSearch style={{ color: '#777575', margin: '0 10px 0 0' }} />
       <input
         type="text"
         placeholder="Search posts by title..."

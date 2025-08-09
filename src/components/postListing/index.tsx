@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'gatsby';
 import './styles.scss';
 import { DATE_OPTS } from '../../utils/constants';
-import { StarOutlined, CloudUploadOutlined } from '@ant-design/icons';
+import { MdDriveFolderUpload } from 'react-icons/md';
+import { FaStar } from 'react-icons/fa6';
 import Status from './status';
 
 interface Props {
@@ -27,7 +28,7 @@ const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
     if (tags.includes('upcoming')) {
       return (
         <Status text="UPCOMING" className="warning">
-          <CloudUploadOutlined style={{ marginRight: '3px' }} />
+          <MdDriveFolderUpload style={{ marginRight: '3px' }} />
         </Status>
       );
     }
@@ -35,7 +36,7 @@ const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
     if (isNewArticle(date)) {
       return (
         <Status text="NEW" className="success">
-          <StarOutlined style={{ marginRight: '3px' }} />
+          <FaStar style={{ marginRight: '3px' }} />
         </Status>
       );
     }

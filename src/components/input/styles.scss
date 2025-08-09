@@ -1,28 +1,39 @@
 .input {
     display: flex;
-    height: 40px;
-    background: #EEEEEC;
-    border-radius: 20px;
-    width: 350px;
     align-items: center;
     overflow: hidden;
-    
-    border: 2px solid white;
+    height: 40px;
     position: relative;
+    font-weight: 600;
+    gap: 10px;
+
+    .input-text {
+        display: flex;
+        padding: 10px;
+        border-radius: 5px;
+        width:300px;
+        background: var(--variable-hoverBG);
+        align-items: center;
+        flex: 3;
+        gap: 10px;
+    }
+
+   
     
 
     input {
         outline: none;
         display: flex;
         flex: 1;
-        width: 10px;
         background: transparent;
         border: none;
-
         &:disabled {
             cursor: not-allowed;
         }
+        color: var(--variable-textSecondary);
+
     }
+
 
     button {
         margin: 0 10px;
@@ -30,8 +41,7 @@
         color: black;
         border: none;
         font-size: var(--size-xs);
-        font-weight: 500;
-        border-radius: 50%;
+        
         padding: 3px 9px;
         cursor: pointer;
 
@@ -45,23 +55,19 @@
     }
 
     .submit-btn {
-        color: var(--variable-textSecondary);
-        background: var(--variable-hoverBG);
-        border-radius: 20px;
+        color: var(--variable-backgroundColor);
+        background: var(--variable-textSecondary);
+        border-radius: 5px;
         padding: 3px 9px;
         cursor: pointer;
         margin-right:0;
         height: 100%;
         position:relative;
-        font-size: var(--size-xxs);
+        font-size: 16px;
         transition: all 0.2s ease-in-out;
-        border: 2px solid transparent;
     }
 
-    .submit-btn:hover{
-        padding: 0 10px;
-    
-    }
+   
 
 }
 

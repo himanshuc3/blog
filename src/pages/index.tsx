@@ -44,13 +44,6 @@ const IndexPage: React.FC<PageProps> = () => {
               </a>
               <br />
               <br />
-              {/* Sharing my 👾 two bits on <i>🕸️ web2 challenges</i>, <i>🔐 web3 journey</i> &{' '}
-              <i>🏡 daily infra rants</i>. Building scalable solutions{' '}
-              <a href="https://razorpay.com/" target="_blank">
-                <span className="working-at">@Razorpay</span>
-              </a> */}
-              {/* <br />
-              <br /> */}
               Want to have a chat? Feel free to reach out on{' '}
               <a
                 href="mailto:himichhabra14@gmail.com?subject=I am such a stan of you man!"

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
-import SearchOutlined from '@ant-design/icons/SearchOutlined';
+import { FaSearch } from 'react-icons/fa';
+
 import './styles.scss';
 import { noop } from '../../utils/helpers';
 
@@ -22,19 +23,21 @@ const Input: React.FC<Props> = ({
 }) => {
   return (
     <div className={`input ${disabled ? 'disabled' : ''} ${className}`}>
-      {icon || <SearchOutlined style={{ color: '#777575', margin: '0 10px' }} />}
-      <input
-        required
-        type="email"
-        placeholder={placeholder}
-        name="email"
-        disabled={disabled}
-        onChange={(e) => onChange(e.target.value)}
-        {...props}
-      />
-      <button disabled={disabled} className="submit-btn w-b">
+      <div className="input-text">
+        {icon || <FaSearch style={{ color: '#777575', margin: '0 10px' }} />}
+        <input
+          required
+          type="email"
+          placeholder={placeholder}
+          name="email"
+          disabled={disabled}
+          onChange={(e) => onChange(e.target.value)}
+          className="sec-font"
+          {...props}
+        />
+      </div>
+      <button disabled={disabled} className="submit-btn w-b sec-font">
         {buttonText || 'subscribe'}
-        {/* <ArrowRightOutlined style={{ width: '10px', marginLeft: '5px' }} /> */}
       </button>
     </div>
   );

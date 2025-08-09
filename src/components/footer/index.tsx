@@ -9,8 +9,8 @@ const Footer = ({ darkTheme }: { darkTheme: boolean }) => {
   return (
     <div id="footer">
       <div>
-        <Subscribe />
-        <Divider darkTheme={darkTheme} />
+        <Subscribe darkTheme={darkTheme} />
+        {/* <Divider darkTheme={darkTheme} /> */}
         <div className="bottom">
           <a
             href="https://drive.google.com/file/d/1FP0_-j3YMKtRxoqHqJlEh6jozooPkPlw/view?usp=sharing"

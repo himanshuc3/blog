@@ -1,31 +1,23 @@
 import React from 'react';
-import {
-  MailOutlined,
-  GithubOutlined,
-  LinkedinOutlined,
-  TwitterOutlined,
-  WifiOutlined,
-} from '@ant-design/icons';
+import { FaTwitter } from 'react-icons/fa';
+import { FaGithubAlt } from 'react-icons/fa';
+import { FaLinkedinIn } from 'react-icons/fa';
 
 import './styles.scss';
 import { SOCIAL_LINKS } from '../../utils/constants';
 
 const SOCIALS: { src: React.ComponentType; to: string }[] = [
   {
-    src: TwitterOutlined,
+    src: FaTwitter,
     to: SOCIAL_LINKS.X,
   },
   {
-    src: GithubOutlined,
+    src: FaGithubAlt,
     to: SOCIAL_LINKS.GITHUB,
   },
   {
-    src: LinkedinOutlined,
+    src: FaLinkedinIn,
     to: SOCIAL_LINKS.LINKEDIN,
-  },
-  {
-    src: MailOutlined,
-    to: 'mailto:himanshu_chhabra@outlook.com?subject=I am such a stan of you man!',
   },
 ];
 

@@ -1,34 +1,44 @@
 .subscribe {
-    width: 100%;
-    margin: auto;
+  width: 100%;
+  margin: auto;
+  padding: 30px 60px;
+  
+
+  & > div {
     border-radius: 10px;
-    padding: 40px;
-    background: var(--variable-hoverBG);
+    padding: 10px 20px;
+    border: 2px solid var(--variable-hoverBG);
+  }
 
-    .heading {
-        font-size: var(--size-s);
-        margin-top: 0 !important;
-        font-weight: 500;
-        position: relative;
+  h1 {
+    font-size: 24px;
+  }
 
-        
-    }
+  .subscribe-subtext {
+    font-size: 14px;
+    margin-top: 20px;
+    position: relative;
+    font-weight: 500;
+    top: -10px;
+    color: var(--variable-subtext);
+  }
 
-    .desc {
-        font-size: var(--size-xs);
-        font-weight: 400;
-        position: relative;
-        top: -20px;
-    }
+  form {
+    width: 100%;
+  }
 
-    del {
-        color: var(--variable-textSecondary);
-    }
+  .desc {
+    font-size: var(--size-xs);
+    font-weight: 400;
+    position: relative;
+    top: -20px;
+  }
 
-    .email-input {
-        margin-top: 20px;
-    }
+  del {
+    color: var(--variable-textSecondary);
+  }
 
-
+  .email-input {
+    margin-top: 20px;
+  }
 }
-
