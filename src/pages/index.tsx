@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
+import { Link } from 'gatsby';
 
 // TODO: Replace with absolute paths
 import Socials from '../components/socials';
@@ -25,7 +26,7 @@ const IndexPage: React.FC<PageProps> = () => {
       <div className="content">
         <div className="poster section">
           <div className="text">
-            <h1 className="w-sm mb-0 italic">
+            <h1 className="w-sm mb-0">
               <span className="emoji-wave">👋</span> Hi, I’m <span>Himanshu</span>
               <br />
               <span className="title sec-font">
@@ -33,16 +34,33 @@ const IndexPage: React.FC<PageProps> = () => {
               </span>
             </h1>
             <p className="sec-font mt-0">
-              Sharing my 👾 two bits on <i>🕸️ web2 challenges</i>, <i>🔐 web3 journey</i> &{' '}
-              <i>🏡 daily infra rants</i>. Building scalable solutions{' '}
+              Welcome to the clumsily built, un-optimized blog of a software engineer (I'm
+              learning).
+              <br />
+              <br />
+              Based out of 🧭 New Delhi &mdash; currently working{' '}
               <a href="https://razorpay.com/" target="_blank">
                 <span className="working-at">@Razorpay</span>
               </a>
               <br />
               <br />
-              Interested in having a chat? Feel free to reach out on my socials.
+              {/* Sharing my 👾 two bits on <i>🕸️ web2 challenges</i>, <i>🔐 web3 journey</i> &{' '}
+              <i>🏡 daily infra rants</i>. Building scalable solutions{' '}
+              <a href="https://razorpay.com/" target="_blank">
+                <span className="working-at">@Razorpay</span>
+              </a> */}
+              {/* <br />
+              <br /> */}
+              Want to have a chat? Feel free to reach out on{' '}
+              <a
+                href="mailto:himichhabra14@gmail.com?subject=I am such a stan of you man!"
+                className="chunky-underline"
+              >
+                himichhabra14@gmail.com
+              </a>
+              .
             </p>
-            <Socials isDarkTheme={darkTheme} />
+            {/* <Socials isDarkTheme={darkTheme} /> */}
           </div>
           <div className="dp">
             <div className="img-container">
@@ -53,10 +71,18 @@ const IndexPage: React.FC<PageProps> = () => {
         </div>
         <div className="recent-posts section">
           <div className="heading">
-            <h1 className="sec-font">Recent Articles</h1>
+            <h1>
+              Recent Articles{' '}
+              <Link className="sec-font articles-all-text" to="/blog">
+                See All
+              </Link>
+            </h1>
             <p className="heading_desc sec-font">
-              Presenting you with articles fresh out of the oven, decide for yourself if they
-              satiate your reading appetite or if I overcooked (most likely).
+              Wish to{' '}
+              <a href="/rss.xml" className="chunky-underline" target="_blank">
+                subscribe to my digest
+              </a>{' '}
+              of curiosities underlined with foolishness?
             </p>
           </div>
 

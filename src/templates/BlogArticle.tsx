@@ -44,11 +44,6 @@ const components = {
   InfoQuote: (props: any) => {
     return <InfoQuote {...props} />;
   },
-
-  // h2: (props) => {
-  //   return <h1 style={{ color: 'tomato', backgroundColor: 'red' }} {...props} />;
-  // },
-  // Add other custom MDX element overrides here
 };
 
 export default function BlogPostTemplate({ data, children }: BlogPostTemplateProps) {
@@ -72,7 +67,7 @@ export default function BlogPostTemplate({ data, children }: BlogPostTemplatePro
       <div className="blog-post">
         <MDXProvider components={components}>
           <div className="heading">
-            <h1 className="sec-font">{frontmatter.title}</h1>
+            <h1>{frontmatter.title}</h1>
             <div className="meta">
               <p className="sec-font">
                 Published on {new Date(frontmatter.date).toLocaleDateString('en-US', DATE_OPTS)}

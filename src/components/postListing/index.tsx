@@ -45,7 +45,7 @@ const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
   return (
     <Link className="post-heading" data-id={id} data-unique={id} to={`/blog/${slug}`}>
       <div className=" meta left" data-id={id}>
-        <span className="date" data-id={id}>
+        <span className="date sec-font" data-id={id}>
           {date.toLocaleDateString('en-US', DATE_OPTS)}
         </span>
       </div>

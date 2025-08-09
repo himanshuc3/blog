@@ -186,12 +186,13 @@ const config = {
         web: [
           {
             name: 'Primary Font',
-            file: 'https://fonts.googleapis.com/css2?family=Sanchez:ital@0;1&display=swap',
+            file: 'https://fonts.googleapis.com/css2?family=Mozilla+Headline:wght@200..700&display=swap',
           },
           {
             name: 'Secondary Font',
             file: 'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap',
           },
+          
         ],
       },
     },

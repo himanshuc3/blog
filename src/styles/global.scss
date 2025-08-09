@@ -26,18 +26,16 @@ body {
 
 html {
   box-sizing: border-box;
-  width:100vw;
+  width: 100vw;
 }
 
-.mt-0{
+.mt-0 {
   margin-top: 0;
 }
 
-.mb-0{
+.mb-0 {
   margin-bottom: 0;
 }
-
-
 
 *,
 *::before,
@@ -48,7 +46,6 @@ html {
 .chunky-underline {
   // @include chunky-underline(rgb(247, 224, 24, 0.7), false, 25%, 10%);
   @include chunky-underline(var(--variable-underline), false, 25%, 10%);
-  
 }
 
 a {
@@ -90,50 +87,6 @@ a {
 // PrismJS syntax highlighting
 ////////////////////////////////////////////////////////////
 
-// .gatsby-highlight-code-line {
-//   background-color: #feb;
-//   display: block;
-//   margin-right: -1em;
-//   margin-left: -1em;
-//   padding-right: 1em;
-//   padding-left: 0.75em;
-//   border-left: 0.25em solid #f99;
-// }
-
-// code[class*="syntax-"]{
-//   text-shadow: none !important;
-// }
-
-/**
- * Add back the container background-color, border-radius, padding, margin
- * and overflow that we removed from <pre>.
- */
-//  .gatsby-highlight {
-//   background-color: #fdf6e3;
-//   border-radius: 0.3em;
-//   margin: 0.5em 0;
-//   padding: 0.5em 1em;
-//   overflow: auto;
-// }
-
-/**
- * Remove the default PrismJS theme background-color, border-radius, margin,
- * padding and overflow.
- * 1. Make the element just wide enough to fit its content.
- * 2. Always fill the visible space in .gatsby-highlight.
- * 3. Adjust the position of the line numbers
- */
-// .gatsby-highlight pre[class*="language-"] {
-//   background-color: transparent;
-//   margin: 0;
-//   padding: 0;
-//   overflow: initial;
-//   float: left; /* 1 */
-//   min-width: 100%; /* 2 */
-// }
-
-// .deckgo-highlight-code-carbon{
-  .token {
-    font-size: 18px;
-  }
-// }
+.token {
+  font-size: 18px;
+}
