@@ -148,7 +148,7 @@ export default AboutPage;
 
 export const Head: HeadFC = () => (
   <SEO
-    title="About Himanshu."
+    title="About Himanshu"
     description="My name is Himanshu Chhabra and I’m speechless to meet you virtually. If you’re a fidgety individual, eternally confused about life and constantly making non optimal life decisions, you’ve found yourself a duplicate. Let’s connect on insta or x."
   />
 );
