@@ -22,7 +22,9 @@ const Subscribe: React.FC<{ darkTheme: boolean }> = ({ darkTheme }) => {
             buttonText="Sign me up ✌️"
           />
         </form>
-        <p className="sec-font subscribe-subtext">Everything code. Unsubscribe anytime.</p>
+        <p className="sec-font subscribe-subtext">
+          Curated experiences & rants. Unsubscribe anytime.
+        </p>
       </div>
     </div>
   );
