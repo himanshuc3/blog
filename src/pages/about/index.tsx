@@ -4,12 +4,14 @@ import { RiGatsbyFill } from 'react-icons/ri';
 import { FaReact } from 'react-icons/fa';
 import { FaFigma } from 'react-icons/fa';
 import { SiNetlify } from 'react-icons/si';
+import { FaGolang } from 'react-icons/fa6';
+import { TbBrandValorant } from 'react-icons/tb';
+import { PiBooksThin } from 'react-icons/pi';
 
 import './styles.scss';
 import dp from '../../images/dp.webp';
 import { SEO } from '../../components/Seo';
 import Socials from '../../components/socials';
-import { SOCIAL_LINKS } from '../../utils/constants';
 import { ThemeContext } from '../../hooks/themeContext';
 import BaseComponent from '../../containers/base';
 import ProjectCard from '../../components/projectCard';
@@ -162,7 +164,37 @@ const AboutPage: React.FC<PageProps> = () => {
           </p>
         </div>
         <div className="actively">
-          <p>The code is available on</p>
+          <div>
+            <span className="icon">
+              <FaGolang />
+            </span>
+            <p>Detecting errors in golang and upgrading to web3</p>
+          </div>
+          <div>
+            <p>
+              Countless hours wasted{' '}
+              <a
+                className="chunky-underline"
+                target="_blank"
+                href="https://tracker.gg/valorant/profile/riot/dumbriyani%231371/overview?platform=pc&playlist=competitive&season=ac12e9b3-47e6-9599-8fa1-0bb473e5efc7"
+              >
+                queuing and wiffing
+              </a>{' '}
+              in valorant
+            </p>
+            <span className="icon">
+              <TbBrandValorant />
+            </span>
+          </div>
+          <div>
+            <span className="icon">
+              <PiBooksThin />
+            </span>
+            <p>
+              I love reading books but it's hardly reciprocated &mdash; blaming it on my
+              self-diagnosed ADHD{' '}
+            </p>
+          </div>
         </div>
       </div>
       <div className="section projects">
