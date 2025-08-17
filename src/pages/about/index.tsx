@@ -1,6 +1,9 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { StaticImage } from 'gatsby-plugin-image';
+import { BiLogoNetlify } from 'react-icons/bi';
+import { RiGatsbyFill } from 'react-icons/ri';
+import { FaReact } from 'react-icons/fa';
+import { FaFigma } from 'react-icons/fa';
 
 import './styles.scss';
 import dp from '../../images/dp.webp';
@@ -10,7 +13,6 @@ import { SOCIAL_LINKS } from '../../utils/constants';
 import { ThemeContext } from '../../hooks/themeContext';
 import BaseComponent from '../../containers/base';
 import ProjectCard from '../../components/projectCard';
-import AvailableBadge from '../../components/AvailableBadge';
 
 const projects = [
   {
@@ -57,9 +59,22 @@ const projects = [
 const AboutPage: React.FC<PageProps> = () => {
   const { darkTheme } = React.useContext(ThemeContext);
 
+  function getCurrentTime() {
+    const formatter = new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      weekday: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false, // ensures 24-hour format
+    });
+    const formattedTime = formatter.format(new Date());
+    // Replace the comma with ", New Delhi" and format it properly
+    return formattedTime.replace(',', '') + ', Bangalore';
+  }
+
   return (
     <BaseComponent className="about-wrapper">
-      <div className="poster">
+      {/* <div className="poster">
         <div className="left">
           <h1>
             <span className="emoji-wave">👋</span> Who am I
@@ -103,6 +118,48 @@ const AboutPage: React.FC<PageProps> = () => {
         <div className="right dp">
           <AvailableBadge />
           <img src={dp} alt="My profile picture" className="image" />
+        </div>
+      </div> */}
+      <div className="about-section sec-font">
+        <div className="map">
+          <p className="time">{getCurrentTime()} 🇮🇳 </p>
+          <p>
+            Currently working as a software engineer at Razorpay.
+            <br />
+            <br />
+            Want to colab on something cool? React out on{' '}
+            <a
+              href="mailto:himichhabra14@gmail.com?subject=I am such a stan of you man!"
+              className="chunky-underline"
+            >
+              himichhabra14@gmail.com
+            </a>
+          </p>
+        </div>
+        <div className="photo">
+          <div className="profile-photo">
+            <img src={dp} alt="My profile picture" className="image" />
+          </div>
+        </div>
+        <div className="chess">
+          <p>I have an affinity to blunders in chess.</p>
+          <a href="_todo" className="chunky-underline">
+            Challenge me?
+          </a>
+        </div>
+        {/* <div className="cars">I'm a car enthusiast</div> */}
+        <div className="socials-box">
+          <Socials isDarkTheme={darkTheme} />
+        </div>
+        {/* Blog powered by netlify and gatsby */}
+        {/*  */}
+        <div className="powered-by">
+          <p>The website is running all thanks to:</p>
+          <p>
+            {' '}
+            <RiGatsbyFill /> <BiLogoNetlify />
+            <FaReact /> <FaFigma />{' '}
+          </p>
         </div>
       </div>
       <div className="section">

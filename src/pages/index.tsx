@@ -53,7 +53,6 @@ const IndexPage: React.FC<PageProps> = () => {
               </a>
               .
             </p>
-            {/* <Socials isDarkTheme={darkTheme} /> */}
           </div>
           <div className="dp">
             <div className="img-container">
