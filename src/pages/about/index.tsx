@@ -10,7 +10,7 @@ import { SOCIAL_LINKS } from '../../utils/constants';
 import { ThemeContext } from '../../hooks/themeContext';
 import BaseComponent from '../../containers/base';
 import ProjectCard from '../../components/projectCard';
-import AvailableBadge from '../../components/AvailableBadge';
+// import AvailableBadge from '../../components/AvailableBadge';
 
 const projects = [
   {
@@ -101,7 +101,7 @@ const AboutPage: React.FC<PageProps> = () => {
           <Socials isDarkTheme={darkTheme} />
         </div>
         <div className="right dp">
-          <AvailableBadge />
+          {/* <AvailableBadge /> */}
           <img src={dp} alt="My profile picture" className="image" />
         </div>
       </div>
