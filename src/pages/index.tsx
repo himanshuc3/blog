@@ -56,7 +56,7 @@ const IndexPage: React.FC<PageProps> = () => {
           </div>
           <div className="dp">
             <div className="img-container">
-              <AvailableBadge />
+              {/* <AvailableBadge /> */}
               <img src={dp} alt="My profile picture" className="image" />
             </div>
           </div>

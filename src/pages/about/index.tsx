@@ -1,9 +1,9 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { BiLogoNetlify } from 'react-icons/bi';
 import { RiGatsbyFill } from 'react-icons/ri';
 import { FaReact } from 'react-icons/fa';
 import { FaFigma } from 'react-icons/fa';
+import { SiNetlify } from 'react-icons/si';
 
 import './styles.scss';
 import dp from '../../images/dp.webp';
@@ -69,7 +69,7 @@ const AboutPage: React.FC<PageProps> = () => {
     });
     const formattedTime = formatter.format(new Date());
     // Replace the comma with ", New Delhi" and format it properly
-    return formattedTime.replace(',', '') + ', Bangalore';
+    return formattedTime.replace(',', '') + ', India';
   }
 
   return (
@@ -154,31 +154,16 @@ const AboutPage: React.FC<PageProps> = () => {
         {/* Blog powered by netlify and gatsby */}
         {/*  */}
         <div className="powered-by">
-          <p>The website is running all thanks to:</p>
+          <p>The blog is built on</p>
           <p>
             {' '}
-            <RiGatsbyFill /> <BiLogoNetlify />
+            <RiGatsbyFill /> <SiNetlify />
             <FaReact /> <FaFigma />{' '}
           </p>
         </div>
-      </div>
-      <div className="section">
-        <h1>Setup configuration</h1>
-        <p className="description sec-font">
-          This blog is built on{' '}
-          <a href="gatsbyjs.com" target="_blank" className="chunky-underline">
-            Gatsby.js
-          </a>{' '}
-          and hosted on{' '}
-          <a href="https://netlify.com" target="_blank" className="chunky-underline">
-            Netlify
-          </a>{' '}
-          and skeleton designed on{' '}
-          <a href="www.figma.com" className="chunky-underline">
-            figma
-          </a>
-          .
-        </p>
+        <div className="actively">
+          <p>The code is available on</p>
+        </div>
       </div>
       <div className="section projects">
         <h1>
