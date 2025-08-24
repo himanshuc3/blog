@@ -43,13 +43,12 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme, isScrollLoader }) =
             sunColor="white"
             moonColor="black"
             onChange={onToggleTheme}
-            size={isMobile ? 30 : 20}
           />
           <a className="rss-icon" href="/rss.xml" target="_blank">
-            <MdRssFeed size={isMobile ? 34 : 24} color={darkTheme ? 'white' : 'black'} />
+            <MdRssFeed size={24} color={darkTheme ? 'white' : 'black'} />
           </a>
           <a className="rss-icon" href="https://github.com/himanshuc3/blog" target="_blank">
-            <FaGithubAlt size={isMobile ? 30 : 20} color={darkTheme ? 'white' : 'black'} />
+            <FaGithubAlt size={20} color={darkTheme ? 'white' : 'black'} />
           </a>
         </div>
       </div>

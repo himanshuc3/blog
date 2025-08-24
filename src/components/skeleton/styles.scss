@@ -1,64 +1,63 @@
 .skeleton {
-    // background: url('../../images/pattern2.svg') no-repeat;
-    // background-size: cover;
-    &>div:not(#footer) {
-        width: 750px;
-        margin: auto;
-    }
+  // background: url('../../images/pattern2.svg') no-repeat;
+  // background-size: cover;
+  & > div:not(#footer) {
+    width: 750px;
+    margin: auto;
+  }
 }
 
 @media only screen and (max-width: 900px) {
-    // TODO: Once deployed
+  #navbar .inner,
+  #footer > div,
+  .skeleton > div:not(#navbar):not(#footer) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 
-    #navbar .inner,
-    #footer>div,
-    .skeleton>div:not(#navbar):not(#footer) {
-        padding-left: 20px;
-        padding-right: 20px;
+  .logo {
+    width: 200px;
+  }
+
+  .logo #alternate_logo_img {
+    justify-content: flex-start;
+  }
+  .logo #alternate_logo_img img {
+    width: 30px;
+    height: auto;
+  }
+
+  .blog-post-wrapper {
+    .content p {
+      font-size: 22px !important;
     }
-
-    #navbar {
-        .menu .link {
-            font-size: 36px;
-        }
-
-    }
-
-    .logo {
-        width: 70px;
-        height: 70px;
-    }
-
-    .logo #alternate_logo_img img {
-        width: 100%;
-    }
-
-    .blog-post-wrapper {
-
-
-
-        .content p {
-            font-size: 22px !important;
-        }
-    }
+  }
 }
 
 @media only screen and (max-width: 768px) {
-
-
-
-    #navbar {
-        width: 100%;
-        .inner{
-            width: 100%;
-            margin: 0 auto;
-
-        }
-        .menu .link {
-            font-size: 16px;
-        }
+  #navbar {
+    width: 100%;
+    .inner {
+      width: 100%;
+      margin: 0 auto;
     }
-    .skeleton>div:not(#navbar):not(#footer) {
-        width: 100%;
+    .menu .link {
+      font-size: 16px;
     }
+  }
+  .skeleton > div:not(#navbar):not(#footer) {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  #navbar .inner {
+
+    .logo-container, .header-actions {
+      width: 100px;
+    }
+    .header-actions .rss-icon{
+      display:none;
+    }
+  }
 }

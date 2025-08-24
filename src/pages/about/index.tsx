@@ -1,16 +1,20 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { StaticImage } from 'gatsby-plugin-image';
+import { RiGatsbyFill } from 'react-icons/ri';
+import { FaReact } from 'react-icons/fa';
+import { FaFigma } from 'react-icons/fa';
+import { SiNetlify } from 'react-icons/si';
+import { FaGolang } from 'react-icons/fa6';
+import { TbBrandValorant } from 'react-icons/tb';
+import { PiBooksThin } from 'react-icons/pi';
 
 import './styles.scss';
 import dp from '../../images/dp.webp';
 import { SEO } from '../../components/Seo';
 import Socials from '../../components/socials';
-import { SOCIAL_LINKS } from '../../utils/constants';
 import { ThemeContext } from '../../hooks/themeContext';
 import BaseComponent from '../../containers/base';
 import ProjectCard from '../../components/projectCard';
-// import AvailableBadge from '../../components/AvailableBadge';
 
 const projects = [
   {
@@ -57,71 +61,92 @@ const projects = [
 const AboutPage: React.FC<PageProps> = () => {
   const { darkTheme } = React.useContext(ThemeContext);
 
+  function getCurrentTime() {
+    const formatter = new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      weekday: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false, // ensures 24-hour format
+    });
+    const formattedTime = formatter.format(new Date());
+    // Replace the comma with ", New Delhi" and format it properly
+    return formattedTime.replace(',', '') + ', India';
+  }
+
   return (
     <BaseComponent className="about-wrapper">
-      <div className="poster">
-        <div className="left">
-          <h1>
-            <span className="emoji-wave">👋</span> Who am I
-          </h1>
-          <p className="sec-font">
-            My name is <i>Himanshu Chhabra</i> and I’m speechless <br />
-            to meet you virtually. <br />
-            <br />
-            If you’re a fidgety individual, eternally confused about <br /> life and constantly
-            making non optimal life decisions, <br /> you’ve found yourself a duplicate. Let’s
-            connect on{' '}
-            <a href={SOCIAL_LINKS.X} className="chunky-underline" target="_blank">
-              x
-            </a>
-            . <br /> <br />
-            I (usually) write about my learnings and frustations <br /> derived from frontend
-            experiences. I also temporarily <br /> plan to write about{' '}
-            <a className="chunky-underline" href={'https://nodejs.org/en'} target="_blank">
-              node.js
-            </a>
-            ,{' '}
-            <a className="chunky-underline" href={'https://go.dev/'} target="_blank">
-              golang
-            </a>{' '}
-            and everything in <br /> between.
-            <br /> <br />
-            When annoyed with my state of living, my favorite <br />
-            timepass is blaming the environment around <br />
-            me which includes location’s aqi, roads among <br /> potholes, lack of sidewalks and
-            general infrastructure of the city 🇮🇳
+      <div className="about-section sec-font">
+        <div className="map">
+          <p className="time">{getCurrentTime()} 🇮🇳 </p>
+          <p>
+            Currently working as a software engineer at Razorpay.
             <br />
             <br />
-            Currently putting my day efforts{' '}
-            <a href="https://razorpay.com" target="_blank" className="company">
-              @Razorpay
+            Want to colab on something cool? React out on{' '}
+            <a
+              href="mailto:himichhabra14@gmail.com?subject=I am such a stan of you man!"
+              className="chunky-underline"
+            >
+              himichhabra14@gmail.com
             </a>
-            .
           </p>
+        </div>
+        <div className="photo">
+          <div className="profile-photo">
+            <img src={dp} alt="My profile picture" className="image" />
+          </div>
+        </div>
+        <div className="chess">
+          <p>I have an affinity to blunders in chess.</p>
+          <a href="_todo" className="chunky-underline">
+            Challenge me?
+          </a>
+        </div>
+        <div className="socials-box">
           <Socials isDarkTheme={darkTheme} />
         </div>
-        <div className="right dp">
-          {/* <AvailableBadge /> */}
-          <img src={dp} alt="My profile picture" className="image" />
+        <div className="powered-by">
+          <p>The blog is built on</p>
+          <p>
+            {' '}
+            <RiGatsbyFill /> <SiNetlify />
+            <FaReact /> <FaFigma />{' '}
+          </p>
         </div>
-      </div>
-      <div className="section">
-        <h1>Setup configuration</h1>
-        <p className="description sec-font">
-          This blog is built on{' '}
-          <a href="gatsbyjs.com" target="_blank" className="chunky-underline">
-            Gatsby.js
-          </a>{' '}
-          and hosted on{' '}
-          <a href="https://netlify.com" target="_blank" className="chunky-underline">
-            Netlify
-          </a>{' '}
-          and skeleton designed on{' '}
-          <a href="www.figma.com" className="chunky-underline">
-            figma
-          </a>
-          .
-        </p>
+        <div className="actively">
+          <div>
+            <span className="icon">
+              <FaGolang />
+            </span>
+            <p>Detecting errors in golang and upgrading to web3</p>
+          </div>
+          <div>
+            <p>
+              Countless hours wasted{' '}
+              <a
+                className="chunky-underline"
+                target="_blank"
+                href="https://tracker.gg/valorant/profile/riot/dumbriyani%231371/overview?platform=pc&playlist=competitive&season=ac12e9b3-47e6-9599-8fa1-0bb473e5efc7"
+              >
+                queuing and wiffing
+              </a>{' '}
+              in valorant
+            </p>
+            <span className="icon">
+              <TbBrandValorant />
+            </span>
+          </div>
+          <div>
+            <span className="icon">
+              <PiBooksThin />
+            </span>
+            <p>
+              I love reading books but it's hardly reciprocated &mdash; blaming it on my
+              self-diagnosed ADHD{' '}
+            </p>
+          </div>
+        </div>
       </div>
       <div className="section projects">
         <h1>

@@ -6,6 +6,153 @@
   margin: auto;
   min-height: 100vh;
 
+  .about-section {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 10px;
+    grid-template-areas:
+      'map map map map chess chess photo photo'
+      'map map map map socials-box socials-box photo photo'
+      'powered-by powered-by powered-by powered-by actively actively actively actively'
+      'empty empty empty empty actively actively actively actively';
+    margin-top: 100px !important;
+
+    p,
+    span,
+    a,
+    h1,
+    div {
+      font-weight: 600;
+    }
+
+    .map,
+    .chess,
+    .powered-by,
+    .actively {
+      background: var(--variable-hoverBG);
+      border-radius: 5px;
+      padding: 15px;
+    }
+    .powered-by {
+      padding: 15px 0 0 0;
+      grid-area: powered-by;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      p:first-child {
+        margin: 0;
+      }
+      p:nth-child(2) {
+        display: inline-flex;
+        gap: 30px;
+        font-size: 30px;
+        border: 1px solid var(--variable-textSecondary);
+        width: 100%;
+        height: 10px;
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        margin-top: 20px;
+        border-radius: 5px;
+        padding: 10px 0;
+        margin-bottom: 0;
+      }
+      p {
+        display: inline-flex;
+      }
+    }
+
+    .actively {
+      background-color: var(--variable-backgroundColor);
+      grid-area: actively;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      & > div {
+        background-color: var(--variable-hoverBG);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+      }
+      p {
+        margin: 0;
+        display: inline;
+        font-size: 14px;
+      }
+      & > div:not(:first-child) {
+        margin-top: 6px;
+      }
+      .icon {
+        font-size: 30px;
+        color: var(--variable-text);
+      }
+    }
+
+    .map {
+      grid-area: map;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .time {
+        font-family: 'Space Mono', monospace;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+
+    .photo {
+      grid-area: photo;
+      .profile-photo {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 90%;
+        }
+
+        .badge-container {
+          z-index: 100;
+          position: absolute;
+          top: 300px;
+          right: 0;
+        }
+      }
+    }
+
+    .chess {
+      grid-area: chess;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cars {
+      grid-area: cars;
+    }
+
+    .socials-box {
+      grid-area: socials-box;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .socials {
+        gap: 30px;
+      }
+    }
+  }
+
   .poster {
     display: flex;
     margin: auto;
@@ -47,12 +194,6 @@
       font-size: var(--size-s);
       font-weight: 500;
       @extend .sec-font;
-    }
-
-    & > .description {
-      font-size: var(--size-xs);
-      font-weight: 400;
-      line-height: 28px;
     }
   }
 
@@ -115,5 +256,60 @@
 
   .emoji-speaker {
     cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .about-wrapper {
+    .about-section {
+      grid-template-areas:
+        'map map map map photo photo photo photo'
+        'map map map map photo photo photo photo'
+        'powered-by powered-by powered-by powered-by actively actively actively actively'
+        'socials-box socials-box socials-box socials-box actively actively actively actively';
+
+      .chess {
+        display: none;
+      }
+
+      .powered-by {
+        align-self: start;
+      }
+
+      .photo .profile-photo img {
+        width: 70%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .about-wrapper {
+    .about-section {
+      grid-template-areas:
+        'map map map map map map map map'
+        'photo photo photo photo photo photo photo photo'
+        'actively actively actively actively actively actively actively actively'
+        'socials-box socials-box socials-box socials-box socials-box socials-box socials-box socials-box';
+
+      .photo .profile-photo img {
+        width: 60%;
+      }
+      .powered-by {
+        display: none;
+      }
+
+      .map {
+        border: 1px solid var(--variable-hoverBG);
+        background: transparent;
+        text-align: center;
+      }
+      .socials-box .socials {
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        height: 50px;
+      }
+    }
   }
 }

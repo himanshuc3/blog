@@ -63,9 +63,15 @@ h6 {
   color: var(--variable-text);
 }
 
-p,
-span,
-a {
+/* Default text colors - use classes or component-specific rules to override */
+body {
+  color: var(--variable-textSecondary);
+}
+
+/* Only apply to elements without explicit component styling */
+p:not([class]),
+span:not([class]),
+a:not([class]) {
   color: var(--variable-textSecondary);
 }
 
