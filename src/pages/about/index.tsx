@@ -118,7 +118,7 @@ const AboutPage: React.FC<PageProps> = () => {
           <Socials isDarkTheme={darkTheme} />
         </div>
         <div className="right dp">
-          <AvailableBadge />
+          {/* <AvailableBadge /> */}
           <img src={dp} alt="My profile picture" className="image" />
         </div>
       </div> */}
