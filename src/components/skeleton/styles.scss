@@ -8,7 +8,6 @@
 }
 
 @media only screen and (max-width: 900px) {
-    // TODO: Once deployed
 
     #navbar .inner,
     #footer>div,
@@ -17,26 +16,20 @@
         padding-right: 20px;
     }
 
-    #navbar {
-        .menu .link {
-            font-size: 36px;
-        }
-
-    }
 
     .logo {
-        width: 70px;
-        height: 70px;
+        width: 200px;
     }
 
+    .logo #alternate_logo_img {
+        justify-content: flex-start;
+    }
     .logo #alternate_logo_img img {
-        width: 100%;
+        width: 30px;
+        height: auto;
     }
 
     .blog-post-wrapper {
-
-
-
         .content p {
             font-size: 22px !important;
         }
