@@ -76,52 +76,6 @@ const AboutPage: React.FC<PageProps> = () => {
 
   return (
     <BaseComponent className="about-wrapper">
-      {/* <div className="poster">
-        <div className="left">
-          <h1>
-            <span className="emoji-wave">👋</span> Who am I
-          </h1>
-          <p className="sec-font">
-            My name is <i>Himanshu Chhabra</i> and I’m speechless <br />
-            to meet you virtually. <br />
-            <br />
-            If you’re a fidgety individual, eternally confused about <br /> life and constantly
-            making non optimal life decisions, <br /> you’ve found yourself a duplicate. Let’s
-            connect on{' '}
-            <a href={SOCIAL_LINKS.X} className="chunky-underline" target="_blank">
-              x
-            </a>
-            . <br /> <br />
-            I (usually) write about my learnings and frustations <br /> derived from frontend
-            experiences. I also temporarily <br /> plan to write about{' '}
-            <a className="chunky-underline" href={'https://nodejs.org/en'} target="_blank">
-              node.js
-            </a>
-            ,{' '}
-            <a className="chunky-underline" href={'https://go.dev/'} target="_blank">
-              golang
-            </a>{' '}
-            and everything in <br /> between.
-            <br /> <br />
-            When annoyed with my state of living, my favorite <br />
-            timepass is blaming the environment around <br />
-            me which includes location’s aqi, roads among <br /> potholes, lack of sidewalks and
-            general infrastructure of the city 🇮🇳
-            <br />
-            <br />
-            Currently putting my day efforts{' '}
-            <a href="https://razorpay.com" target="_blank" className="company">
-              @Razorpay
-            </a>
-            .
-          </p>
-          <Socials isDarkTheme={darkTheme} />
-        </div>
-        <div className="right dp">
-          {/* <AvailableBadge /> */}
-          <img src={dp} alt="My profile picture" className="image" />
-        </div>
-      </div> */}
       <div className="about-section sec-font">
         <div className="map">
           <p className="time">{getCurrentTime()} 🇮🇳 </p>
@@ -149,12 +103,9 @@ const AboutPage: React.FC<PageProps> = () => {
             Challenge me?
           </a>
         </div>
-        {/* <div className="cars">I'm a car enthusiast</div> */}
         <div className="socials-box">
           <Socials isDarkTheme={darkTheme} />
         </div>
-        {/* Blog powered by netlify and gatsby */}
-        {/*  */}
         <div className="powered-by">
           <p>The blog is built on</p>
           <p>
