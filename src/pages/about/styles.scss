@@ -267,7 +267,7 @@
         'map map map map photo photo photo photo'
         'powered-by powered-by powered-by powered-by actively actively actively actively'
         'socials-box socials-box socials-box socials-box actively actively actively actively';
-      
+
       .chess {
         display: none;
       }
@@ -278,6 +278,37 @@
 
       .photo .profile-photo img {
         width: 70%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .about-wrapper {
+    .about-section {
+      grid-template-areas:
+        'map map map map map map map map'
+        'photo photo photo photo photo photo photo photo'
+        'actively actively actively actively actively actively actively actively'
+        'socials-box socials-box socials-box socials-box socials-box socials-box socials-box socials-box';
+
+      .photo .profile-photo img {
+        width: 60%;
+      }
+      .powered-by {
+        display: none;
+      }
+
+      .map {
+        border: 1px solid var(--variable-hoverBG);
+        background: transparent;
+        text-align: center;
+      }
+      .socials-box .socials {
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        height: 50px;
       }
     }
   }
