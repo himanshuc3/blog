@@ -29,9 +29,11 @@ const IndexPage: React.FC<PageProps> = () => {
             <h1 className="w-sm mb-0">
               <span className="emoji-wave">👋</span> Hi, I’m <span>Himanshu</span>
               <br />
-              <span className="title sec-font">
+              <br />
+              <br />
+              {/* <span className="title sec-font">
                 FULLSTACK DEVELOPER &middot; WEB3 ENTHUSIAST &middot;{' '}
-              </span>
+              </span> */}
             </h1>
             <p className="sec-font mt-0">
               Welcome to the clumsily built, un-optimized blog of a software engineer (I'm
