@@ -72,8 +72,6 @@
       justify-content: center;
       padding: 0;
 
-
-
       & > div {
         background-color: var(--variable-hoverBG);
         border-radius: 5px;
@@ -113,6 +111,9 @@
       grid-area: photo;
       .profile-photo {
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         img {
           width: 90%;
@@ -255,5 +256,29 @@
 
   .emoji-speaker {
     cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .about-wrapper {
+    .about-section {
+      grid-template-areas:
+        'map map map map photo photo photo photo'
+        'map map map map photo photo photo photo'
+        'powered-by powered-by powered-by powered-by actively actively actively actively'
+        'socials-box socials-box socials-box socials-box actively actively actively actively';
+      
+      .chess {
+        display: none;
+      }
+
+      .powered-by {
+        align-self: start;
+      }
+
+      .photo .profile-photo img {
+        width: 70%;
+      }
+    }
   }
 }
