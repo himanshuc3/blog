@@ -80,7 +80,7 @@ const AboutPage: React.FC<PageProps> = () => {
         <div className="map">
           <p className="time">{getCurrentTime()} 🇮🇳 </p>
           <p>
-            Currently working as a software engineer at Razorpay.
+            Currently working as a software engineer at Quillbot.
             <br />
             <br />
             Want to colab on something cool? React out on{' '}
@@ -142,7 +142,7 @@ const AboutPage: React.FC<PageProps> = () => {
               <PiBooksThin />
             </span>
             <p>
-              I love reading books but it's hardly reciprocated &mdash; blaming it on my
+              I love reading books but it's hardly materialized &mdash; blaming it on my
               self-diagnosed ADHD{' '}
             </p>
           </div>

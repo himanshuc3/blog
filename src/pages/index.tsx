@@ -40,9 +40,9 @@ const IndexPage: React.FC<PageProps> = () => {
               learning).
               <br />
               <br />
-              Based out of 🧭 New Delhi &mdash; currently working{' '}
-              <a href="https://razorpay.com/" target="_blank">
-                <span className="working-at">@Razorpay</span>
+              Based out of 🇮🇳 New Delhi &mdash; currently working{' '}
+              <a href="https://quillbot.com/" target="_blank">
+                <span className="working-at">@Quillbot</span>
               </a>
               <br />
               <br />
@@ -92,7 +92,7 @@ export default IndexPage;
 export const Head: HeadFC = () => (
   <SEO
     title="Himanshu's Bin | Fullstack Developer & Web3 Enthusiast"
-    description="Hi, I'm Himanshu Chhabra - a fullstack developer at Razorpay sharing insights on JavaScript, Golang, computational geometry, and web3. Explore my technical blog with tutorials, rants, and industry experiences."
+    description="Hi, I'm Himanshu Chhabra - a fullstack developer at Quillbot sharing insights on JavaScript, Golang, computational geometry, and web3. Explore my technical blog with tutorials, rants, and industry experiences."
     keywords={[
       'Himanshu Chhabra',
       'fullstack developer',
@@ -100,7 +100,7 @@ export const Head: HeadFC = () => (
       'Golang',
       'React',
       'web development',
-      'Razorpay',
+      'Quillbot',
       'web3',
       'computational geometry',
       'technical blog',

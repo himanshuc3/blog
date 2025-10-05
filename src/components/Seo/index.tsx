@@ -87,7 +87,7 @@ export const SEO = ({
     knowsAbout: ['JavaScript', 'Golang', 'React', 'Web Development', 'Computational Geometry'],
     worksFor: {
       '@type': 'Organization',
-      name: 'Razorpay',
+      name: 'Quillbot',
     },
   };
 
