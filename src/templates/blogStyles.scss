@@ -50,12 +50,16 @@
     }
 
     p,
-    ul,
-    li {
+    ul li,
+    ol li{
       font-size: 1.125em;
       line-height: 1.7em;
       font-weight: 500;
       color: var(--variable-textSecondary);
+    }
+
+    ul li, ol li{
+      margin-bottom: 10px;
     }
 
     hr {

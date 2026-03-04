@@ -112,7 +112,7 @@ const likes = createLikesStore(3)
 
 This simple wrapper over writable stores helps us add atomicity to svelte stores:
 
-1. `Subscribe` helps us get the value inside Svelte components and utility functions using the `get` API. 
+1. `Subscribe` helps us get the value inside Svelte components and utility functions using the `get` API.
 2. Notice that instead of exposing the generic set of `update` and `set` APIs, we expose functionality specific to our store to clearly define the use of the store. This makes bugs easier to debug, and maintainability of code is drastically improved.
 
 ## Deep-derived chains for reactivity
@@ -149,7 +149,6 @@ Consider the following snippet:
 ```
 
 Now since the handler can cause rapid state updates (potentially 100+ events/sec) leading to page jank and suboptimal UX, we have a few solutions to solve this use case:
-
 - **Use `requestAnimationFrame`** for batching updates per frame
 - Throttle store updates
 - Maintain processing queue, if no updates can be skipped
