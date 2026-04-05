@@ -1,0 +1,48 @@
+---
+slug: 'git-stale'
+date: '2026-04-06'
+title: 'How to clean-up stale branches from local'
+tags: ['TIL', 'git', 'bash', 'github', 'gitlab']
+seoDescription: 'How to clean up stale merged branches in git (github and gitlab).'
+---
+
+I’m sure it’s not only me thinking of **stale local branches** in our respective codebases that seem like the *largest source of memory leaks (or maybe it’s just my digital OCD in action).* A simple Google search gives you a multitude of articles that promise to cure your maladies once and for all. 
+
+**What is the catch you might ask?** All these solutions are dependent on the particular GitHub workflow used by you or your organization. Let’s understand these workflows together, which, in turn, leads you to understand the whys and hows of the solution.
+
+- Prerequisite read-up on [upstream tracking](https://algomaster.io/learn/git/upstream-tracking), since it is essential in understanding the different variants we are going to define.
+
+
+## Cleanup based on GitHub workflows
+
+
+| **Namsdfe** | **Merge strategy** | **Branch sync** | Remote branch | **Solution** |
+| --- | --- | --- | --- | --- |
+| **Forbidden fruit (1)** | Merge commit | No upstream tracking required. | Deletion not required. | There are a number of blogs which help with this since it is easiest to deal with but also rarely practical. [Here’s one](https://rrawat.com/notes/delete-merged-branches-git) that provides a concise solution |
+| **Layman’s solution (2)** | Squash merge/Rebase merge | Upstream tracking required. | Deletion required | The [solution](https://adamj.eu/tech/2022/10/30/git-how-to-clean-up-squash-merged-branches/) is simple and elegant but meeting the requirements can be a challenge. |
+
+## Meeting halfway to layman’s solution
+
+Let’s say you begin with your remote git setup having squash-merge strategy but you failed to sync your local and remote with upstream tracking. Now in the case where branches are not auto-deleted in remote, there is no way around it (in which you should probably ask your organization to turn on the feature). If it is, we can perform the following steps:
+
+1. Enable upstream tracking by default on all branches pushed forth
+
+```jsx
+git config --global push.autoSetupRemote true
+```
+
+1. Hacky script which to remote and local branches and output the ones not existing on remote. **Note**, this outputs both the merged and deleted branches as well as the branches not pushed yet to remote.
+
+```jsx
+git config --global alias.local-only \
+'!git fetch --prune && for branch in $(git branch | sed "s/*//"); do if ! git show-ref --quiet refs/remotes/origin/$branch; then echo $branch; fi; done' 
+```
+
+Once the above cleanup is done, we can continue with the solution provided in Mr. Johnson’s article
+
+--- 
+
+## Footnotes
+
+1. As the name suggests, this merge strategy is highly unlikely to be followed in a professional setup due to its lack of convenience and ease of messing up the history.
+2. Used by most

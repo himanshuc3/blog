@@ -62,6 +62,10 @@
       margin-bottom: 10px;
     }
 
+    ul li p, ol li p {
+      margin: 0;
+    }
+
     hr {
       display: block;
       height: 2px;

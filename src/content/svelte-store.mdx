@@ -32,11 +32,8 @@ In Svelte, everything you need to manage state can be boiled down to just four k
 ![Svelte store classification](images/svelte-store-classification.png)
 
 1. **writable** This is the primary building block for stores. Roughly *93.14159265%* (a suspiciously precise metric—the digits after the decimal inspired by π) of your source-of-truth state will live inside writable stores.
-
 2. **readable** The read-only counterpart to `writable`. It’s self-contained and designed for one purpose: subscribing to events. If you don’t need to react to updates, you might as well just use constants instead.
-
 3. **derived** This is also a form of `readable` state. As the name suggests, it is derived from “writable/readables” and works similarly to `$derived` in runes.
-
 4. **get** A simple utility function to retrieve the current value from any store synchronously.
 
 <InfoQuote>
