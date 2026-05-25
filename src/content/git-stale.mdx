@@ -28,10 +28,10 @@ All these solutions depend on the particular [GitHub merge workflows](https://do
 It is Recommended to read up on [upstream tracking](https://algomaster.io/learn/git/upstream-tracking) required for linking remote branch to local.
 </InfoQuote>
 
-| Name | Merge strategy | Branch sync (Upstream tracking required) | Deletion of Remote branch required  | Solution |
+| Name | Merge strategy | Upstream tracking | Remote deletion | Solution |
 | --- | --- | --- | --- | --- |
-| **Forbidden fruit (1)** | Merge commit | ❌ | ❌ | There are a number of blogs which help with this since it is easiest to deal with but also rarely practically deployed workflow. [Rishabh’s blog](https://rrawat.com/notes/delete-merged-branches-git) provides a concise solution |
-| **Layman’s solution (2)** | Squash merge/Rebase merge | ✅ | ✅ | [Johnson’s blog](https://adamj.eu/tech/2022/10/30/git-how-to-clean-up-squash-merged-branches/) is applicable in this case but only if both of the requirements are fulfilled. |
+| **Forbidden fruit** | Merge commit | ❌ | ❌ | There are a number of blogs which help with this since it is easiest to deal with but also rarely practically deployed workflow. [Rishabh’s blog](https://rrawat.com/notes/delete-merged-branches-git) provides a concise solution |
+| **Layman’s solution** | Squash merge/Rebase merge | ✅ | ✅ | [Johnson’s blog](https://adamj.eu/tech/2022/10/30/git-how-to-clean-up-squash-merged-branches/) is applicable in this case but only if both of the requirements are fulfilled. |
 
 ## Meeting halfway to a layman’s solution
 
@@ -39,7 +39,7 @@ Now, to reach a state in the codebase where layman’s solution is applicable, w
 
 ![Git local stale workflow](images/git-local-stale-workflow.png)
 
-Hacky script to sync remote and local branches (defined in the above fig step a) and output the ones not existing on remote. Note, this outputs both the merged, deleted and the branches not pushed yet to remote.
+Hacky script to sync remote and local branches (defined in step a of the above figure) and output the ones not existing on remote. Note, this outputs both the merged, deleted and the branches not pushed yet to remote.
 
 ```bash
 #!/usr/bin/env bash
