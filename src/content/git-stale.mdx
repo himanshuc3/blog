@@ -1,48 +1,71 @@
 ---
 slug: 'git-stale'
 date: '2026-04-06'
-title: 'How to clean-up stale branches from local'
+title: 'Git: How do I quickly remove local branches?'
 tags: ['TIL', 'git', 'bash', 'github', 'gitlab']
 seoDescription: 'How to clean up stale merged branches in git (github and gitlab).'
 ---
 
-I’m sure it’s not only me thinking of **stale local branches** in our respective codebases that seem like the *largest source of memory leaks (or maybe it’s just my digital OCD in action).* A simple Google search gives you a multitude of articles that promise to cure your maladies once and for all. 
+Software engineers will strive for the most minimal clean desk 🧹 setup while counterbalancing that with the linearly increasing ancient history 📈 of *merged remote branches* still existing on their local, like an award of their contributions.
 
-**What is the catch you might ask?** All these solutions are dependent on the particular GitHub workflow used by you or your organization. Let’s understand these workflows together, which, in turn, leads you to understand the whys and hows of the solution.
+👉 If you want to be rescued and *detangle that local git mess*, this miniblog should serve the purpose (thanks to my digital OCD triggers). 
 
-- Prerequisite read-up on [upstream tracking](https://algomaster.io/learn/git/upstream-tracking), since it is essential in understanding the different variants we are going to define.
+Before starting, let's run the below command in your repository to find out how many local branches will be cleared post this exercise (mine were 60 at the time of writing this article 🤫):
 
+```bash
+git branch | wc -l
+```
 
 ## Cleanup based on GitHub workflows
 
+A simple Google search gives you a multitude of articles that promise to cure your maladies once and for all.
 
-| **Namsdfe** | **Merge strategy** | **Branch sync** | Remote branch | **Solution** |
+*What is the catch you might ask?* 
+
+All these solutions depend on the particular [GitHub merge workflows](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github) used by you or your organization. We would be classifying our solution based on these workflows and while different platforms (github, gitlab etc.) might expose them differently, they all work similarly under the hood.
+
+<InfoQuote>
+It is Recommended to read up on [upstream tracking](https://algomaster.io/learn/git/upstream-tracking) required for linking remote branch to local.
+</InfoQuote>
+
+| **Name** | **Merge strategy** | **Branch sync (Upstream tracking required)** | Deletion of Remote branch required  | **Solution** |
 | --- | --- | --- | --- | --- |
-| **Forbidden fruit (1)** | Merge commit | No upstream tracking required. | Deletion not required. | There are a number of blogs which help with this since it is easiest to deal with but also rarely practical. [Here’s one](https://rrawat.com/notes/delete-merged-branches-git) that provides a concise solution |
-| **Layman’s solution (2)** | Squash merge/Rebase merge | Upstream tracking required. | Deletion required | The [solution](https://adamj.eu/tech/2022/10/30/git-how-to-clean-up-squash-merged-branches/) is simple and elegant but meeting the requirements can be a challenge. |
+| **Forbidden fruit (1)** | Merge commit | ❌ | ❌ | There are a number of blogs which help with this since it is easiest to deal with but also rarely practically deployed workflow. [Rishabh’s blog](https://rrawat.com/notes/delete-merged-branches-git) provides a concise solution |
+| **Layman’s solution (2)** | Squash merge/Rebase merge | ✅ | ✅ | [Johnson’s blog](https://adamj.eu/tech/2022/10/30/git-how-to-clean-up-squash-merged-branches/) is applicable in this case but only if both of the requirements are fulfilled. |
 
-## Meeting halfway to layman’s solution
+## Meeting halfway to a layman’s solution
 
-Let’s say you begin with your remote git setup having squash-merge strategy but you failed to sync your local and remote with upstream tracking. Now in the case where branches are not auto-deleted in remote, there is no way around it (in which you should probably ask your organization to turn on the feature). If it is, we can perform the following steps:
+Now, to reach a state in the codebase where layman’s solution is applicable, we want to perform the some steps which is explained by the flowchart below.
 
-1. Enable upstream tracking by default on all branches pushed forth
+![Git local stale workflow](images/git-local-stale-workflow.png)
 
-```jsx
-git config --global push.autoSetupRemote true
+Hacky script to sync remote and local branches (defined in the above fig step a) and output the ones not existing on remote. Note, this outputs both the merged, deleted and the branches not pushed yet to remote.
+
+```bash
+#!/usr/bin/env bash
+
+# Update remote references and remove deleted ones
+git fetch --prune
+
+echo "Local branches missing on origin:"
+echo "----------------------------------"
+
+git for-each-ref --format='%(refname:short)' refs/heads/ |
+while read -r branch
+do
+    if ! git show-ref --quiet "refs/remotes/origin/$branch"; then
+        echo "• $branch"
+    fi
+done
 ```
 
-1. Hacky script which to remote and local branches and output the ones not existing on remote. **Note**, this outputs both the merged and deleted branches as well as the branches not pushed yet to remote.
+Voila! You’ve streamlined a portion of your developer workflow, which can be a minor inconvenience or a huge pain in the ass.
 
-```jsx
-git config --global alias.local-only \
-'!git fetch --prune && for branch in $(git branch | sed "s/*//"); do if ! git show-ref --quiet refs/remotes/origin/$branch; then echo $branch; fi; done' 
-```
+    
+    
 
-Once the above cleanup is done, we can continue with the solution provided in Mr. Johnson’s article
+## Bibliography
 
---- 
-
-## Footnotes
-
-1. As the name suggests, this merge strategy is highly unlikely to be followed in a professional setup due to its lack of convenience and ease of messing up the history.
-2. Used by most
+- [Rishabh's blog](https://rrawat.com/notes/delete-merged-branches-git) Merge commit automated local branch deletion workflow 
+- [Johnson's blog](https://adamj.eu/tech/2022/10/30/git-how-to-clean-up-squash-merged-branches/) - Squash merge automated local branch deletion workflow 
+- [Github's doc](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github) Discussing various merge workflows available on the platform

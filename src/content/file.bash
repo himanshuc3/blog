@@ -1,0 +1,1 @@
+!git fetch --prune && for branch in $(git branch | sed "s/*//"); do if ! git show-ref --quiet refs/remotes/origin/$branch; then echo $branch; fi; done

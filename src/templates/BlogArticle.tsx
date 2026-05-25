@@ -41,6 +41,11 @@ const components = {
   code: (props: ComponentProps) => {
     return <code {...props} />;
   },
+  table: (props: ComponentProps) => (
+    <div className="table-wrapper">
+      <table {...props} />
+    </div>
+  ),
   InfoQuote: (props: any) => {
     return <InfoQuote {...props} />;
   },

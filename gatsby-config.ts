@@ -1,3 +1,5 @@
+const remarkGfm = require('remark-gfm').default
+
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
@@ -94,6 +96,9 @@ const config = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx'],
+        mdxOptions:{
+          remarkPlugins: [remarkGfm],
+        },
         gatsbyRemarkPlugins: [
           'gatsby-remark-external-links',
           {
