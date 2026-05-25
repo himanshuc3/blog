@@ -109,18 +109,19 @@
       border-collapse: collapse;
       margin: 20px 0;
       color: var(--variable-textSecondary);
+      font-size: 0.9em !important;
 
       th,
       td {
         padding: 8px 12px;
-        border: 1px solid var(--variable-textSecondary);
-        text-align: left;
+        text-align: center;
       }
-
+      
       th {
-        background-color: var(--variable-hoverBG);
-        font-weight: 700;
-        color: var(--variable-text);
+        border-bottom: 1px solid var(--variable-textSecondary);
+        // background-color: var(--variable-hoverBG);
+        font-weight: 400 !important;
+        // color: var(--variable-text);
       }
     }
 
