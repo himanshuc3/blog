@@ -9,3 +9,5 @@ export const SOCIAL_LINKS = {
   GITHUB: 'https://github.com/himanshuc3',
   LINKEDIN: 'https://linkedin.com/in/himanshuc3',
 };
+
+export const VALID_URLS = []
