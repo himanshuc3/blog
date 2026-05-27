@@ -93,10 +93,17 @@ const config = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'content',
+        path: `${dir}/src/content`,
+      },
+    },
+    {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx'],
-        mdxOptions:{
+        mdxOptions: {
           remarkPlugins: [remarkGfm],
         },
         gatsbyRemarkPlugins: [
@@ -107,15 +114,7 @@ const config = {
               backgroundColor: 'transparent',
             },
           },
-          `gatsby-transformer-remark`,
         ],
-      },
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'content',
-        path: `${dir}/src/content`,
       },
     },
     {
