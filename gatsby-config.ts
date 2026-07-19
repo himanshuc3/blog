@@ -213,6 +213,7 @@ const config = {
         ],
       },
     },
+    `gatsby-plugin-twitter`
   ],
 };
 

@@ -34,6 +34,7 @@
     "gatsby-plugin-sharp": "^5.13.1",
     "gatsby-plugin-sitemap": "^6.13.1",
     "gatsby-plugin-smartlook": "^1.0.1",
+    "gatsby-plugin-twitter": "^5.16.0",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.32",
     "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-footnotes": "^0.0.8",
@@ -54,6 +55,9 @@
     "react-toggle-dark-mode": "^1.1.1",
     "remark-gfm": "^3.0.1",
     "sass": "^1.71.1"
+  },
+  "overrides": {
+    "lmdb": "3.5.2"
   },
   "devDependencies": {
     "@types/node": "^20.11.19",
