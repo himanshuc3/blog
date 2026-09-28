@@ -5,6 +5,23 @@
   font-size: 30px;
 }
 
+.tertiary-letter {
+  display: inline-block;
+  animation: reveal-tertiary-letter 300ms ease-out var(--letter-delay) both;
+}
+
+@keyframes reveal-tertiary-letter {
+  from {
+    opacity: 0;
+    transform: translateY(0.2em);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .index-wrapper {
   display: flex;
   flex-direction: column;
@@ -29,9 +46,13 @@
 
     .text {
       h1 {
-        font-size: var(--size-m);
-        color: var(--variable-textSecondary);
+        // TODO: font-variables
+        // font-size: var(--size-m);
+        font-size: 50px;
+        letter-spacing: -1px;
       }
+
+
       .title {
         font-size: var(--size-xxs);
         position: relative;

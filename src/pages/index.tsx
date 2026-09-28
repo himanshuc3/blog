@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 import { Link } from 'gatsby';
+import TypeIt from "typeit";
 
 // TODO: Replace with absolute paths
 import Socials from '../components/socials';
@@ -14,28 +15,34 @@ import BaseComponent from '../containers/base';
 import { ThemeContext } from '../hooks/themeContext';
 import { SEO } from '../components/Seo';
 
+// const displayName = 'Himanshu';
+
 const IndexPage: React.FC<PageProps> = () => {
   const { darkTheme } = useContext(ThemeContext);
+  // const [tertiaryLetterIndexes, setTertiaryLetterIndexes] = React.useState<number[]>([]);
   let postsData = usePostsData().sort(
     (p1: IPost, p2: IPost) => p2.date.getTime() - p1.date.getTime()
   );
   postsData.slice(Math.min(3, postsData.length));
 
+  useEffect(()=>{
+    new TypeIt("#intro-sub", {
+      strings: ["This is my string!"],
+    }).go();
+  }, [])
+
+ 
+
   return (
     <BaseComponent className="index-wrapper">
       <div className="content">
         <div className="poster section">
-          <div className="text">
-            <h1 className="w-sm mb-0">
-              <span className="emoji-wave">👋</span> Hi, I’m <span>Himanshu</span>
-              <br />
-              <br />
-              <br />
-              {/* <span className="title sec-font">
-                FULLSTACK DEVELOPER &middot; WEB3 ENTHUSIAST &middot;{' '}
-              </span> */}
+          <div className="introduction text">
+            <h1 className="w-md tertiary-font name">
+              <span className="emoji-wave">👋</span> <span>Hi</span>manshu Chhabra
             </h1>
-            <p className="sec-font mt-0">
+            <p id="intro-sub" className="sec-font"></p>
+            {/* <p className="sec-font mt-0">
               Welcome to the clumsily built, un-optimized blog of a software engineer (I'm
               learning).
               <br />
@@ -54,13 +61,14 @@ const IndexPage: React.FC<PageProps> = () => {
                 himichhabra14@gmail.com
               </a>
               .
-            </p>
+            </p> */}
           </div>
           <div className="dp">
-            <div className="img-container">
-              {/* <AvailableBadge /> */}
+            {/* TODO: My DP baby */}
+            {/* <div className="img-container">
+              <AvailableBadge />
               <img src={dp} alt="My profile picture" className="image" />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="recent-posts section">

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, RefObject } from 'react';
+import { useEffect, RefObject } from 'react';
 
 /**
  * Hook that detects when a target element intersects with the viewport

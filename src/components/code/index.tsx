@@ -1,9 +1,19 @@
 // src/components/Code.js
 import React, { useContext, useState } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark, coldarkCold } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import javascript from 'react-syntax-highlighter/dist/esm/languages/prism/javascript';
+import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
+import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
+import atomDark from 'react-syntax-highlighter/dist/esm/styles/prism/atom-dark';
+import coldarkCold from 'react-syntax-highlighter/dist/esm/styles/prism/coldark-cold';
 import ThemeContext from '../../hooks/themeContext';
 import './index.scss';
+
+// Unregistered languages render as plain text; add more here as posts need them.
+SyntaxHighlighter.registerLanguage('js', javascript);
+SyntaxHighlighter.registerLanguage('javascript', javascript);
+SyntaxHighlighter.registerLanguage('jsx', jsx);
+SyntaxHighlighter.registerLanguage('bash', bash);
 
 const DARK_THEME = {
   ...atomDark,

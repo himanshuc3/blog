@@ -4,6 +4,6 @@ import { MDXProvider } from '@mdx-js/react';
 import { ThemeProvider } from './src/hooks/themeContext';
 import './src/styles/global.scss';
 
-export const wrapRootElement = ({ element }) => {
+export const wrapRootElement = ({ element }:{element:  React.ReactElement}) => {
   return <ThemeProvider>{element}</ThemeProvider>;
 };
