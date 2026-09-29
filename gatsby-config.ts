@@ -201,7 +201,14 @@ const config = {
             name: 'Tertiary Font',
             file: 'https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap',
           },
-          
+          {
+            name: 'Script Font',
+            file: 'https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap',
+          },
+          {
+            name: 'Grotesk Font',
+            file: 'https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap',
+          },
         ],
       },
     },

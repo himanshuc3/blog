@@ -1,21 +1,25 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 
-import './styles.scss';
 import { SEO } from '../../components/Seo';
-import BaseComponent from '../../containers/base';
-import { AboutHero, SideQuests, StackMarquee, Projects, ContactCta } from '../../components/About';
+import { SideQuests, StackMarquee } from '../../components/About';
+import { About, Contact, Layout, Work, Writing } from '../../components/Scrapbook';
 
+// The About page opens with "A little about me" as its hero, then the longer story: side quests,
+// stack, projects. Recent writing is the same module the home page uses.
 const AboutPage: React.FC<PageProps> = () => (
-  <BaseComponent className="about-wrapper">
-    <div className="about-content">
-      <AboutHero />
-      <SideQuests />
-      <StackMarquee />
-      <Projects />
-      <ContactCta />
-    </div>
-  </BaseComponent>
+  <Layout>
+    <About hero />
+    <section className="scrap-extras">
+      <div className="about-content">
+        <SideQuests />
+        <StackMarquee />
+      </div>
+    </section>
+    <Work />
+    <Writing />
+    <Contact />
+  </Layout>
 );
 
 export default AboutPage;

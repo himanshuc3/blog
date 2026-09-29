@@ -1,0 +1,1150 @@
+// Scrapbook home page. Everything is scoped under `.scrap` so it can't leak into other pages.
+// Light-only on purpose: the surfaces are painted, not themed.
+
+html:has(.scrap) {
+  scroll-behavior: smooth;
+}
+
+.scrap {
+  --ink: #151515;
+  --green: #2d5a2b;
+  --lavender: #d9b3ea;
+  --lavender-soft: #ecd3f5;
+  --pink: #fde4ec;
+  --sky: #4fb0e0;
+  --sun: #f2d84b;
+  // 1 design px at >=1440 viewports, scaled down below it (used to place stickers).
+  --u: min(1px, calc(100vw / 1440));
+
+  // Pin the site theme variables to their light values. The scrapbook surfaces are painted, so
+  // anything inside (including the older About components) must never pick up dark-theme text.
+  --variable-backgroundColor: #e6e6e6;
+  --variable-primary: #0075a2;
+  --variable-text: #000;
+  --variable-textSecondary: rgba(0, 0, 0, 0.7);
+  --variable-hoverBG: rgba(200, 200, 200, 0.4);
+  --variable-underline: #62bec1;
+  --variable-subtext: rgba(100, 100, 100, 0.8);
+
+  position: relative;
+  overflow-x: clip;
+  background: #fff;
+  color: var(--ink);
+  color-scheme: light;
+
+  section[id] {
+    scroll-margin-top: 90px;
+  }
+
+  // :where() keeps this at zero specificity so component classes can still set their own colour.
+  :where(h1, h2, h3, p) {
+    margin: 0;
+    color: inherit;
+  }
+
+  // The site-wide `p/span/a:not([class])` rule sets a theme colour (near-white in dark mode).
+  // This outranks it so unclassed text here follows the surface it sits on.
+  :is(p, span, a):not([class]) {
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+// ---- shared surfaces --------------------------------------------------------------------------
+
+.scrap-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.1 -.1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.grid-paper {
+  background-color: #fff;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.scrap-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: clamp(0.8rem, 1.1vw, 1rem);
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--lavender);
+  border-radius: 3px;
+}
+
+// Placeholders for images that haven't been dropped in yet.
+.ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  text-align: center;
+  color: rgba(20, 20, 20, 0.75);
+  border: 2px dashed rgba(20, 20, 20, 0.5);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0 10px,
+    rgba(255, 255, 255, 0.4) 10px 20px
+  );
+
+  &--rect {
+    border-radius: 8px;
+  }
+  &--round {
+    border-radius: 999px;
+  }
+  &--blob {
+    border-radius: 58% 42% 55% 45% / 48% 56% 44% 52%;
+  }
+
+  &__label {
+    font: 600 12px/1.35 'Ubuntu Mono', ui-monospace, monospace;
+    text-transform: lowercase;
+  }
+}
+
+.ph-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+// ---- nav --------------------------------------------------------------------------------------
+
+.scrap-nav {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+
+  // A frosted pill: opaque enough to read on white sections, clear enough to tint over the hero.
+  &__pill {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: min(820px, 100%);
+    padding: 9px 9px 9px 28px;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 12px 32px -14px rgba(0, 0, 0, 0.35);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    backdrop-filter: blur(18px) saturate(1.4);
+  }
+
+  &__mono {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--green);
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  &__link {
+    padding: 9px 14px;
+    color: var(--ink);
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.07);
+    }
+    &.is-current,
+    &[aria-current='page'] {
+      background: rgba(0, 0, 0, 0.09);
+    }
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 6px;
+    padding: 11px 20px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    background: var(--lavender);
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
+
+    span[aria-hidden] {
+      transition: transform 0.2s ease;
+    }
+    &:hover {
+      background: var(--lavender-soft);
+      span[aria-hidden] {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+}
+
+// ---- hero -------------------------------------------------------------------------------------
+
+.scrap-hero {
+  position: relative;
+  z-index: 3; // the photo and stickers overhang into the next section
+  min-height: max(100vh, 760px);
+  padding-top: clamp(190px, 27vh, 300px);
+  text-align: center;
+
+  // The poster image (HERO_BG in data.ts). The gradient only shows while the image loads.
+  &__landscape {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: var(--hero-img, none) center bottom / cover no-repeat,
+      linear-gradient(#f4a57a 0%, #f7c184 35%, #ecc862 48%, #7da22f 62%, #2f5f1f 100%);
+  }
+
+  &__copy {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+  }
+
+  &__id {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  &__name {
+    font-size: clamp(1.7rem, 3.6vw, 3.2rem);
+    color: #fff7e6;
+    text-shadow: 0 2px 14px rgba(30, 40, 10, 0.55);
+  }
+
+  &__headline {
+    max-width: 16ch;
+    font-size: clamp(2.6rem, 7.2vw, 6.6rem);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+    color: #ecd0f7;
+    text-shadow: 0 2px 26px rgba(40, 20, 60, 0.25);
+    text-wrap: balance;
+  }
+
+  // The stage sits on the hero's bottom edge; the photo and stickers straddle it.
+  &__stage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    z-index: 2;
+  }
+
+  &__stickers {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+  }
+
+  &__photo {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    translate: -50% 52%;
+    z-index: 2;
+
+    .poster-stage {
+      --pw: clamp(190px, 21vw, 300px);
+    }
+  }
+}
+
+.sticker {
+  position: absolute;
+  left: calc(var(--u) * var(--x));
+  bottom: calc(var(--u) * var(--y));
+  width: calc(var(--u) * var(--w));
+  height: calc(var(--u) * var(--h));
+  translate: -50% 0;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.3));
+}
+
+.scrap-widget {
+  position: absolute;
+  left: calc(var(--u) * 330);
+  bottom: calc(var(--u) * 30);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: calc(var(--u) * 290);
+  padding: 14px 16px 16px;
+  text-align: left;
+  color: #4a2400;
+  background: linear-gradient(140deg, #ffb52e, #f08a12);
+  border-radius: 14px;
+  box-shadow: 0 16px 30px -10px rgba(120, 50, 0, 0.55);
+  cursor: grab;
+  touch-action: none;
+
+  &__app {
+    font-size: 11px;
+    opacity: 0.75;
+  }
+  &__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  &__sub {
+    font-size: 0.85rem;
+    opacity: 0.85;
+  }
+  &__bar {
+    display: block;
+    height: 4px;
+    margin-top: 10px;
+    background: rgba(74, 36, 0, 0.25);
+    border-radius: 4px;
+
+    i {
+      display: block;
+      width: 38%;
+      height: 100%;
+      background: #4a2400;
+      border-radius: 4px;
+    }
+  }
+}
+
+// ---- about ------------------------------------------------------------------------------------
+
+.scrap-about {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+  // top padding clears the photo that hangs over the hero edge
+  padding: clamp(340px, 42vw, 470px) 5vw 140px;
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+    font-size: clamp(3.2rem, 8.4vw, 8rem);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+  }
+
+  &__body {
+    position: relative;
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: clamp(1rem, 1.25vw, 1.15rem);
+    line-height: 1.6;
+  }
+
+  &__sign {
+    margin-top: 10px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--green);
+  }
+}
+
+// Corner brackets, like crop marks on a print.
+.crop-marks::before,
+.crop-marks::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 0 solid var(--ink);
+}
+.crop-marks::before {
+  top: -24px;
+  right: -28px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+.crop-marks::after {
+  bottom: -24px;
+  left: -28px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+
+// On the About page "A little about me" is the hero: no photo overhang, room for the nav instead.
+.scrap-about--hero {
+  min-height: 100vh;
+  padding-top: clamp(140px, 18vw, 200px);
+  padding-bottom: 100px;
+}
+
+// Older About sections (side quests, stack) sit in a centred column on a plain surface.
+.scrap-extras {
+  padding: 40px 24px 60px;
+
+  .about-content {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+}
+// The older components tint themselves for dark mode; this surface is always light.
+html.dark .scrap .about-content {
+  --about-accent: #0075a2;
+  --about-accent-ink: #fff;
+  --about-border: rgba(0, 0, 0, 0.1);
+  --about-surface: rgba(255, 255, 255, 0.45);
+  --about-grid: rgba(0, 0, 0, 0.14);
+  --about-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.35);
+}
+
+// ---- work: a desktop under a painted sky ------------------------------------------------------
+
+.scrap-work {
+  position: relative;
+  z-index: 1;
+  padding: 140px 16px 130px;
+  text-align: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse 22% 9% at 14% 12%, #fff 0, transparent 70%),
+    radial-gradient(ellipse 26% 11% at 88% 30%, #fff 0, transparent 70%),
+    radial-gradient(ellipse 30% 10% at 30% 46%, rgba(255, 255, 255, 0.85) 0, transparent 70%),
+    linear-gradient(#4aa9dd 0%, #6bbfe9 42%, #cfe58a 62%, #8fbb45 76%, #6ea23a 100%);
+
+  &__meadow {
+    position: absolute;
+    inset: 55% 0 0;
+    // scattered blooms
+    background-image: radial-gradient(circle, #ff9ab8 0 5px, transparent 6px),
+      radial-gradient(circle, #ffe14d 0 6px, transparent 7px),
+      radial-gradient(circle, #ff8a3d 0 5px, transparent 6px);
+    background-size: 90px 84px, 130px 110px, 170px 140px;
+    background-position: 0 0, 40px 30px, 80px 10px;
+    opacity: 0.75;
+  }
+
+  &__head {
+    position: relative;
+    z-index: 2;
+
+    h2 {
+      font-size: clamp(3.4rem, 9vw, 8rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    span {
+      display: block;
+      margin-top: -0.6em;
+      font-size: clamp(1.3rem, 3.4vw, 3rem);
+      color: #fff;
+      transform: rotate(-4deg);
+      text-shadow: 0 3px 16px rgba(0, 40, 90, 0.35);
+    }
+  }
+}
+
+.scrap-window {
+  position: relative;
+  z-index: 3;
+  width: min(820px, 100%);
+  margin: 36px auto 0;
+  overflow: hidden;
+  text-align: left;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 40px 70px -30px rgba(0, 30, 70, 0.6);
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: #f0f0f2;
+
+    button {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      font-size: 1rem;
+      color: var(--ink);
+      background: #fff;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+      &:hover {
+        transform: scale(1.1);
+      }
+      &:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  &__lights {
+    display: flex;
+    gap: 8px;
+    margin-right: 6px;
+
+    i {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      &:nth-child(1) { background: #ff5f57; }
+      &:nth-child(2) { background: #febc2e; }
+      &:nth-child(3) { background: #28c840; }
+    }
+  }
+
+  &__url {
+    flex: 1;
+    min-width: 0;
+    padding: 7px 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    color: #666;
+    background: #fff;
+    border-radius: 999px;
+  }
+
+  &__viewport {
+    position: relative;
+    height: clamp(300px, 44vw, 420px);
+    overflow: hidden;
+  }
+
+  &__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 28px;
+    padding: 18px 26px 20px;
+    font-size: 1rem;
+    color: #444;
+
+    strong {
+      margin-right: auto;
+      font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+  }
+}
+
+.scrap-project {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  padding: clamp(22px, 5vw, 48px);
+  background: linear-gradient(
+    135deg,
+    hsl(var(--hue) 85% 96%),
+    hsl(calc(var(--hue) + 35) 75% 87%)
+  );
+
+  &__emoji {
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1;
+  }
+  h3 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+  }
+  p {
+    max-width: 44ch;
+    font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+    line-height: 1.55;
+    color: #333;
+  }
+
+  &__kw {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      padding: 4px 11px;
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 999px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+
+    .scrap-project__btn {
+      padding: 10px 18px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 999px;
+      transition: transform 0.15s ease;
+      &:hover {
+        transform: translateY(-2px);
+      }
+      &:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
+      }
+    }
+  }
+}
+
+.scrap-dock {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  gap: 10px;
+  margin-top: 34px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+
+  button {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    font-size: 1.7rem;
+    background: #fff;
+    border: 0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:hover {
+      transform: translateY(-8px) scale(1.18);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+    &.is-on::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      width: 5px;
+      height: 5px;
+      background: var(--ink);
+      border-radius: 50%;
+    }
+  }
+}
+
+.scrap-cal {
+  position: absolute;
+  top: 190px;
+  left: 4vw;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: 170px;
+  padding: 14px 16px;
+  text-align: left;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 18px 30px -16px rgba(0, 30, 70, 0.5);
+
+  &__day {
+    font-size: 0.85rem;
+    color: #d33;
+  }
+  &__num {
+    font-size: 2.6rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+  // A coloured dot marks the event, as calendar apps do.
+  &__event {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding-left: 15px;
+    font-size: 0.8rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.3em;
+      width: 8px;
+      height: 8px;
+      background: #b53fa6;
+      border-radius: 50%;
+    }
+
+    em {
+      font-style: normal;
+      color: #666;
+    }
+  }
+}
+
+.scrap-folder {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 40, 90, 0.5);
+
+  i {
+    position: relative;
+    width: 84px;
+    height: 62px;
+    background: #62b4ee;
+    border-radius: 8px;
+    box-shadow: inset 0 -6px 0 rgba(0, 60, 120, 0.15);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: 0;
+      width: 34px;
+      height: 12px;
+      background: inherit;
+      border-radius: 6px 6px 0 0;
+    }
+  }
+
+  &--a {
+    top: 200px;
+    right: 5vw;
+  }
+  &--b {
+    top: 340px;
+    right: 9vw;
+    i {
+      background: #f4a2bd;
+    }
+  }
+}
+
+// ---- writing: files scattered around a selected heading ---------------------------------------
+
+.scrap-writing {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: max(100vh, 820px);
+  padding: 120px 16px;
+  background: #fff;
+
+  &__head {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    > span {
+      font-size: clamp(1.4rem, 3vw, 2.6rem);
+      color: #d9a3e2;
+
+      i {
+        font-style: normal;
+        color: var(--green);
+      }
+    }
+
+    h2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: clamp(4rem, 12vw, 11rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+  }
+
+  &__files {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__all {
+    position: relative;
+    z-index: 2;
+    margin-top: 36px;
+    padding: 13px 24px;
+    font-weight: 600;
+    background: var(--lavender);
+    border-radius: 999px;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+  }
+}
+
+// Figma-style selection box with handles and a cursor.
+.scrap-select {
+  position: relative;
+  display: inline-block;
+  padding: 0.02em 0.14em 0.1em;
+  border: 1.5px solid #d9a3e2;
+
+  b {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    translate: -50% -50%;
+  }
+  .h-tl { left: 0; top: 0; }
+  .h-tm { left: 50%; top: 0; }
+  .h-tr { left: 100%; top: 0; }
+  .h-ml { left: 0; top: 50%; }
+  .h-mr { left: 100%; top: 50%; }
+  .h-bl { left: 0; top: 100%; }
+  .h-bm { left: 50%; top: 100%; }
+  .h-br { left: 100%; top: 100%; }
+
+  .scrap-cursor {
+    position: absolute;
+    right: -0.25em;
+    bottom: -0.2em;
+    width: 0.2em;
+    height: auto;
+    min-width: 22px;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+  }
+}
+
+.scrap-file {
+  position: absolute;
+  width: 170px;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 6px;
+      border-radius: 8px;
+    }
+  }
+
+  &__icon {
+    position: relative;
+    width: 76px;
+    height: 94px;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 6px 22px 6px 6px;
+    box-shadow: 5px 6px 0 var(--lavender);
+
+    i {
+      position: absolute;
+      inset: 22px 12px auto;
+      height: 34px;
+      background: repeating-linear-gradient(var(--ink) 0 2px, transparent 2px 9px);
+    }
+  }
+
+  &__name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  &__ext {
+    font-size: 0.78rem;
+    color: #777;
+  }
+}
+
+// ---- contact ----------------------------------------------------------------------------------
+
+.scrap-contact {
+  position: relative;
+  z-index: 1;
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 110px 16px 70px;
+    text-align: center;
+    background: var(--pink);
+
+    h2 {
+      font-size: clamp(3.6rem, 10vw, 9rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+
+    p {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: clamp(0.95rem, 1.7vw, 1.4rem);
+      line-height: 1.5;
+      color: var(--green);
+    }
+  }
+
+  &__mail {
+    display: inline-block;
+    margin-top: 26px;
+    padding: 14px 40px;
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--sun);
+    box-shadow: 0 10px 20px -10px rgba(120, 100, 0, 0.6);
+    overflow-wrap: anywhere;
+
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 4px;
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 46px;
+      height: 46px;
+      padding: 0 18px;
+      font-weight: 600;
+      background: #fff;
+      border-radius: 999px;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+      }
+      &:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
+      }
+    }
+    a:not(:first-child) {
+      padding: 0;
+    }
+  }
+
+  &__hill {
+    position: relative;
+    height: clamp(420px, 46vw, 640px);
+    overflow: hidden;
+    background: radial-gradient(ellipse 90% 60% at 20% 110%, #2f5d1c 0 96%, transparent 100%),
+      radial-gradient(ellipse 80% 55% at 90% 105%, #3f7424 0 96%, transparent 100%),
+      radial-gradient(ellipse 70% 60% at 50% 100%, #4f8a2a 0 96%, transparent 100%),
+      linear-gradient(var(--pink) 0 22%, #6fa334 22% 100%);
+  }
+
+  &__crew {
+    position: absolute;
+    left: 50%;
+    top: 4%;
+    translate: -50% 0;
+    width: min(620px, 80vw);
+    height: 62%;
+    z-index: 2;
+  }
+
+  &__foot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    z-index: 2;
+    text-align: center;
+    font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+    color: #e8ff4d;
+  }
+}
+
+// ---- responsive -------------------------------------------------------------------------------
+
+@media only screen and (max-width: 1100px) {
+  .scrap-cal,
+  .scrap-folder {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .crop-marks::before {
+    right: -8px;
+  }
+  .crop-marks::after {
+    left: -8px;
+  }
+
+  .scrap-about {
+    grid-template-columns: 1fr;
+    padding-top: clamp(300px, 70vw, 420px);
+  }
+
+  // Files stop floating and fall into a tidy grid.
+  .scrap-writing {
+    min-height: 0;
+
+    &__files {
+      position: static;
+      order: 3;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 12px;
+      width: 100%;
+      max-width: 480px;
+      margin-top: 40px;
+    }
+  }
+  .scrap-file {
+    position: static;
+    width: auto;
+  }
+  .scrap-writing__all {
+    order: 4;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .scrap-nav {
+    top: 12px;
+    padding: 0 10px;
+
+    &__pill {
+      gap: 8px;
+      padding: 7px 7px 7px 18px;
+    }
+    &__links {
+      gap: 0;
+      font-size: 0.9rem;
+    }
+    &__link {
+      padding: 8px 9px;
+    }
+    &__link--work,
+    &__cta-long {
+      display: none;
+    }
+    &__cta {
+      padding: 9px 14px;
+    }
+  }
+
+  .scrap-hero {
+    .sticker:nth-of-type(2),
+    .sticker:nth-of-type(3),
+    .scrap-widget {
+      display: none;
+    }
+  }
+
+  .scrap-dock button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.scrap) {
+    scroll-behavior: auto;
+  }
+}
