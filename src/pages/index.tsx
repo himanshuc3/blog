@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 import { Link } from 'gatsby';
-import TypeIt from "typeit";
 
 // TODO: Replace with absolute paths
 import Socials from '../components/socials';
@@ -14,6 +13,7 @@ import { IPost } from '../utils/types';
 import BaseComponent from '../containers/base';
 import { ThemeContext } from '../hooks/themeContext';
 import { SEO } from '../components/Seo';
+import Hero from '../components/Hero';
 
 // const displayName = 'Himanshu';
 
@@ -25,52 +25,13 @@ const IndexPage: React.FC<PageProps> = () => {
   );
   postsData.slice(Math.min(3, postsData.length));
 
-  useEffect(()=>{
-    new TypeIt("#intro-sub", {
-      strings: ["This is my string!"],
-    }).go();
-  }, [])
 
  
 
   return (
     <BaseComponent className="index-wrapper">
       <div className="content">
-        <div className="poster section">
-          <div className="introduction text">
-            <h1 className="w-md tertiary-font name">
-              <span className="emoji-wave">👋</span> <span>Hi</span>manshu Chhabra
-            </h1>
-            <p id="intro-sub" className="sec-font"></p>
-            {/* <p className="sec-font mt-0">
-              Welcome to the clumsily built, un-optimized blog of a software engineer (I'm
-              learning).
-              <br />
-              <br />
-              Based out of 🇮🇳 New Delhi &mdash; currently working{' '}
-              <a href="https://quillbot.com/" target="_blank">
-                <span className="working-at">@Quillbot</span>
-              </a>
-              <br />
-              <br />
-              Want to have a chat? Feel free to reach out on{' '}
-              <a
-                href="mailto:himichhabra14@gmail.com?subject=I am such a stan of you man!"
-                className="chunky-underline"
-              >
-                himichhabra14@gmail.com
-              </a>
-              .
-            </p> */}
-          </div>
-          <div className="dp">
-            {/* TODO: My DP baby */}
-            {/* <div className="img-container">
-              <AvailableBadge />
-              <img src={dp} alt="My profile picture" className="image" />
-            </div> */}
-          </div>
-        </div>
+        <Hero />
         <div className="recent-posts section">
           <div className="heading">
             <h1>

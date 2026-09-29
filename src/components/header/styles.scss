@@ -9,7 +9,8 @@
   flex-direction: column;
   transition: all 0.3s;
   z-index: 1000;
-  background-color: var(--variable-backgroundColor);
+  background-color: color-mix(in srgb, var(--variable-backgroundColor) 78%, transparent);
+  backdrop-filter: blur(12px);
 
   .inner {
     width: 650px;
@@ -24,16 +25,19 @@
   .menu {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--variable-text) 6%, transparent);
 
     .link {
       position: relative;
       font-size: 16px;
       color: var(--variable-textSecondary);
       font-weight: 700;
-      padding: 7px 10px;
-      border-radius: 2px;
-      transition: all 0.3s;
+      padding: 7px 16px;
+      border-radius: 999px;
+      transition: color 0.25s ease;
     }
 
     .link:hover,
@@ -50,8 +54,38 @@
     align-items: center;
     gap: 20px;
     .rss-icon {
+      position: relative;
       cursor: pointer;
       display: inline-flex;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      &:hover {
+        transform: translateY(-3px) rotate(-8deg) scale(1.15);
+      }
+
+      // tooltip driven by data-tip
+      &[data-tip]::after {
+        content: attr(data-tip);
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        padding: 3px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+        color: var(--variable-backgroundColor);
+        background: var(--variable-text);
+        border-radius: 6px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, -4px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      &[data-tip]:hover::after {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
     }
   }
 
@@ -73,3 +107,16 @@
 }
 
 
+
+// Sliding highlight behind the hovered / active nav link (rendered by NavMenu)
+#navbar .menu .nav-pill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 999px;
+  background: var(--variable-hoverBG);
+}
+
+#navbar .menu .link {
+  isolation: isolate; // keeps the sliding pill above the menu background
+}

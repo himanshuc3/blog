@@ -11,6 +11,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useNavbarSticky } from '../../hooks/useNavbarSticky';
 import usePageScrollLoader from '../../hooks/usePageScrollLoader';
 import { PullCord } from '../PullCord';
+import NavMenu from './NavMenu';
 
 interface Props {
   [key: string]: any;
@@ -31,14 +32,7 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme, isScrollLoader }) =
         <div className="scroll-loader" ref={scrollBarRef}></div>
         <Logo />
         <PullCord />
-        <div className="menu sec-font">
-          <Link to="/about" className="link" activeClassName="active-link">
-            About
-          </Link>
-          <Link to="/blog" className="link" activeClassName="active-link">
-            Posts
-          </Link>
-        </div>
+        <NavMenu />
         <div className="header-actions">
           <DarkModeSwitch
             style={{ display: 'inline-block' }}
@@ -47,10 +41,10 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme, isScrollLoader }) =
             moonColor="black"
             onChange={onToggleTheme}
           />
-          <a className="rss-icon" href="/rss.xml" target="_blank">
+          <a className="rss-icon" href="/rss.xml" target="_blank" data-tip="RSS">
             <MdRssFeed size={24} color={darkTheme ? 'white' : 'black'} />
           </a>
-          <a className="rss-icon" href="https://github.com/himanshuc3/blog" target="_blank">
+          <a className="rss-icon" href="https://github.com/himanshuc3/blog" target="_blank" data-tip="GitHub">
             <FaGithubAlt size={20} color={darkTheme ? 'white' : 'black'} />
           </a>
         </div>

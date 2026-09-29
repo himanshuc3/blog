@@ -1,0 +1,71 @@
+// Content for the About page lives here so copy can be updated without touching components.
+import type { Project } from '../projectCard';
+
+export const PROFILE = {
+  role: 'Senior Frontend Engineer',
+  company: 'QuillBot',
+  city: 'New Delhi',
+  email: 'himichhabra14@gmail.com',
+  // Flip to false to hide the "Available for work" badge on the portrait.
+  available: true,
+};
+
+export type SideQuest = { icon: 'chess' | 'valorant' | 'books' | 'go'; text: string; link?: { label: string; href: string } };
+
+export const SIDE_QUESTS: SideQuest[] = [
+  { icon: 'go', text: 'Detecting errors in Go and slowly upgrading my brain to web3.' },
+  {
+    icon: 'valorant',
+    text: 'Countless hours {link} in Valorant.',
+    link: {
+      label: 'queuing and whiffing',
+      href: 'https://tracker.gg/valorant/profile/riot/dumbriyani%231371/overview?platform=pc&playlist=competitive',
+    },
+  },
+  { icon: 'chess', text: 'I have an affinity to blunders in chess. Mostly with the queen.' },
+  {
+    icon: 'books',
+    text: "I love reading books but it's hardly materialized — blaming it on my self-diagnosed ADHD.",
+  },
+];
+
+export const STACK = ['TypeScript', 'React', 'Go', 'Gatsby', 'Sass', 'Motion', 'Netlify', 'Figma'] as const;
+
+export const PROJECTS: Project[] = [
+  {
+    name: 'This blog',
+    emoji: '🪴',
+    description:
+      'The site you are on. Gatsby + MDX, hand-rolled theming, and more motion than strictly necessary.',
+    keywords: ['gatsby', 'typescript', 'motion'],
+    actions: [{ name: 'Source', link: 'https://github.com/himanshuc3/blog' }],
+    tag: 'always wip',
+  },
+  {
+    name: 'Convex hull algorithms',
+    emoji: '📃',
+    description:
+      'A paper proposing constant-workspace convex hull algorithms, under the guidance of Prof. R. Inkulu.',
+    keywords: ['geometry', 'convex hull', 'DSA'],
+    actions: [{ name: 'Paper', link: 'https://arxiv.org/abs/2411.10043' }],
+    year: '2024',
+  },
+  {
+    name: 'File Organizer',
+    emoji: '🗂️',
+    description: 'A CLI tool to declutter your assets and soothe your OCD.',
+    keywords: ['node.js', 'typescript', 'linux'],
+    actions: [
+      { name: 'Source', link: 'https://github.com/himanshuc3/file-organize' },
+      { name: 'npm', link: 'https://www.npmjs.com/package/file-organize' },
+    ],
+  },
+  {
+    name: 'Octosnake',
+    emoji: '🐍',
+    description: 'A GitHub-themed snake game with twists that lure you into scoring more.',
+    keywords: ['typescript', 'p5.js'],
+    actions: [{ name: 'Source', link: 'https://github.com/himanshuc3/usb-snake' }],
+    tag: 'unfinished',
+  },
+];
