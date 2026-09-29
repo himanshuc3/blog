@@ -4,11 +4,13 @@ import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import { MdRssFeed } from 'react-icons/md';
 import { FaGithubAlt } from 'react-icons/fa';
 
-import Logo from '../logo';
+// import Logo from '../logo';
+import Logo from '../Logo'
 import './styles.scss';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useNavbarSticky } from '../../hooks/useNavbarSticky';
 import usePageScrollLoader from '../../hooks/usePageScrollLoader';
+import { PullCord } from '../PullCord';
 
 interface Props {
   [key: string]: any;
@@ -28,6 +30,7 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme, isScrollLoader }) =
       <div className="inner">
         <div className="scroll-loader" ref={scrollBarRef}></div>
         <Logo />
+        <PullCord />
         <div className="menu sec-font">
           <Link to="/about" className="link" activeClassName="active-link">
             About
