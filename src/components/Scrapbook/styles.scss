@@ -1336,13 +1336,28 @@ html.dark .scrap-nav {
 .scrap-work {
   position: relative;
   z-index: 1;
-  padding: 140px 16px 130px;
+  width: min(1320px, 100% - 32px);
+  // Top margin leaves room for the half of the heading that sits above the card.
+  margin: 160px auto 140px;
+  padding: 0 16px 130px;
   text-align: center;
-  overflow: hidden;
 
+  // The painted card. It is a layer of its own so the heading can straddle its top edge.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 32px;
+    background: url('../../images/projects-bg.jpg') center / cover no-repeat;
+  }
+
+  // Centred on the card's top edge: half outside, half inside.
   &__head {
     position: relative;
     z-index: 2;
+    transform: translateY(-50%);
+    margin-bottom: calc(-1 * clamp(1.7rem, 4.5vw, 4rem) + 60px);
 
     h2 {
       font-size: clamp(3.4rem, 9vw, 8rem);
@@ -1985,8 +2000,8 @@ html.dark .scrap--noise {
   .scrap-hero,
   .scrap-about,
   .scrap-history,
-  .scrap-writing,
   .scrap-work__head,
+  .scrap-writing,
   .scrap-footer {
     --ink: #f2f2f2;
     --primary-text: #ffd21f;
