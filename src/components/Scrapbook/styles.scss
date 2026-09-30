@@ -1050,6 +1050,88 @@ html.dark .scrap .about-content {
   }
 }
 
+// ---- noise surface (about page) ---------------------------------------------------------------
+// One tiled grain behind the whole page. Dark theme inverts the same tile. The painted scenes
+// (work, contact) keep their own colours; only the plain sections follow the theme.
+
+html:has(.scrap--noise).dark,
+html:has(.scrap--noise).dark body {
+  background: #0e0e0e;
+}
+
+.scrap--noise {
+  background: #fff;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: url('../../images/noise.png') center top / 600px 600px repeat;
+  }
+
+  .scrap-about,
+  .scrap-writing {
+    background-color: transparent;
+  }
+  .scrap-extras {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+html.dark .scrap--noise {
+  background: #0e0e0e;
+
+  &::before {
+    filter: invert(1);
+  }
+
+  --variable-text: #fff;
+  --variable-textSecondary: rgba(255, 255, 255, 0.7);
+  --variable-hoverBG: rgba(255, 255, 255, 0.08);
+  --variable-subtext: rgba(200, 200, 200, 0.8);
+  --variable-primary: #f7e018;
+
+  .scrap-about,
+  .scrap-writing,
+  .scrap-extras {
+    --ink: #f2f2f2;
+    --green: #9be08f;
+    color: var(--ink);
+  }
+
+  // Undo the always-light override for the older About components so they use their dark tokens.
+  .about-content {
+    --about-accent: #f7e018;
+    --about-accent-ink: #161618;
+    --about-border: rgba(255, 255, 255, 0.1);
+    --about-surface: rgba(255, 255, 255, 0.03);
+    --about-grid: rgba(255, 255, 255, 0.14);
+    --about-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.6);
+  }
+
+  .grid-paper {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  }
+  .scrap-select b,
+  .scrap-file__icon {
+    background: #1c1c1c;
+  }
+  .scrap-file__ext {
+    color: #aaa;
+  }
+  .scrap-writing__all {
+    color: #151515;
+  }
+  .scrap-nav__pill {
+    background: rgba(44, 44, 44, 0.92);
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+}
+
 // ---- responsive -------------------------------------------------------------------------------
 
 @media only screen and (max-width: 1100px) {

@@ -8,7 +8,7 @@ import { About, Contact, Layout, Work, Writing } from '../../components/Scrapboo
 // The About page opens with "A little about me" as its hero, then the longer story: side quests,
 // stack, projects. Recent writing is the same module the home page uses.
 const AboutPage: React.FC<PageProps> = () => (
-  <Layout>
+  <Layout noise>
     <About hero />
     <section className="scrap-extras">
       <div className="about-content">
