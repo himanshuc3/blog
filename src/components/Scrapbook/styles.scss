@@ -162,6 +162,11 @@ html:has(.scrap) {
   }
 }
 
+// Dark artwork on a transparent background: flip its lightness but keep its hues.
+html.dark .scrap--noise .scrap-history__logo.is-lighten {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 html.dark .scrap-disc {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22), 0 3px 8px rgba(0, 0, 0, 0.5);
 }
@@ -268,6 +273,110 @@ html.dark .scrap-nowplaying {
     b {
       color: rgba(255, 255, 255, 0.9);
     }
+  }
+}
+
+// ---- work history -----------------------------------------------------------------------------
+
+.scrap-history {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 620px) 1fr;
+  align-items: center;
+  gap: 48px 64px;
+  width: min(1200px, 100% - 10vw);
+  margin: 0 auto;
+  padding: 20px 0 120px;
+  --rule: color-mix(in srgb, var(--ink) 14%, transparent);
+
+  // Same voice as "A little about me", sat to the right of the table.
+  &__title {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: clamp(3rem, 7vw, 6.6rem);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+  }
+
+  &__list {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 62px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  // Same hand-written face as the name on the home page.
+  &__period {
+    font-size: 1.1rem;
+    color: color-mix(in srgb, var(--ink) 72%, transparent);
+  }
+
+  &__what {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+  }
+  &__org {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  &__dot {
+    color: color-mix(in srgb, var(--ink) 35%, transparent);
+  }
+  &__role {
+    color: color-mix(in srgb, var(--ink) 58%, transparent);
+  }
+  &__logo {
+    width: auto;
+    height: 26px;
+    max-width: 96px;
+    object-fit: contain;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .scrap-history {
+    grid-template-columns: 1fr;
+
+    &__title,
+    &__list {
+      grid-column: 1;
+    }
+    &__title {
+      grid-row: 1;
+    }
+    &__list {
+      grid-row: 2;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .scrap-history__row {
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+  }
+  .scrap-history__period {
+    grid-column: 1 / -1;
   }
 }
 
@@ -1308,6 +1417,7 @@ html.dark .scrap--noise {
 
   .scrap-hero,
   .scrap-about,
+  .scrap-history,
   .scrap-writing,
   .scrap-work__head,
   .scrap-extras {

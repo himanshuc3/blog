@@ -3,6 +3,10 @@
 // Assets: every `src` below is null on purpose and renders a labelled placeholder. Drop an image
 // into src/images/scrapbook/, import it here, and set `src`. Nothing else needs to change.
 import nameIsAudio from '../../images/eminem-my-name-cropped.mp3';
+import quillbotLogo from '../../images/quillbot.webp';
+import rapyutaLogo from '../../images/rapyuta.png';
+import razorpayLogo from '../../images/razorpay.png';
+import zetaLogo from '../../images/zeta.svg';
 import heroPlaceholder from '../../images/scrapbook/hero-placeholder.svg';
 import { PROFILE } from '../About/data';
 import { SOCIAL_LINKS } from '../../utils/constants';
@@ -95,3 +99,22 @@ export const NAME_IS = {
   album: 'The Slim Shady LP',
   year: '1999',
 };
+
+export interface HistoryRow {
+  period: string;
+  org: string;
+  role: string;
+  /** Optional logo image, shown at the right edge of the row. */
+  logo?: string;
+  /** Logo is dark artwork on a transparent background: lighten it on the dark theme. */
+  lightenOnDark?: boolean;
+}
+
+/** Work and study, newest first. */
+export const WORK_HISTORY: HistoryRow[] = [
+  { period: 'Present', org: 'QuillBot', role: 'SDE II', logo: quillbotLogo },
+  { period: '2024–2025', org: 'Razorpay', role: 'Product Development Engineer II', logo: razorpayLogo, lightenOnDark: true },
+  { period: '2022–2024', org: 'IIT Guwahati', role: 'Postgraduate studies' },
+  { period: '2021–2022', org: 'Zeta', role: 'Frontend Engineer 2', logo: zetaLogo },
+  { period: '2019–2021', org: 'Rapyuta Robotics', role: 'Frontend Engineer', logo: rapyutaLogo, lightenOnDark: true },
+];

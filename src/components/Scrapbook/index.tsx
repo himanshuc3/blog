@@ -10,6 +10,7 @@ export { default as Hero } from './Hero';
 export { default as About } from './About';
 export { default as Work } from './Work';
 export { default as Writing } from './Writing';
+export { default as History } from './History';
 export { default as Contact } from './Contact';
 
 /** Home: the poster, a little about me, and recent writing. Nothing else. */
