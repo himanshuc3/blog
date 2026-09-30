@@ -2,6 +2,7 @@
 //
 // Assets: every `src` below is null on purpose and renders a labelled placeholder. Drop an image
 // into src/images/scrapbook/, import it here, and set `src`. Nothing else needs to change.
+import nameIsAudio from '../../images/eminem-my-name-cropped.mp3';
 import heroPlaceholder from '../../images/scrapbook/hero-placeholder.svg';
 import { PROFILE } from '../About/data';
 import { SOCIAL_LINKS } from '../../utils/constants';
@@ -12,8 +13,16 @@ export const RESUME_URL =
   'https://drive.google.com/file/d/1FP0_-j3YMKtRxoqHqJlEh6jozooPkPlw/view?usp=sharing';
 
 export const NAME = 'himanshu chhabra';
-export const TITLE = 'Fullstack Developer';
-export const HEADLINE = 'Milliseconds matter. So do pixels.';
+// Label pills, parked for now (see the commented block in Hero.tsx).
+export const TAGS = ['Fullstack Engineer', 'Writing about adventures'];
+
+/** The statement under the name, one array per line. `em` runs are set dark; the rest is muted. */
+export const TAGLINE: { text: string; em?: boolean }[][] = [
+  [{ text: 'Building from ' }, { text: 'first principles.', em: true }],
+  [{ text: 'Leveraging AI', em: true }, { text: ' to move fast' }],
+];
+// export const HEADLINE = 'Milliseconds matter. So do pixels.';
+export const HEADLINE = '';
 
 /**
  * The hero poster image. Ships with an SVG placeholder landscape; point this at your own painted
@@ -66,4 +75,23 @@ export const CONTACT = {
 export const WRITING = {
   script: 'notes to self',
   heading: ['recent', 'writing'],
+};
+
+/** The "my name is" easter egg (hover the name). Times are seconds. */
+export const NAME_IS = {
+  src: nameIsAudio,
+  /** Playback runs from `start` until the clip ends (or `end`, if you shorten it). */
+  start: 0,
+  end: Infinity,
+  /** Moments "my name is" is spoken; a text pop appears at each. */
+  cues: [2, 3, 4, 7, 8, 9] as number[],
+  /** How long each pop stays on screen (ms). */
+  popMs: 500,
+  text: 'my name is',
+  volume: 0.7,
+  /** Shown in the now-playing card. */
+  title: 'my name is',
+  artist: 'Eminem',
+  album: 'The Slim Shady LP',
+  year: '1999',
 };
