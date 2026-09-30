@@ -44,26 +44,24 @@ const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
   }
 
   return (
-    <Link className="post-heading" data-id={id} data-unique={id} to={`/blog/${slug}`}>
-      <div className=" meta left" data-id={id}>
-        <span className="date sec-font" data-id={id}>
-          {date.toLocaleDateString('en-US', DATE_OPTS)}
-        </span>
-      </div>
-      <div data-id={id} className="right">
-        <div className="post-tags sec-font" data-id={id}>
-          {filteredTags.map((tag, idx) => (
-            <span>
-              {tag}
-              {idx != filteredTags.length - 1 ? ' · ' : ''}
-            </span>
+    <Link className="post-heading" data-id={id} to={`/blog/${slug}`}>
+      <time className="post-date sec-font" dateTime={new Date(date).toISOString()}>
+        {date.toLocaleDateString('en-US', DATE_OPTS)}
+      </time>
+      <h2 className="sec-font heading-title">
+        {superscript()}
+        {title}
+      </h2>
+      {filteredTags.length > 0 && (
+        <ul className="post-tags sec-font" aria-label="Tags">
+          {filteredTags.map((tag) => (
+            <li key={tag}>{tag}</li>
           ))}
-        </div>
-        <h1 className="sec-font heading-title">
-          {superscript()}
-          {title}
-        </h1>
-      </div>
+        </ul>
+      )}
+      <span className="post-arrow" aria-hidden="true">
+        ↗
+      </span>
     </Link>
   );
 };
