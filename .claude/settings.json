@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Give permission for read only access to content outside this repo"
+    ]
+  }
+}

@@ -8,7 +8,7 @@ const HUES = [265, 200, 150, 20];
 
 const host = (url: string) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
-/** Browser-window project viewer on a sky-and-meadow desktop, with a dock to jump between them. */
+/** Browser-window project viewer on the page surface, with a dock to jump between them. */
 const Work: React.FC = () => {
   const reduceMotion = useReducedMotion();
   const [[index, dir], setState] = useState<[number, number]>([0, 0]);
@@ -20,9 +20,6 @@ const Work: React.FC = () => {
 
   return (
     <section className="scrap-work" id="work">
-      <div className="scrap-grain" aria-hidden="true" />
-      <div className="scrap-work__meadow" aria-hidden="true" />
-
       <div className="scrap-work__head">
         <h2 className="grotesk-font">{WORK.heading}</h2>
         <span className="script-font">{WORK.script}</span>

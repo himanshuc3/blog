@@ -442,22 +442,6 @@ html.dark .scrap .about-content {
   padding: 140px 16px 130px;
   text-align: center;
   overflow: hidden;
-  background: radial-gradient(ellipse 22% 9% at 14% 12%, #fff 0, transparent 70%),
-    radial-gradient(ellipse 26% 11% at 88% 30%, #fff 0, transparent 70%),
-    radial-gradient(ellipse 30% 10% at 30% 46%, rgba(255, 255, 255, 0.85) 0, transparent 70%),
-    linear-gradient(#4aa9dd 0%, #6bbfe9 42%, #cfe58a 62%, #8fbb45 76%, #6ea23a 100%);
-
-  &__meadow {
-    position: absolute;
-    inset: 55% 0 0;
-    // scattered blooms
-    background-image: radial-gradient(circle, #ff9ab8 0 5px, transparent 6px),
-      radial-gradient(circle, #ffe14d 0 6px, transparent 7px),
-      radial-gradient(circle, #ff8a3d 0 5px, transparent 6px);
-    background-size: 90px 84px, 130px 110px, 170px 140px;
-    background-position: 0 0, 40px 30px, 80px 10px;
-    opacity: 0.75;
-  }
 
   &__head {
     position: relative;
@@ -474,9 +458,9 @@ html.dark .scrap .about-content {
       display: block;
       margin-top: -0.6em;
       font-size: clamp(1.3rem, 3.4vw, 3rem);
-      color: #fff;
+      color: var(--green);
       transform: rotate(-4deg);
-      text-shadow: 0 3px 16px rgba(0, 40, 90, 0.35);
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.06);
     }
   }
 }
@@ -1054,21 +1038,37 @@ html.dark .scrap .about-content {
 // One tiled grain behind the whole page. Dark theme inverts the same tile. The painted scenes
 // (work, contact) keep their own colours; only the plain sections follow the theme.
 
-html:has(.scrap--noise).dark,
-html:has(.scrap--noise).dark body {
-  background: #0e0e0e;
-}
-
-.scrap--noise {
+// The grain is a fixed layer on <html> so it spans the full viewport, not just the 1440 column.
+html:has(.scrap--noise) {
   background: #fff;
+
+  body {
+    background: transparent;
+  }
 
   &::before {
     content: '';
-    position: absolute;
+    position: fixed;
     inset: 0;
-    z-index: 0;
+    z-index: -1;
     pointer-events: none;
     background: url('../../images/noise.png') center top / 600px 600px repeat;
+  }
+
+  &.dark {
+    background: #0e0e0e;
+
+    &::before {
+      filter: invert(1);
+    }
+  }
+}
+
+.scrap--noise {
+  background: transparent;
+
+  .scrap-folder {
+    color: var(--ink);
   }
 
   .scrap-about,
@@ -1082,12 +1082,6 @@ html:has(.scrap--noise).dark body {
 }
 
 html.dark .scrap--noise {
-  background: #0e0e0e;
-
-  &::before {
-    filter: invert(1);
-  }
-
   --variable-text: #fff;
   --variable-textSecondary: rgba(255, 255, 255, 0.7);
   --variable-hoverBG: rgba(255, 255, 255, 0.08);
@@ -1096,6 +1090,7 @@ html.dark .scrap--noise {
 
   .scrap-about,
   .scrap-writing,
+  .scrap-work__head,
   .scrap-extras {
     --ink: #f2f2f2;
     --green: #9be08f;
@@ -1122,6 +1117,9 @@ html.dark .scrap--noise {
   }
   .scrap-file__ext {
     color: #aaa;
+  }
+  .scrap-folder {
+    color: #f2f2f2;
   }
   .scrap-writing__all {
     color: #151515;
