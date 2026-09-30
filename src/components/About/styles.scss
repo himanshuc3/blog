@@ -276,114 +276,6 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
-// ---------------------------------------------------------------- side quests
-.side-quests {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  &__item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 18px;
-    border: 1px solid var(--about-border);
-    border-radius: 12px;
-    background: var(--about-surface);
-    transition: border-color 0.25s ease, transform 0.3s $ease-out;
-
-    &:hover {
-      border-color: var(--about-accent);
-      transform: translateY(-2px);
-    }
-  }
-
-  &__icon {
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: var(--variable-hoverBG);
-    font-size: 22px;
-    color: var(--variable-text);
-    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
-  }
-
-  &__item:hover &__icon {
-    transform: rotate(-10deg) scale(1.1);
-    color: var(--about-accent);
-  }
-
-  &__text {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.6;
-    color: var(--variable-textSecondary);
-  }
-}
-
-// ---------------------------------------------------------------- stack marquee
-.stack {
-  margin-top: 48px;
-
-  &__label {
-    margin: 0 0 12px;
-    font-size: 14px;
-    color: var(--variable-textSecondary);
-  }
-
-  &__viewport {
-    overflow: hidden;
-    border-block: 1px dashed var(--about-border);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  }
-
-  &__track {
-    display: flex;
-    width: max-content;
-    margin: 0;
-    padding: 14px 0;
-    list-style: none;
-    animation: about-marquee 28s linear infinite;
-
-    li {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-right: 40px;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--variable-textSecondary);
-      transition: color 0.2s ease;
-
-      svg {
-        font-size: 20px;
-      }
-
-      &:hover {
-        color: var(--about-accent);
-      }
-    }
-  }
-
-  &__viewport:hover &__track {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes about-marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 // ---------------------------------------------------------------- projects
 .projects__grid {
   display: grid;
@@ -469,7 +361,6 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media only screen and (max-width: 640px) {
-  .side-quests,
   .projects__grid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -484,20 +375,10 @@ $ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stack__track {
-    animation: none;
-    flex-wrap: wrap;
-    width: auto;
-    li[aria-hidden='true'] {
-      display: none;
-    }
-  }
   .about-time__dot {
     animation: none;
   }
-  .about-hero__frame,
-  .side-quests__item,
-  .side-quests__icon {
+  .about-hero__frame {
     transition: none;
   }
 }

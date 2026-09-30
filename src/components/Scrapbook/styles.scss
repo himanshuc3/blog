@@ -1309,25 +1309,6 @@ html.dark .scrap-nav {
   padding-bottom: 100px;
 }
 
-// Older About sections (side quests, stack) sit in a centred column on a plain surface.
-.scrap-extras {
-  padding: 40px 24px 60px;
-
-  .about-content {
-    max-width: 1080px;
-    margin: 0 auto;
-  }
-}
-// The older components tint themselves for dark mode; this surface is always light.
-html.dark .scrap .about-content {
-  --about-accent: #0075a2;
-  --about-accent-ink: #fff;
-  --about-border: rgba(0, 0, 0, 0.1);
-  --about-surface: rgba(255, 255, 255, 0.45);
-  --about-grid: rgba(0, 0, 0, 0.14);
-  --about-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.35);
-}
-
 // ---- work: a desktop under a painted sky ------------------------------------------------------
 
 .scrap-work {
@@ -1964,19 +1945,10 @@ html:has(.scrap--noise) {
   .scrap-folder {
     color: var(--ink);
   }
-  .about-content {
-    --about-accent: #8a6400;
-    --about-accent-ink: #fff;
-  }
-
   .scrap-hero,
   .scrap-about,
   .scrap-writing {
     background-color: transparent;
-  }
-  .scrap-extras {
-    position: relative;
-    z-index: 1;
   }
 }
 
@@ -1992,21 +1964,10 @@ html.dark .scrap--noise {
   .scrap-about,
   .scrap-history,
   .scrap-writing,
-  .scrap-work__head,
-  .scrap-extras {
+  .scrap-work__head {
     --ink: #f2f2f2;
     --primary-text: #ffd21f;
     color: var(--ink);
-  }
-
-  // Undo the always-light override for the older About components so they use their dark tokens.
-  .about-content {
-    --about-accent: #ffd21f;
-    --about-accent-ink: #161618;
-    --about-border: rgba(255, 255, 255, 0.1);
-    --about-surface: rgba(255, 255, 255, 0.03);
-    --about-grid: rgba(255, 255, 255, 0.14);
-    --about-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.6);
   }
 
   .grid-paper {
