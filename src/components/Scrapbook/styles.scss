@@ -380,6 +380,197 @@ html.dark .scrap-nowplaying {
   }
 }
 
+// ---- cat stage: signals left, right and below the cat ------------------------------------------
+
+.scrap-stage {
+  position: relative;
+  width: var(--cat-w);
+}
+
+.scrap-signal {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: auto;
+
+  &--left {
+    right: calc(100% + 44px);
+    top: 36%;
+    align-items: flex-end;
+    text-align: right;
+  }
+  &--right {
+    left: calc(100% + 44px);
+    top: 36%;
+    align-items: flex-start;
+    text-align: left;
+  }
+  &--below {
+    left: 50%;
+    top: calc(100% + 36px);
+    align-items: center;
+    translate: -50% 0;
+  }
+
+  // The script title is the signal. A pulsing dot says "there is more here"; a selected title is
+  // lit like a highlighter stroke.
+  &__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 2px 12px;
+    font-size: clamp(1.5rem, 2.3vw, 2.1rem);
+    line-height: 1.35;
+    white-space: nowrap;
+    color: var(--primary-text);
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+  }
+  &__dot {
+    flex: none;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border: 2px solid var(--primary-text);
+    border-radius: 50%;
+    animation: scrap-pulse 2.2s ease-in-out infinite;
+  }
+  &.is-open &__title {
+    color: #151515;
+    background: var(--primary);
+    transform: rotate(-2deg) scale(1.05);
+  }
+  &.is-open &__dot {
+    background: #151515;
+    border-color: #151515;
+    animation: none;
+  }
+
+  // Chips (or links) under the title, revealed with it.
+  &__detail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: inherit;
+    gap: 10px;
+    width: max-content;
+    max-width: 300px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px) scale(0.96);
+    transition: opacity 0.18s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &--left &__detail {
+    justify-content: flex-end;
+    transform-origin: top right;
+  }
+  &--right &__detail {
+    justify-content: flex-start;
+    transform-origin: top left;
+  }
+  &--below &__detail {
+    justify-content: center;
+    transform-origin: top center;
+  }
+  &.is-open &__detail {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  // Round icon chip: a muted glyph on a faint disc.
+  &__chip {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    font-size: 1.15rem;
+    color: color-mix(in srgb, var(--ink) 70%, transparent);
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    border-radius: 50%;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  a#{&}__chip:hover,
+  a#{&}__chip:focus-visible {
+    color: #151515;
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+  }
+
+  // Text link pill, for entries that need words.
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    border-radius: 999px;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: #151515;
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+@keyframes scrap-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  // No room beside the cat: the signals stack under it.
+  .scrap-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+  }
+  .scrap-signal {
+    position: static;
+    translate: none;
+    align-items: center;
+    text-align: center;
+
+    &__detail {
+      display: none;
+      justify-content: center;
+      transform: none;
+    }
+    &.is-open &__detail {
+      display: flex;
+    }
+  }
+}
+
 // ---- nav --------------------------------------------------------------------------------------
 
 .scrap-nav {
@@ -502,11 +693,12 @@ html.dark .scrap-nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 2vh, 28px);
+  justify-content: center; // the composition is centred; padding below leaves room for the signals
+  gap: clamp(6px, 1.4vh, 20px);
   --tag-size: clamp(1.2rem, min(4.2vw, 6.4vh), 3.6rem);
+  --cat-w: clamp(170px, min(26vw, 27vh), 340px);
   min-height: 100vh;
-  padding: 130px 16px 40px;
+  padding: 84px 16px 150px;
   text-align: center;
 
   &__copy {
@@ -523,7 +715,7 @@ html.dark .scrap-nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
   }
 
   &__who {
@@ -538,6 +730,7 @@ html.dark .scrap-nav {
   &__tagline {
     margin-top: -0.15em;
     font-size: var(--tag-size);
+    font-size: 45px;
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -0.045em;
@@ -602,7 +795,7 @@ html.dark .scrap-nav {
 
 // One frame of cat-spritesheet.webp (14 x 14 grid of 320 x 480 frames). --cat-x/--cat-y pick it.
 .scrap-cat {
-  width: clamp(170px, min(26vw, 27vh), 340px);
+  width: var(--cat-w);
   background-image: var(--cat-sheet);
   background-repeat: no-repeat;
   background-size: 1400% 1400%;
@@ -675,36 +868,375 @@ html.dark .scrap-nav {
 .scrap-about {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 48px;
-  padding: 140px 5vw;
+  gap: 64px;
+  padding: 140px 5vw 120px;
 
+  // "A little about me", with the script line running across it like the projects heading.
+  &__head {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
   &__title {
-    display: flex;
-    flex-direction: column;
-    font-size: clamp(3.2rem, 8.4vw, 8rem);
+    display: block;
+    font-size: clamp(3rem, 8vw, 7.4rem);
     font-weight: 500;
-    line-height: 0.95;
+    line-height: 1;
     letter-spacing: -0.06em;
+  }
+  &__script {
+    display: block;
+    margin-top: -0.32em;
+    font-size: clamp(1.3rem, 3.2vw, 2.8rem);
+    color: var(--primary-text);
+    transform: rotate(-4deg);
+  }
+
+  // Description on the left, the illustration that follows it on the right.
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 32rem) minmax(0, 1fr);
+    align-items: start;
+    gap: 72px;
+    width: min(1100px, 100%);
   }
 
   &__body {
     position: relative;
-    max-width: 30rem;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    font-size: clamp(1rem, 1.25vw, 1.15rem);
+    font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+    font-weight: 600;
     line-height: 1.6;
   }
 
   &__sign {
-    margin-top: 10px;
     font-size: 1rem;
     line-height: 1.7;
     color: var(--primary-text);
+  }
+}
+
+// A hoverable phrase in the description: underlined in the accent, filled while its scene shows.
+.scrap-phrase {
+  display: inline;
+  padding: 0 2px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-bottom: 2.5px solid var(--primary);
+  border-radius: 3px 3px 0 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover,
+  &.is-on {
+    color: #151515;
+    background: var(--primary);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+}
+
+// The card that shows the current scene.
+.scrap-viz {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  padding: 26px 26px 20px;
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border-radius: 22px;
+
+  &__scene {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__cap {
+    margin-top: 14px;
+    font-size: 1.05rem;
+    text-align: center;
+    color: var(--primary-text);
+  }
+}
+
+.viz-stack {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+
+  &__tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 6px 12px;
+    font-size: 1.9rem;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    border-radius: 16px;
+
+    span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: color-mix(in srgb, var(--ink) 70%, transparent);
+    }
+  }
+}
+
+.viz-perf {
+  width: 100%;
+
+  &__big {
+    font-size: clamp(3rem, 6vw, 4.6rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.05em;
+
+    small {
+      margin-left: 4px;
+      font-size: 0.4em;
+      letter-spacing: 0;
+    }
+  }
+  &__sub {
+    margin: 4px 0 18px;
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+  }
+  &__bar {
+    display: flex;
+    gap: 3px;
+    height: 34px;
+
+    span {
+      flex-basis: 0;
+      background: var(--primary);
+      border-radius: 6px;
+      transform-origin: left;
+
+      &.is-idle {
+        background: color-mix(in srgb, var(--ink) 12%, transparent);
+      }
+    }
+  }
+  &__legend {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 16px;
+    margin: 18px 0 0;
+    padding: 0;
+    font-size: 0.82rem;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    i {
+      width: 10px;
+      height: 10px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    .is-idle i,
+    li.is-idle i {
+      background: color-mix(in srgb, var(--ink) 20%, transparent);
+    }
+    b {
+      margin-left: auto;
+      font-variant-numeric: tabular-nums;
+      color: color-mix(in srgb, var(--ink) 60%, transparent);
+    }
+  }
+}
+
+.viz-a11y {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  &__key {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1.5px solid var(--ink);
+    border-bottom-width: 4px;
+    border-radius: 8px;
+  }
+  &__btn {
+    padding: 11px 22px;
+    font-weight: 700;
+    color: #151515;
+    background: var(--primary);
+    border-radius: 999px;
+  }
+  &__swatch {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border-radius: 16px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.8rem;
+      color: color-mix(in srgb, var(--ink) 60%, transparent);
+
+      b {
+        font-size: 1.25rem;
+        color: var(--ink);
+      }
+    }
+  }
+  &__aa {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #151515;
+    background: var(--primary);
+    border-radius: 12px;
+  }
+  &__badges {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+
+    em {
+      padding: 3px 8px;
+      font-size: 0.72rem;
+      font-style: normal;
+      font-weight: 700;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+    }
+  }
+  &__note {
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+  }
+}
+
+.viz-chess {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+
+  &__tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 6px 12px;
+    font-size: 0.7rem;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    border-radius: 14px;
+
+    svg {
+      width: 3.4rem;
+      height: 3.4rem;
+    }
+  }
+  &__glyph {
+    font-size: 3.4rem;
+    line-height: 1;
+  }
+}
+
+.viz-place {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+
+  &__city {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--primary-text);
+  }
+  &__time {
+    font-size: clamp(3rem, 6vw, 4.6rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  &__meta {
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
+  }
+  &__work {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 8px 16px 8px 8px;
+    font-size: 0.85rem;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border-radius: 999px;
+
+    img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+  }
+}
+
+.viz-geo {
+  width: 100%;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  &__hull {
+    fill: color-mix(in srgb, var(--primary) 28%, transparent);
+    stroke: var(--primary-text);
+    stroke-width: 2.2;
+    stroke-linejoin: round;
+  }
+  &__pt {
+    fill: color-mix(in srgb, var(--ink) 45%, transparent);
+
+    &.is-hull {
+      fill: var(--ink);
+    }
+  }
+  &__cap {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    text-align: center;
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
   }
 }
 
@@ -730,10 +1262,11 @@ html.dark .scrap-nav {
   border-left-width: 2px;
 }
 
-// On the About page "A little about me" is the hero: no photo overhang, room for the nav instead.
+// On the About page "A little about me" is the hero: room for the nav, centred in the viewport.
 .scrap-about--hero {
   min-height: 100vh;
-  padding-top: clamp(140px, 18vw, 200px);
+  justify-content: center;
+  padding-top: 120px;
   padding-bottom: 100px;
 }
 
@@ -1409,6 +1942,7 @@ html:has(.scrap--noise) {
 }
 
 html.dark .scrap--noise {
+  --surface: #1c1c1c;
   --variable-text: #fff;
   --variable-textSecondary: rgba(255, 255, 255, 0.7);
   --variable-hoverBG: rgba(255, 255, 255, 0.08);
@@ -1473,8 +2007,9 @@ html.dark .scrap--noise {
     left: -8px;
   }
 
-  .scrap-about {
+  .scrap-about__grid {
     grid-template-columns: 1fr;
+    gap: 48px;
   }
 
   // Files stop floating and fall into a tidy grid.

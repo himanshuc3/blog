@@ -50,9 +50,49 @@ function showFrame(el: HTMLElement, frame: number) {
 }
 
 /** The hero cat: a sprite that follows the cursor with its eyes and head. */
-const CatHero: React.FC = () => {
+export type Zone = 'left' | 'right' | 'below';
+
+// Where the cat looks when a label is hovered instead of the cursor (normalised look vector).
+const FOCUS_LOOK: Record<Zone, { x: number; y: number }> = {
+  left: { x: -1, y: 0.15 },
+  right: { x: 1, y: 0.15 },
+  below: { x: 0, y: 1 },
+};
+// Look magnitude past which the cat counts as looking at a zone, and where it lets go again.
+const ZONE_ON = 0.55;
+const ZONE_OFF = 0.35;
+
+function zoneOf(x: number, y: number, current: Zone | null): Zone | null {
+  if (current) {
+    const m = current === 'below' ? y : current === 'left' ? -x : x;
+    if (m > ZONE_OFF) return current;
+  }
+  if (y > ZONE_ON && y >= Math.abs(x)) return 'below';
+  if (x < -ZONE_ON) return 'left';
+  if (x > ZONE_ON) return 'right';
+  return null;
+}
+
+interface Props {
+  /** Reports which side the cat is looking at (null while it looks elsewhere). */
+  onZone?: (zone: Zone | null) => void;
+  /** Makes the cat look at this side regardless of the cursor (used while a label is hovered). */
+  focus?: Zone | null;
+}
+
+const CatHero: React.FC<Props> = ({ onZone, focus = null }) => {
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
+  const onZoneRef = useRef(onZone);
+  onZoneRef.current = onZone;
+  const focusRef = useRef(focus);
+  focusRef.current = focus;
+  const kickRef = useRef<() => void>();
+
+  // A label hover starts (or ends) a look immediately.
+  useEffect(() => {
+    kickRef.current?.();
+  }, [focus]);
 
   useEffect(() => {
     const el = ref.current;
@@ -75,10 +115,18 @@ const CatHero: React.FC = () => {
     const look = { x: 0, y: 0 };
     let raf = 0;
     let shown = -1;
+    let zone: Zone | null = null;
 
     const tick = () => {
-      look.x += (target.x - look.x) * EASE;
-      look.y += (target.y - look.y) * EASE;
+      const f = focusRef.current;
+      const goal = f ? FOCUS_LOOK[f] : target;
+      look.x += (goal.x - look.x) * EASE;
+      look.y += (goal.y - look.y) * EASE;
+      const z = zoneOf(look.x, look.y, zone);
+      if (z !== zone) {
+        zone = z;
+        onZoneRef.current?.(z);
+      }
       const gx = NEUTRAL.x + look.x * (look.x < 0 ? REACH_X[0] : REACH_X[1]);
       const gy = NEUTRAL.y + look.y * (look.y < 0 ? REACH_Y[0] : REACH_Y[1]);
       const frame = nearestFrame(gx, gy);
@@ -86,8 +134,7 @@ const CatHero: React.FC = () => {
         shown = frame;
         showFrame(el, frame);
       }
-      const settled =
-        Math.abs(target.x - look.x) < 0.002 && Math.abs(target.y - look.y) < 0.002;
+      const settled = Math.abs(goal.x - look.x) < 0.002 && Math.abs(goal.y - look.y) < 0.002;
       raf = settled ? 0 : requestAnimationFrame(tick);
     };
 
@@ -103,9 +150,14 @@ const CatHero: React.FC = () => {
       if (!raf) raf = requestAnimationFrame(tick);
     };
 
+    kickRef.current = () => {
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
     window.addEventListener('pointermove', onMove, { passive: true });
     document.documentElement.addEventListener('pointerleave', onLeave);
     return () => {
+      kickRef.current = undefined;
+      if (zone) onZoneRef.current?.(null);
       cancelAnimationFrame(raf);
       window.removeEventListener('pointermove', onMove);
       document.documentElement.removeEventListener('pointerleave', onLeave);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 
-import CatHero from './CatHero';
+import CatStage from './CatStage';
 import { useNameIs } from './NameIs';
 import { HEADLINE, NAME, TAGLINE } from './data';
 
@@ -38,14 +38,6 @@ const Hero: React.FC = () => {
               </span>
             ))}
           </p>
-          {/* Parked label pills:
-          <div className="scrap-hero__tags">
-            {TAGS.map((t) => (
-              <span key={t} className="scrap-tag grotesk-font">
-                {t}
-              </span>
-            ))}
-          </div> */}
         </motion.div>
         <motion.h1 className="scrap-hero__headline grotesk-font" {...rise(0.3)}>
           {HEADLINE}
@@ -53,7 +45,7 @@ const Hero: React.FC = () => {
       </div>
 
       <motion.div className="scrap-hero__cat" {...rise(0.45)}>
-        <CatHero />
+        <CatStage />
       </motion.div>
       {overlay}
     </section>

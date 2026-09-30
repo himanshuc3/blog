@@ -17,13 +17,11 @@ export const RESUME_URL =
   'https://drive.google.com/file/d/1FP0_-j3YMKtRxoqHqJlEh6jozooPkPlw/view?usp=sharing';
 
 export const NAME = 'himanshu chhabra';
-// Label pills, parked for now (see the commented block in Hero.tsx).
-export const TAGS = ['Fullstack Engineer', 'Writing about adventures'];
 
 /** The statement under the name, one array per line. `em` runs are set dark; the rest is muted. */
 export const TAGLINE: { text: string; em?: boolean }[][] = [
-  [{ text: 'Building from ' }, { text: 'first principles.', em: true }],
-  [{ text: 'Leveraging AI', em: true }, { text: ' to move fast' }],
+  [{ text: 'Fullstack engineer ', em: false}, { text: 'building from ' ,em: true}, ],
+  [{ text: 'first principles & Leveraging AI', em: false },],
 ];
 // export const HEADLINE = 'Milliseconds matter. So do pixels.';
 export const HEADLINE = '';
@@ -34,12 +32,43 @@ export const HEADLINE = '';
  */
 export const HERO_BG: string = heroPlaceholder;
 
+export type Scene = 'stack' | 'perf' | 'a11y' | 'chess' | 'place' | 'geometry';
+
+/** A run of the description. A run with a `scene` is hoverable and swaps the visual beside it. */
+export interface Seg {
+  text: string;
+  scene?: Scene;
+  /** Struck through, for the joke. */
+  strike?: boolean;
+  /** Internal route; rendered as a router link. */
+  to?: string;
+}
+
 export const ABOUT = {
-  heading: ['A little', 'about me'],
-  paragraphs: [
-    'I care about rendering performance, accessibility and the unglamorous details that make a product feel fast. I build across the stack, mostly TypeScript, React and Go, and I am slowly upgrading my brain to web3.',
-    `Based in ${PROFILE.city}, currently at ${PROFILE.company}. I also write about JavaScript, Go and computational geometry, usually after breaking something first.`,
-  ],
+  title: 'A little about me',
+  script: `📍 based in ${PROFILE.city.toLowerCase()}`,
+  body: [
+    [
+      { text: 'I am Himanshu, a ' },
+      { text: '💻 fullstack engineer', scene: 'stack' },
+      { text: 'pushing 0️⃣s and 1️⃣s while trying to not to have a binary mindset.' },
+    ],
+    [
+      { text: 'In the pre-AI era, I used to focus on ' },
+      { text: '🚄 performance', scene: 'perf' },
+      { text: " and fail fast in products which doesn't necessarily reflect on my tech stack." },
+    ],
+    [
+      { text: "Don't forget to read my " },
+      { text: '📖 blog posts', to: '/blog' },
+      { text: ' filled with personal frustations and unusually high amounts of hand coding experiments.' },
+    ],
+    [
+      { text: "When I'm not on my computer, I'm...😴 sleeping. No but seriously, i really like " },
+      { text: '♟️ playing chess', scene: 'chess' },
+      { text: 'spending countless cours wiffing in 👾 valorant and off late, learning 🇯🇵 nihongo.' },
+    ],
+   ] as Seg[][],
   signoff: 'articles of insignificance, code of moderate significance.',
 };
 
@@ -118,3 +147,13 @@ export const WORK_HISTORY: HistoryRow[] = [
   { period: '2021–2022', org: 'Zeta', role: 'Frontend Engineer 2', logo: zetaLogo },
   { period: '2019–2021', org: 'Rapyuta Robotics', role: 'Frontend Engineer', logo: rapyutaLogo, lightenOnDark: true },
 ];
+
+/**
+ * The three signals around the cat. Each is a script title; its chips open when the cat looks that
+ * way or the title is hovered/tapped.
+ */
+export const SIGNALS = {
+  left: { title: 'curricula' },
+  right: { title: 'socials' },
+  below: { title: 'my stack' },
+};
