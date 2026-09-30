@@ -14,7 +14,7 @@ export { default as Contact } from './Contact';
 
 /** Home: the poster, a little about me, and recent writing. Nothing else. */
 const Home: React.FC = () => (
-  <Layout>
+  <Layout noise>
     <Hero />
     <About />
     <Writing />

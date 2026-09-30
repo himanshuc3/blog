@@ -209,20 +209,15 @@ html:has(.scrap) {
 
 .scrap-hero {
   position: relative;
-  z-index: 3; // the photo and stickers overhang into the next section
-  min-height: max(100vh, 760px);
-  padding-top: clamp(190px, 27vh, 300px);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2vh, 28px);
+  min-height: 100vh;
+  padding: 130px 16px 40px;
   text-align: center;
-
-  // The poster image (HERO_BG in data.ts). The gradient only shows while the image loads.
-  &__landscape {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    background: var(--hero-img, none) center bottom / cover no-repeat,
-      linear-gradient(#f4a57a 0%, #f7c184 35%, #ecc862 48%, #7da22f 62%, #2f5f1f 100%);
-  }
 
   &__copy {
     position: relative;
@@ -244,48 +239,35 @@ html:has(.scrap) {
 
   &__name {
     font-size: clamp(1.7rem, 3.6vw, 3.2rem);
-    color: #fff7e6;
-    text-shadow: 0 2px 14px rgba(30, 40, 10, 0.55);
+    color: var(--green);
   }
 
   &__headline {
     max-width: 16ch;
-    font-size: clamp(2.6rem, 7.2vw, 6.6rem);
+    font-size: clamp(2.6rem, min(7.2vw, 10vh), 6.6rem);
     font-weight: 500;
     line-height: 0.98;
     letter-spacing: -0.055em;
-    color: #ecd0f7;
-    text-shadow: 0 2px 26px rgba(40, 20, 60, 0.25);
+    color: var(--ink);
     text-wrap: balance;
   }
 
-  // The stage sits on the hero's bottom edge; the photo and stickers straddle it.
-  &__stage {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 0;
-    z-index: 2;
+  &__cat {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
+}
 
-  &__stickers {
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-  }
-
-  &__photo {
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    translate: -50% 52%;
-    z-index: 2;
-
-    .poster-stage {
-      --pw: clamp(190px, 21vw, 300px);
-    }
-  }
+// One frame of cat-spritesheet.webp (14 x 14 grid of 320 x 480 frames). --cat-x/--cat-y pick it.
+.scrap-cat {
+  width: clamp(170px, min(26vw, 27vh), 340px);
+  background-image: var(--cat-sheet);
+  background-repeat: no-repeat;
+  background-size: 1400% 1400%;
+  background-position: var(--cat-x, 0%) var(--cat-y, 0%);
+  filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.22));
+  pointer-events: none;
 }
 
 .sticker {
@@ -356,8 +338,7 @@ html:has(.scrap) {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 48px;
-  // top padding clears the photo that hangs over the hero edge
-  padding: clamp(340px, 42vw, 470px) 5vw 140px;
+  padding: 140px 5vw;
 
   &__title {
     display: flex;
@@ -1034,7 +1015,7 @@ html.dark .scrap .about-content {
   }
 }
 
-// ---- noise surface (about page) ---------------------------------------------------------------
+// ---- noise surface (about and home pages) ---------------------------------------------------------------
 // One tiled grain behind the whole page. Dark theme inverts the same tile. The painted scenes
 // (work, contact) keep their own colours; only the plain sections follow the theme.
 
@@ -1071,6 +1052,7 @@ html:has(.scrap--noise) {
     color: var(--ink);
   }
 
+  .scrap-hero,
   .scrap-about,
   .scrap-writing {
     background-color: transparent;
@@ -1088,6 +1070,7 @@ html.dark .scrap--noise {
   --variable-subtext: rgba(200, 200, 200, 0.8);
   --variable-primary: #f7e018;
 
+  .scrap-hero,
   .scrap-about,
   .scrap-writing,
   .scrap-work__head,
@@ -1121,7 +1104,8 @@ html.dark .scrap--noise {
   .scrap-folder {
     color: #f2f2f2;
   }
-  .scrap-writing__all {
+  .scrap-writing__all,
+  .scrap-tag {
     color: #151515;
   }
   .scrap-nav__pill {
@@ -1149,7 +1133,6 @@ html.dark .scrap--noise {
 
   .scrap-about {
     grid-template-columns: 1fr;
-    padding-top: clamp(300px, 70vw, 420px);
   }
 
   // Files stop floating and fall into a tidy grid.
@@ -1188,14 +1171,6 @@ html.dark .scrap--noise {
       width: 40px;
       height: 40px;
       font-size: 1.1rem;
-    }
-  }
-
-  .scrap-hero {
-    .sticker:nth-of-type(2),
-    .sticker:nth-of-type(3),
-    .scrap-widget {
-      display: none;
     }
   }
 

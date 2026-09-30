@@ -4,3 +4,8 @@ declare module '*.svg' {
 }
 
 declare module '*.scss'
+
+declare module '*.webp' {
+  const source: string
+  export default source
+}
