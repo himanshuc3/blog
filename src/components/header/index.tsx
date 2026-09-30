@@ -10,7 +10,6 @@ import './styles.scss';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useNavbarSticky } from '../../hooks/useNavbarSticky';
 import usePageScrollLoader from '../../hooks/usePageScrollLoader';
-import { PullCord } from '../PullCord';
 import NavMenu from './NavMenu';
 
 interface Props {
@@ -31,7 +30,6 @@ const Header: React.FC<Props> = ({ onToggleTheme, darkTheme, isScrollLoader }) =
       <div className="inner">
         <div className="scroll-loader" ref={scrollBarRef}></div>
         <Logo />
-        <PullCord />
         <NavMenu />
         <div className="header-actions">
           <DarkModeSwitch
