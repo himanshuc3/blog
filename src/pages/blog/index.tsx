@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
+import { MdRssFeed } from 'react-icons/md';
 
 import { SEO } from '../../components/Seo';
 import Tag from '../../components/tag';
@@ -89,23 +90,39 @@ const BlogPage: React.FC<PageProps> = () => {
     );
   }
 
+  const postCount = filteredPosts.reduce((n, [, posts]) => n + posts.length, 0);
+
   return (
     <BaseComponent className="blog-wrapper">
       <div className="poster section">
         <div className="heading">
-          <h1>📘 Articles</h1>
-          <p className="sec-font">
-            Technical conundrums, infrastructure woes, and blogs formated in big-endianess.
-          </p>
+          <h1 className="grotesk-font">
+            List of blogs
+            <span className="count" aria-label={`${postCount} posts`}>
+              {postCount}
+            </span>
+          </h1>
+          <span className="script-font">not written by AI</span>
         </div>
+        <p className="intro grotesk-font">
+          Want to collab on an idea or suggest ideas to my existing blogs? Raise an issue on{' '}
+          <a href="https://github.com/himanshuc3/blog/issues" target="_blank" rel="noreferrer">
+            github
+          </a>
+          .
+        </p>
         <div className="filter">
-          <div>
+          <div className="filter-row">
             <Search onChange={onSearchInput} />
-            <div className="tags" onClick={onTagSelect}>
-              {TAGS.map((tag) => (
-                <Tag text={tag} highlighted={selectedTag === tag} />
-              ))}
-            </div>
+            <a className="rss-button" href="/rss.xml" target="_blank" rel="noreferrer" aria-label="RSS feed">
+              <MdRssFeed aria-hidden="true" />
+              RSS
+            </a>
+          </div>
+          <div className="tags" onClick={onTagSelect}>
+            {TAGS.map((tag) => (
+              <Tag key={tag} text={tag} highlighted={selectedTag === tag} />
+            ))}
           </div>
         </div>
         {filteredPosts.length == 0 ? (
@@ -114,19 +131,7 @@ const BlogPage: React.FC<PageProps> = () => {
           </div>
         ) : (
           <div className="post-list">
-            {filteredPosts.map(([year, posts]) => {
-              return (
-                <div className="yearly-posts-container">
-                  {/* <div className="filters">
-                  <h1 className="sec-font">{year}</h1>
-                  </div> */}
-
-                  <div className="posts">
-                    <Posts posts={posts} />
-                  </div>
-                </div>
-              );
-            })}
+            <Posts posts={filteredPosts.flatMap(([, posts]) => posts)} />
           </div>
         )}
       </div>

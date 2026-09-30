@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'gatsby';
 import './styles.scss';
 import { DATE_OPTS } from '../../utils/constants';
-import { MdDriveFolderUpload } from 'react-icons/md';
 import { FaStar } from 'react-icons/fa6';
 import Status from './status';
 
@@ -23,16 +22,7 @@ function isNewArticle(date: Date) {
 }
 
 const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
-  const filteredTags = tags.filter((tag) => tag !== 'upcoming');
   function superscript() {
-    if (tags.includes('upcoming')) {
-      return (
-        <Status text="UPCOMING" className="warning">
-          <MdDriveFolderUpload style={{ marginRight: '3px' }} />
-        </Status>
-      );
-    }
-
     if (isNewArticle(date)) {
       return (
         <Status text="NEW" className="success">
@@ -45,16 +35,16 @@ const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
 
   return (
     <Link className="post-heading" data-id={id} to={`/blog/${slug}`}>
-      <time className="post-date sec-font" dateTime={new Date(date).toISOString()}>
+      <time className="post-date script-font" dateTime={new Date(date).toISOString()}>
         {date.toLocaleDateString('en-US', DATE_OPTS)}
       </time>
       <h2 className="sec-font heading-title">
         {superscript()}
         {title}
       </h2>
-      {filteredTags.length > 0 && (
+      {tags.length > 0 && (
         <ul className="post-tags sec-font" aria-label="Tags">
-          {filteredTags.map((tag) => (
+          {tags.map((tag) => (
             <li key={tag}>{tag}</li>
           ))}
         </ul>

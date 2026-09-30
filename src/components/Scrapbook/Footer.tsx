@@ -129,7 +129,7 @@ const Footer: React.FC = () => {
 
       <section className="scrap-footer__connect">
         <p className="scrap-footer__invite grotesk-font">
-          If you&apos;re interested in my work or just want to grab a coffee, feel free to reach
+          If you want to collab or just want to grab a coffee, feel free to reach
           out.
         </p>
         <ul className="scrap-footer__socials grotesk-font">

@@ -35,7 +35,8 @@ function usePostsData() {
   `);
 
   return edges
-    .filter((edge: IEdge) => !!edge.node.frontmatter.date)
+    // Unpublished posts are tagged `upcoming`; they never show up in listings.
+    .filter((edge: IEdge) => !!edge.node.frontmatter.date && !edge.node.frontmatter.tags?.includes('upcoming'))
     .map((edge: IEdge) => ({
       id: edge.node.id,
       ...edge.node.frontmatter,
