@@ -1,6 +1,11 @@
 // Scrapbook home page. Everything is scoped under `.scrap` so it can't leak into other pages.
 // Light-only on purpose: the surfaces are painted, not themed.
 
+html:has(.scrap),
+html:has(.scrap) body {
+  background: #fff;
+}
+
 html:has(.scrap) {
   scroll-behavior: smooth;
 }
@@ -28,6 +33,9 @@ html:has(.scrap) {
 
   position: relative;
   overflow-x: clip;
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
   background: #fff;
   color: var(--ink);
   color-scheme: light;
@@ -136,79 +144,63 @@ html:has(.scrap) {
   padding: 0 16px;
   pointer-events: none;
 
-  // A frosted pill: opaque enough to read on white sections, clear enough to tint over the hero.
+  // A dark dock of round icon buttons; the current page gets a dot underneath.
   &__pill {
     pointer-events: auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    width: min(820px, 100%);
-    padding: 9px 9px 9px 28px;
-    color: var(--ink);
-    background: rgba(255, 255, 255, 0.62);
-    border: 1px solid rgba(255, 255, 255, 0.75);
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(24, 24, 24, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 999px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 12px 32px -14px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 16px 36px -14px rgba(0, 0, 0, 0.6);
     -webkit-backdrop-filter: blur(18px) saturate(1.4);
     backdrop-filter: blur(18px) saturate(1.4);
   }
 
-  &__mono {
-    font-size: 1.6rem;
-    line-height: 1;
-    color: var(--green);
-  }
-
-  &__links {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 1rem;
-    font-weight: 500;
-  }
-
-  &__link {
-    padding: 9px 14px;
-    color: var(--ink);
-    border-radius: 999px;
-    transition: background-color 0.2s ease;
+  &__item {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.1);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease,
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
     &:hover {
-      background: rgba(0, 0, 0, 0.07);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
     }
     &.is-current,
     &[aria-current='page'] {
-      background: rgba(0, 0, 0, 0.09);
-    }
-  }
+      color: #fff;
+      background: rgba(255, 255, 255, 0.18);
 
-  &__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-left: 6px;
-    padding: 11px 20px;
-    font-weight: 600;
-    color: var(--ink);
-    white-space: nowrap;
-    background: var(--lavender);
-    border-radius: 999px;
-    transition: background-color 0.2s ease;
-
-    span[aria-hidden] {
-      transition: transform 0.2s ease;
-    }
-    &:hover {
-      background: var(--lavender-soft);
-      span[aria-hidden] {
-        transform: translateX(4px);
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -7px;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        margin-left: -2px;
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: 50%;
       }
     }
   }
 
-  a:focus-visible {
-    outline: 2px solid var(--ink);
+  &__item:focus-visible {
+    outline: 2px solid #fff;
     outline-offset: 2px;
   }
 }
@@ -1107,25 +1099,15 @@ html.dark .scrap .about-content {
 @media only screen and (max-width: 700px) {
   .scrap-nav {
     top: 12px;
-    padding: 0 10px;
 
     &__pill {
-      gap: 8px;
-      padding: 7px 7px 7px 18px;
+      gap: 6px;
+      padding: 8px 10px;
     }
-    &__links {
-      gap: 0;
-      font-size: 0.9rem;
-    }
-    &__link {
-      padding: 8px 9px;
-    }
-    &__link--work,
-    &__cta-long {
-      display: none;
-    }
-    &__cta {
-      padding: 9px 14px;
+    &__item {
+      width: 40px;
+      height: 40px;
+      font-size: 1.1rem;
     }
   }
 

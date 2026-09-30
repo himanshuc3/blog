@@ -1,29 +1,62 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'gatsby';
+import { FiFeather, FiGithub, FiHome, FiMoon, FiSun, FiUser } from 'react-icons/fi';
+import { SiSubstack } from 'react-icons/si';
 
-/** Floating glass pill shared by the scrapbook pages. Gatsby marks the current page `aria-current`. */
-const Nav: React.FC = () => (
-  <header className="scrap-nav">
-    <nav className="scrap-nav__pill grotesk-font" aria-label="Primary">
-      <Link className="scrap-nav__mono script-font" to="/" aria-label="Home">
-        hc
-      </Link>
-      <div className="scrap-nav__links">
-        <Link className="scrap-nav__link" to="/about" activeClassName="is-current">
-          About
+import ThemeContext from '../../hooks/themeContext';
+import { SOCIAL_LINKS } from './data';
+
+/** Floating dark dock of icon buttons shared by the scrapbook pages. Gatsby marks the current page `aria-current`. */
+const Nav: React.FC = () => {
+  const { darkTheme, toggleTheme } = useContext(ThemeContext);
+
+  return (
+    <header className="scrap-nav">
+      <nav className="scrap-nav__pill" aria-label="Primary">
+        <Link className="scrap-nav__item" to="/" aria-label="Home" activeClassName="is-current">
+          <FiHome aria-hidden="true" />
         </Link>
-        <Link className="scrap-nav__link scrap-nav__link--work" to="/about#work">
-          Work
+        <Link className="scrap-nav__item" to="/about" aria-label="About" activeClassName="is-current">
+          <FiUser aria-hidden="true" />
         </Link>
-        <Link className="scrap-nav__link" to="/blog" partiallyActive activeClassName="is-current">
-          Writing
+        <Link
+          className="scrap-nav__item"
+          to="/blog"
+          aria-label="Writing"
+          partiallyActive
+          activeClassName="is-current"
+        >
+          <FiFeather aria-hidden="true" />
         </Link>
-        <Link className="scrap-nav__cta" to="/about#contact">
-          <span className="scrap-nav__cta-long">Let’s </span>chat <span aria-hidden="true">→</span>
-        </Link>
-      </div>
-    </nav>
-  </header>
-);
+        <a
+          className="scrap-nav__item"
+          href={SOCIAL_LINKS.GITHUB}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="GitHub"
+        >
+          <FiGithub aria-hidden="true" />
+        </a>
+        <a
+          className="scrap-nav__item"
+          href={SOCIAL_LINKS.SUBSTACK}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Substack"
+        >
+          <SiSubstack aria-hidden="true" />
+        </a>
+        <button
+          type="button"
+          className="scrap-nav__item"
+          onClick={toggleTheme}
+          aria-label={darkTheme ? 'Switch to light theme' : 'Switch to dark theme'}
+        >
+          {darkTheme ? <FiSun aria-hidden="true" /> : <FiMoon aria-hidden="true" />}
+        </button>
+      </nav>
+    </header>
+  );
+};
 
 export default Nav;
