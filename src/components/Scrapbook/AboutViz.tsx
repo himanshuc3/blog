@@ -1,7 +1,30 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { SiGatsby, SiGo, SiNetlify, SiNodedotjs, SiReact, SiSass, SiSvelte, SiTypescript } from 'react-icons/si';
+import {
+  SiApachekafka,
+  SiExpress,
+  SiGatsby,
+  SiGo,
+  SiNetlify,
+  SiNodedotjs,
+  SiPostgresql,
+  SiReact,
+  SiRedis,
+  SiRust,
+  SiSass,
+  SiSolana,
+  SiSvelte,
+  SiTypescript,
+  SiVuedotjs,
+} from 'react-icons/si';
 
+import earpodsImg from '../../images/cutouts/earpods.png';
+import monsterImg from '../../images/cutouts/monster.png';
+import mouseImg from '../../images/cutouts/mouse.png';
+import ttImg from '../../images/cutouts/tt.png';
+import chessImg from '../../images/cutouts/chess.png';
+import japaneseImg from '../../images/cutouts/japanese.png';
+import valorantImg from '../../images/cutouts/valorant.png';
 import { PROFILE, Scene, WORK_HISTORY } from './data';
 
 /** Illustrations that sit beside the About description. `scene` picks which one shows. */
@@ -11,30 +34,55 @@ import { PROFILE, Scene, WORK_HISTORY } from './data';
 const STACK_TILES = [
   { name: 'TypeScript', Icon: SiTypescript, color: '#3178c6' },
   { name: 'React', Icon: SiReact, color: '#00a8cc' },
-  { name: 'Go', Icon: SiGo, color: '#00add8' },
+  { name: 'Golang', Icon: SiGo, color: '#00add8' },
   { name: 'Node.js', Icon: SiNodedotjs, color: '#5fa04e' },
   { name: 'Svelte', Icon: SiSvelte, color: '#ff3e00' },
   { name: 'Gatsby', Icon: SiGatsby, color: '#8a4fbf' },
   { name: 'Sass', Icon: SiSass, color: '#cc6699' },
   { name: 'Netlify', Icon: SiNetlify, color: '#00a99d' },
+  { name: 'Express', Icon: SiExpress, color: '#444444' },
+  { name: 'Vue.js', Icon: SiVuedotjs, color: '#42b883' },
+  { name: 'Redis', Icon: SiRedis, color: '#dc382d' },
+  { name: 'PostgreSQL', Icon: SiPostgresql, color: '#336791' },
+  { name: 'Kafka', Icon: SiApachekafka, color: '#231f20' },
+  { name: 'Rust', Icon: SiRust, color: '#b7410e' },
+  { name: 'Solana', Icon: SiSolana, color: '#9945ff' },
 ];
 
-const Stack: React.FC = () => (
-  <div className="viz-stack">
-    {STACK_TILES.map(({ name, Icon, color }, i) => (
-      <motion.div
-        key={name}
-        className="viz-stack__tile"
-        initial={{ opacity: 0, y: 14, scale: 0.9 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ delay: i * 0.045, type: 'spring', stiffness: 380, damping: 24 }}
-      >
-        <Icon color={color} aria-hidden="true" />
-        <span>{name}</span>
-      </motion.div>
-    ))}
-  </div>
-);
+// Rotations are fixed so server and client render the same thing.
+const TILT = [-5, 4, -3, 6, 3, -6, 5, -4, 3, -5, 6, -3, 4, -6];
+
+const Stack: React.FC = () => {
+  const boardRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  // The pill being handled sits above the rest; otherwise it can slide under a later sibling.
+  const [top, setTop] = useState(-1);
+  return (
+    <div className="viz-stack" ref={boardRef}>
+      {STACK_TILES.map(({ name, Icon, color }, i) => (
+        <div key={name} className="viz-stack__cell">
+          <motion.div
+            className="viz-stack__tile"
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.7, rotate: TILT[i] - 20 }}
+            animate={{ opacity: 1, scale: 1, rotate: TILT[i] }}
+            transition={{ delay: i * 0.045, type: 'spring', stiffness: 380, damping: 24 }}
+            drag
+            dragConstraints={boardRef}
+            dragElastic={0}
+            dragMomentum={false}
+            style={{ zIndex: top === i ? 10 : 1 }}
+            onPointerDown={() => setTop(i)}
+            whileHover={{ scale: 1.06 }}
+            whileDrag={{ scale: 1.12 }}
+          >
+            <Icon color={color} aria-hidden="true" />
+            <span>{name}</span>
+          </motion.div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 // ---- rendering performance: one frame's budget -----------------------------------------------
 
@@ -119,43 +167,53 @@ const A11y: React.FC = () => {
   );
 };
 
-// ---- chess: a knight, some hiragana, and a spray pattern ----------------------------------------
+// ---- shared: a loose collage of cut-outs, slightly overlapping, no card ---------------------------
 
-const CHESS_TILES = [
-  { label: 'chess', node: <span className="viz-chess__glyph">♞</span> },
-  { label: 'japanese', node: <span className="viz-chess__glyph viz-chess__glyph--jp">あ</span> },
-  {
-    label: 'valorant',
-    // Placeholder spray pattern until a custom image is dropped in.
-    node: (
-      <svg viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" strokeWidth="1.5" />
-        {[
-          [20, 20], [21, 15], [19, 10], [23, 7], [17, 5],
-        ].map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r="1.8" fill="currentColor" />
-        ))}
-      </svg>
-    ),
-  },
-];
+/**
+ * `left`, `top` and `w` are percentages of a 516×480 stage; height follows the (trimmed) image.
+ * The stage keeps that ratio at any width, so the overlaps hold on small screens too.
+ */
+type Photo = { alt: string; src: string; left: number; top: number; w: number; rotate: number; z?: number };
 
-const Chess: React.FC = () => (
-  <div className="viz-chess">
-    {CHESS_TILES.map(({ label, node }, i) => (
-      <motion.div
-        key={label}
-        className="viz-chess__tile"
-        initial={{ opacity: 0, y: 14, scale: 0.9 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ delay: i * 0.09, type: 'spring', stiffness: 380, damping: 24 }}
-      >
-        {node}
-        <span>{label}</span>
-      </motion.div>
+const Photos: React.FC<{ photos: Photo[] }> = ({ photos }) => (
+  <div className="viz-photos">
+    {photos.map(({ alt, src, left, top, w, rotate, z = 1 }, i) => (
+      <motion.img
+        key={alt}
+        className="viz-photos__img"
+        src={src}
+        alt={alt}
+        draggable={false}
+        style={{ left: `${left}%`, top: `${top}%`, width: `${w}%`, zIndex: z }}
+        initial={{ opacity: 0, y: 30, rotate: rotate - 10, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, rotate, scale: 1 }}
+        transition={{ delay: i * 0.1, type: 'spring', stiffness: 220, damping: 20 }}
+        whileHover={{ scale: 1.06, zIndex: 5 }}
+      />
     ))}
   </div>
 );
+
+// ---- chess ---------------------------------------------------------------------------------------
+
+const CHESS_PHOTOS: Photo[] = [
+  { alt: 'japanese hiragana characters', src: japaneseImg, left: 26, top: 2, w: 48, rotate: 3, z: 2 },
+  { alt: 'a black chess king', src: chessImg, left: 2, top: 12, w: 30, rotate: -6 },
+  { alt: 'valorant', src: valorantImg, left: 58, top: 31, w: 38, rotate: 7 },
+];
+
+const Chess: React.FC = () => <Photos photos={CHESS_PHOTOS} />;
+
+// ---- live without: the daily addictions --------------------------------------------------------
+
+const LIVE_PHOTOS: Photo[] = [
+  { alt: 'earphones', src: earpodsImg, left: 24, top: 0, w: 46, rotate: -5, z: 2 },
+  { alt: 'tt', src: ttImg, left: 0, top: 50, w: 46, rotate: -8 },
+  { alt: 'monster can', src: monsterImg, left: 40, top: 38, w: 28, rotate: 4, z: 3 },
+  { alt: 'mouse', src: mouseImg, left: 50, top: 70, w: 46, rotate: 6 },
+];
+
+const LiveWithout: React.FC = () => <Photos photos={LIVE_PHOTOS} />;
 
 // ---- place: New Delhi, live, and where I work ------------------------------------------------
 
@@ -253,6 +311,7 @@ const CAPTIONS: Record<Scene, string> = {
   perf: 'rendering performance',
   a11y: 'accessibility',
   chess: 'off the clock',
+  livewithout: 'daily addictions',
   place: 'home base',
   geometry: 'computational geometry',
 };
@@ -262,6 +321,7 @@ const SCENES: Record<Scene, React.FC> = {
   perf: Perf,
   a11y: A11y,
   chess: Chess,
+  livewithout: LiveWithout,
   place: Place,
   geometry: Geometry,
 };
@@ -270,7 +330,12 @@ const AboutViz: React.FC<{ scene: Scene }> = ({ scene }) => {
   const reduceMotion = useReducedMotion();
   const Body = SCENES[scene];
   return (
-    <div className="scrap-viz grotesk-font" aria-live="polite">
+    <div
+      className={`scrap-viz grotesk-font${
+        scene === 'stack' ? ' scrap-viz--board' : scene === 'chess' || scene === 'livewithout' ? ' scrap-viz--bare' : ''
+      }`}
+      aria-live="polite"
+    >
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={scene}
@@ -283,7 +348,7 @@ const AboutViz: React.FC<{ scene: Scene }> = ({ scene }) => {
           <Body />
         </motion.div>
       </AnimatePresence>
-      <p className="scrap-viz__cap script-font">{CAPTIONS[scene]}</p>
+      {scene !== 'stack' && scene !== 'chess' && scene !== 'livewithout' && <p className="scrap-viz__cap script-font">{CAPTIONS[scene]}</p>}
     </div>
   );
 };

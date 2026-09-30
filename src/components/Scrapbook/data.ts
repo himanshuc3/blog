@@ -32,7 +32,7 @@ export const HEADLINE = '';
  */
 export const HERO_BG: string = heroPlaceholder;
 
-export type Scene = 'stack' | 'perf' | 'a11y' | 'chess' | 'place' | 'geometry';
+export type Scene = 'stack' | 'perf' | 'a11y' | 'chess' | 'livewithout' | 'place' | 'geometry';
 
 /** A run of the description. A run with a `scene` is hoverable and swaps the visual beside it. */
 export interface Seg {
@@ -51,12 +51,7 @@ export const ABOUT = {
     [
       { text: 'I am Himanshu, a ' },
       { text: '💻 fullstack engineer', scene: 'stack' },
-      { text: 'pushing 0️⃣s and 1️⃣s while trying to not to have a binary mindset.' },
-    ],
-    [
-      { text: 'In the pre-AI era, I used to focus on ' },
-      { text: '🚄 performance', scene: 'perf' },
-      { text: " and fail fast in products which doesn't necessarily reflect on my tech stack." },
+      { text: ' pushing 0️⃣s and 1️⃣s while trying to not to have a binary mindset.' },
     ],
     [
       { text: "Don't forget to read my " },
@@ -64,10 +59,14 @@ export const ABOUT = {
       { text: ' filled with personal frustations and unusually high amounts of hand coding experiments.' },
     ],
     [
-      { text: "When I'm not on my computer, I'm...😴 sleeping. No but seriously, i really like " },
+      { text: "When I'm not on my computer, I'm...😴 sleeping. No but seriously, my side quests include " },
       { text: '♟️ playing chess', scene: 'chess' },
-      { text: 'spending countless cours wiffing in 👾 valorant and off late, learning 🇯🇵 nihongo.' },
+      { text: ' ,spending countless hours wiffing in 👾 valorant and off late, learning 🇯🇵 nihongo.' },
     ],
+    [
+      { text: "Want a sneak peek of my daily addictions, here's what " },
+      { text: "i can't live without.", scene: 'livewithout'  },
+     ],
    ] as Seg[][],
   signoff: 'articles of insignificance, code of moderate significance.',
 };
