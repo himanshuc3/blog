@@ -127,7 +127,7 @@ const BlogPage: React.FC<PageProps> = () => {
         </div>
         {filteredPosts.length == 0 ? (
           <div className="no-posts">
-            <StaticImage src="../../images/cena.png" alt="no posts available" />
+            <StaticImage src="../../images/nopost.png" alt="no posts available" />
           </div>
         ) : (
           <div className="post-list">

@@ -9,7 +9,7 @@ import ThemeContext from '../hooks/themeContext';
 import CodeBlock from '../components/code';
 import { MDXProvider } from '@mdx-js/react';
 import Tag from '../components/tag';
-import { DATE_OPTS } from '../utils/constants';
+import { DATE_OPTS, REPO_EDIT_BASE } from '../utils/constants';
 import InfoQuote from '../components/InfoQuote';
 import './blogStyles.scss';
 interface ComponentProps {
@@ -20,6 +20,7 @@ interface ComponentProps {
 interface BlogPostTemplateProps {
   data: {
     mdx: {
+      parent?: { relativePath?: string } | null;
       frontmatter: {
         title: string;
         seoDescription: string;
@@ -52,7 +53,11 @@ const components = {
 };
 
 export default function BlogPostTemplate({ data, children }: BlogPostTemplateProps) {
-  const { frontmatter } = data.mdx;
+  const { frontmatter, parent } = data.mdx;
+  // The post's source file in the repo, so a reader can suggest a fix on GitHub.
+  const editUrl = parent?.relativePath
+    ? `${REPO_EDIT_BASE}/${parent.relativePath}`
+    : undefined;
   const { darkTheme } = useContext(ThemeContext);
 
   return (
@@ -74,7 +79,7 @@ export default function BlogPostTemplate({ data, children }: BlogPostTemplatePro
           <div className="heading">
             <h1>{frontmatter.title}</h1>
             <div className="meta">
-              <p className="sec-font">
+              <p className="script-font">
                 Published on {new Date(frontmatter.date).toLocaleDateString('en-US', DATE_OPTS)}
               </p>
               <span className="separator">&middot;</span>
@@ -83,9 +88,22 @@ export default function BlogPostTemplate({ data, children }: BlogPostTemplatePro
                   <Tag key={index} text={tag} />
                 ))}
               </div>
+              {editUrl && (
+                <>
+                  <span className="separator">&middot;</span>
+                  <a
+                    className="edit-link sec-font"
+                    href={editUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Edit on GitHub
+                  </a>
+                </>
+              )}
             </div>
           </div>
-          <div className="content sec-font">{children}</div>
+          <div className="content grotesk-font">{children}</div>
         </MDXProvider>
         <Comments isDarkTheme={darkTheme} />
       </div>
@@ -97,6 +115,11 @@ export const pageQuery = graphql`
   query BlogPostById($id: String!) {
     mdx(id: { eq: $id }) {
       body
+      parent {
+        ... on File {
+          relativePath
+        }
+      }
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         slug

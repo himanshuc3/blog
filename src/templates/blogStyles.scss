@@ -18,17 +18,20 @@
     margin-top: 50px;
 
     & > h1 {
+      margin: 0;
+      line-height: 1.15;
       font-size: 2.5em;
       font-weight: 700;
       position: relative;
-      color: var(--variable-primary);
+      color: var(--variable-text);
     }
 
     .meta {
       display: flex;
       position: relative;
       align-items: center;
-      top: -30px;
+      margin-top: 12px;
+      margin-bottom: 30px;
     }
 
     .meta > .separator {
@@ -39,7 +42,30 @@
     .meta > p {
       color: var(--variable-textSecondary) !important;
       display: inline-block;
-      font-size: 1.25em;
+      font-size: 1.05em;
+    }
+
+    .meta > .edit-link {
+      font-size: 0.95em;
+      color: var(--variable-textSecondary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      &:hover {
+        color: var(--variable-primary);
+      }
+    }
+
+    .meta > .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    // Tags here are static labels: no hover, no pointer.
+    .tag {
+      cursor: default;
+      pointer-events: none;
     }
   }
 
@@ -49,13 +75,18 @@
       color: var(--variable-text);
     }
 
+    // Same voice as the description in "A little about me".
     p,
     ul li,
-    ol li{
-      font-size: 1.125em;
-      line-height: 1.7em;
+    ol li {
+      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+      line-height: 1.6;
       font-weight: 400;
-      color: var(--variable-textSecondary);
+      color: var(--variable-text);
+    }
+
+    p {
+      margin: 0 0 16px;
     }
 
     ul li, ol li{
@@ -79,7 +110,7 @@
     h4,
     h5,
     h6 {
-      color: var(--variable-primary);
+      color: var(--variable-text);
       margin-top: 40px;
     }
 
@@ -88,6 +119,7 @@
     }
 
     a {
+      --variable-underline: var(--variable-primary);
       @extend .chunky-underline;
     }
 
