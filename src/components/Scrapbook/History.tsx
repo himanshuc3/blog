@@ -14,8 +14,8 @@ const History: React.FC = () => (
       viewport={{ once: true, margin: '-15% 0px' }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <span>Where I&rsquo;ve</span>
-      <span>been</span>
+      <span className="scrap-history__heading">Experience</span>
+      <span className="scrap-history__script script-font">building 1&ndash;10</span>
     </motion.h2>
     <ul className="scrap-history__list grotesk-font">
       {WORK_HISTORY.map((row, i) => (
@@ -34,6 +34,7 @@ const History: React.FC = () => (
               ·
             </span>
             <span className="scrap-history__role">{row.role}</span>
+            {row.note && <span className="scrap-history__note">{row.note}</span>}
           </span>
           {row.logo && <img
               className={`scrap-history__logo${row.lightenOnDark ? ' is-lighten' : ''}`}

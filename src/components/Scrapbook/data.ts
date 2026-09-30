@@ -132,6 +132,8 @@ export interface HistoryRow {
   period: string;
   org: string;
   role: string;
+  /** Optional aside shown under the role. */
+  note?: string;
   /** Optional logo image, shown at the right edge of the row. */
   logo?: string;
   /** Logo is dark artwork on a transparent background: lighten it on the dark theme. */
@@ -142,7 +144,7 @@ export interface HistoryRow {
 export const WORK_HISTORY: HistoryRow[] = [
   { period: 'Present', org: 'QuillBot', role: 'SDE II', logo: quillbotLogo },
   { period: '2024–2025', org: 'Razorpay', role: 'Product Development Engineer II', logo: razorpayLogo, lightenOnDark: true },
-  { period: '2022–2024', org: 'IIT Guwahati', role: 'Postgraduate studies' },
+  { period: '2022–2024', org: 'IIT Guwahati', role: 'Postgraduate studies', note: 'Not professional experience' },
   { period: '2021–2022', org: 'Zeta', role: 'Frontend Engineer 2', logo: zetaLogo },
   { period: '2019–2021', org: 'Rapyuta Robotics', role: 'Frontend Engineer', logo: rapyutaLogo, lightenOnDark: true },
 ];

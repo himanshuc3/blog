@@ -64,6 +64,21 @@ html:has(.scrap) {
   }
 }
 
+// The footer reused on pages outside the scrapbook layout: transparent, following the site theme.
+.scrap--embed {
+  background: transparent;
+}
+
+html.dark .scrap--embed {
+  color-scheme: dark;
+
+  .scrap-footer {
+    --ink: #f2f2f2;
+    --primary-text: #ffd21f;
+    color: var(--ink);
+  }
+}
+
 // ---- shared surfaces --------------------------------------------------------------------------
 
 .scrap-grain {
@@ -282,29 +297,47 @@ html.dark .scrap-nowplaying {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 620px) 1fr;
-  align-items: center;
-  gap: 48px 64px;
+  grid-template-columns: minmax(0, 760px);
+  justify-content: center;
+  gap: 48px;
   width: min(1200px, 100% - 10vw);
   margin: 0 auto;
   padding: 20px 0 120px;
   --rule: color-mix(in srgb, var(--ink) 14%, transparent);
 
-  // Same voice as "A little about me", sat to the right of the table.
+  // Same voice as "A little about me", centered above the table.
   &__title {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     font-size: clamp(3rem, 7vw, 6.6rem);
     font-weight: 500;
     line-height: 0.95;
     letter-spacing: -0.06em;
   }
 
+  &__script {
+    margin-top: -0.1em;
+    font-size: 0.36em;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--primary-text);
+    transform: rotate(-4deg);
+  }
+
+  &__note {
+    flex-basis: 100%;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
+  }
+
   &__list {
     grid-column: 1;
-    grid-row: 1;
+    grid-row: 2;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -355,18 +388,7 @@ html.dark .scrap-nowplaying {
 
 @media only screen and (max-width: 900px) {
   .scrap-history {
-    grid-template-columns: 1fr;
-
-    &__title,
-    &__list {
-      grid-column: 1;
-    }
-    &__title {
-      grid-row: 1;
-    }
-    &__list {
-      grid-row: 2;
-    }
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

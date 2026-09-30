@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 
 import { SEO } from '../../components/Seo';
-import { About, Contact, History, Layout, Work, Writing } from '../../components/Scrapbook';
+import { About, Footer, History, Layout, Work, Writing } from '../../components/Scrapbook';
 
 // The About page opens with "A little about me" as its hero, then the longer story: work history,
 // projects. Recent writing is the same module the home page uses.
@@ -12,7 +12,7 @@ const AboutPage: React.FC<PageProps> = () => (
     <History />
     <Work />
     <Writing />
-    <Contact />
+    <Footer />
   </Layout>
 );
 

@@ -1,16 +1,17 @@
 .skeleton {
   // background: url('../../images/pattern2.svg') no-repeat;
   // background-size: cover;
-  & > div:not(#footer) {
+  // Clear the floating nav.
+  padding-top: 110px;
+
+  & > div {
     width: 750px;
     margin: auto;
   }
 }
 
 @media only screen and (max-width: 900px) {
-  #navbar .inner,
-  #footer > div,
-  .skeleton > div:not(#navbar):not(#footer) {
+  .skeleton > div {
     padding-left: 20px;
     padding-right: 20px;
   }
@@ -29,29 +30,7 @@
 }
 
 @media only screen and (max-width: 768px) {
-  #navbar {
+  .skeleton > div {
     width: 100%;
-    .inner {
-      width: 100%;
-      margin: 0 auto;
-    }
-    .menu .link {
-      font-size: 16px;
-    }
-  }
-  .skeleton > div:not(#navbar):not(#footer) {
-    width: 100%;
-  }
-}
-
-@media only screen and (max-width: 550px) {
-  #navbar .inner {
-
-    .logo-container, .header-actions {
-      width: 100px;
-    }
-    .header-actions .rss-icon{
-      display:none;
-    }
   }
 }

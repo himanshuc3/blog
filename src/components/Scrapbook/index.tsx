@@ -14,6 +14,7 @@ export { default as Writing } from './Writing';
 export { default as History } from './History';
 export { default as Contact } from './Contact';
 export { default as Footer } from './Footer';
+export { default as SiteFooter } from './SiteFooter';
 
 /** Home: the poster, a little about me, and recent writing. Nothing else. */
 const Home: React.FC = () => (
