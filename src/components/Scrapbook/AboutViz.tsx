@@ -18,13 +18,13 @@ import {
   SiVuedotjs,
 } from 'react-icons/si';
 
-import earpodsImg from '../../images/cutouts/earpods.png';
-import monsterImg from '../../images/cutouts/monster.png';
-import mouseImg from '../../images/cutouts/mouse.png';
-import ttImg from '../../images/cutouts/tt.png';
-import chessImg from '../../images/cutouts/chess.png';
-import japaneseImg from '../../images/cutouts/japanese.png';
-import valorantImg from '../../images/cutouts/valorant.png';
+import earpodsImg from '../../images/cutouts/earpods.webp';
+import monsterImg from '../../images/cutouts/monster.webp';
+import mouseImg from '../../images/cutouts/mouse.webp';
+import ttImg from '../../images/cutouts/tt.webp';
+import chessImg from '../../images/cutouts/chess.webp';
+import japaneseImg from '../../images/cutouts/japanese.webp';
+import valorantImg from '../../images/cutouts/valorant.webp';
 import { PROFILE, Scene, WORK_HISTORY } from './data';
 
 /** Illustrations that sit beside the About description. `scene` picks which one shows. */

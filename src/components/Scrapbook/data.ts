@@ -7,7 +7,6 @@ import quillbotLogo from '../../images/quillbot.webp';
 import rapyutaLogo from '../../images/rapyuta.png';
 import razorpayLogo from '../../images/razorpay.png';
 import zetaLogo from '../../images/zeta.svg';
-import heroPlaceholder from '../../images/scrapbook/hero-placeholder.svg';
 import { PROFILE } from '../About/data';
 import { SOCIAL_LINKS } from '../../utils/constants';
 
@@ -26,11 +25,7 @@ export const TAGLINE: { text: string; em?: boolean }[][] = [
 // export const HEADLINE = 'Milliseconds matter. So do pixels.';
 export const HEADLINE = '';
 
-/**
- * The hero poster image. Ships with an SVG placeholder landscape; point this at your own painted
- * or photographed image (any format) and the hero uses it as-is.
- */
-export const HERO_BG: string = heroPlaceholder;
+
 
 export type Scene = 'stack' | 'perf' | 'a11y' | 'chess' | 'livewithout' | 'place' | 'geometry';
 
