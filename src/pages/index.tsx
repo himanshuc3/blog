@@ -8,8 +8,9 @@ const IndexPage: React.FC<PageProps> = () => <Scrapbook />;
 
 export default IndexPage;
 
-export const Head: HeadFC = () => (
+export const Head: HeadFC = ({ location }) => (
   <SEO
+    pathname={location.pathname}
     title="Himanshu's Bin | Fullstack Developer & Web3 Enthusiast"
     description="Hi, I'm Himanshu Chhabra - a fullstack developer at Quillbot sharing insights on JavaScript, Golang, computational geometry, and web3. Explore my technical blog with tutorials, rants, and industry experiences."
     keywords={[

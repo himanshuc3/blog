@@ -18,8 +18,9 @@ const AboutPage: React.FC<PageProps> = () => (
 
 export default AboutPage;
 
-export const Head: HeadFC = () => (
+export const Head: HeadFC = ({ location }) => (
   <SEO
+    pathname={location.pathname}
     title="About Himanshu Chhabra"
     description="Himanshu Chhabra is a senior frontend engineer at QuillBot in New Delhi, obsessed with web performance, accessibility and the small details that make interfaces feel fast. Projects and how to reach him."
   />

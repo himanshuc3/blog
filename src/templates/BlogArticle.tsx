@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { graphql } from 'gatsby';
+import type { HeadFC } from 'gatsby';
 
 // import {MDXRenderer} from 'gatsby-plugin-mdx'
 import { SEO } from '../components/Seo';
@@ -62,18 +63,6 @@ export default function BlogPostTemplate({ data, children }: BlogPostTemplatePro
 
   return (
     <BaseComponent className="blog-post-wrapper" isScrollLoader={true}>
-      <SEO
-        title={frontmatter.title}
-        description={frontmatter.seoDescription}
-        keywords={frontmatter.tags}
-        pathname={`/blog/${frontmatter.slug}`}
-        article={{
-          publishedTime: new Date(frontmatter.date).toISOString(),
-          modifiedTime: new Date(frontmatter.date).toISOString(),
-          author: 'Himanshu Chhabra',
-          tags: frontmatter.tags,
-        }}
-      />
       <div className="blog-post">
         <MDXProvider components={components}>
           <div className="heading">
@@ -92,7 +81,7 @@ export default function BlogPostTemplate({ data, children }: BlogPostTemplatePro
                 <>
                   <span className="separator">&middot;</span>
                   <a
-                    className="edit-link sec-font"
+                    className="edit-link"
                     href={editUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -110,6 +99,25 @@ export default function BlogPostTemplate({ data, children }: BlogPostTemplatePro
     </BaseComponent>
   );
 }
+
+export const Head: HeadFC<BlogPostTemplateProps['data']> = ({ data, location }) => {
+  const { frontmatter } = data.mdx;
+  const published = new Date(frontmatter.date).toISOString();
+  return (
+    <SEO
+      title={frontmatter.title}
+      description={frontmatter.seoDescription}
+      keywords={frontmatter.tags}
+      pathname={location.pathname}
+      article={{
+        publishedTime: published,
+        modifiedTime: published,
+        author: 'Himanshu Chhabra',
+        tags: frontmatter.tags,
+      }}
+    />
+  );
+};
 
 export const pageQuery = graphql`
   query BlogPostById($id: String!) {

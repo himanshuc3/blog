@@ -67,7 +67,8 @@ const config = {
       'Welcome to my webspace. I am a fullstack engineer with a curiousity to debate and rant on topics like javascript, golang, computational geometry and tooling with a sprinkle of liberal views.',
     twitterUserName: '@_himanshuc3',
     siteUrl: `https://himanshusb.in`,
-    image: './src/images/logo.png',
+    // Share image for link previews, served from /static (see static/og-image.png).
+    image: '/og-image.png',
     keywords: ['computer science', 'javascript', 'golang', 'computational geometry', 'blog'],
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
@@ -90,7 +91,6 @@ const config = {
         
       },
     },
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
@@ -149,12 +149,6 @@ const config = {
     },
     // Performance & Core Web Vitals optimization
     {
-      resolve: 'gatsby-plugin-preload-fonts',
-      options: {
-        crossOrigin: 'anonymous',
-      },
-    },
-    {
       resolve: 'gatsby-plugin-offline',
       options: {
         precachePages: ['/blog/*', '/about/', '/'],
@@ -181,32 +175,6 @@ const config = {
         path: './src/pages/',
       },
       __key: 'pages',
-    },
-    {
-      resolve: `@nathanpate/gatsby-omni-font-loader`,
-      options: {
-        enableListener: true,
-        mode: 'async',
-        preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
-        web: [
-          {
-            name: 'Secondary Font',
-            file: 'https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap',
-          },
-           {
-            name: 'Tertiary Font',
-            file: 'https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap',
-          },
-          {
-            name: 'Script Font',
-            file: 'https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap',
-          },
-          {
-            name: 'Grotesk Font',
-            file: 'https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap',
-          },
-        ],
-      },
     },
     {
       resolve: 'gatsby-plugin-feed',

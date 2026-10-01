@@ -139,8 +139,9 @@ const BlogPage: React.FC<PageProps> = () => {
 
 export default BlogPage;
 
-export const Head: HeadFC = () => (
+export const Head: HeadFC = ({ location }) => (
   <SEO
+    pathname={location.pathname}
     title="Himanshu's blog"
     description="Chronological list of blogs written by me on technical topics."
   />

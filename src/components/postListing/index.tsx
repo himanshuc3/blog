@@ -38,12 +38,12 @@ const PostListing: React.FC<Props> = ({ title, date, tags, id, slug }) => {
       <time className="post-date script-font" dateTime={new Date(date).toISOString()}>
         {date.toLocaleDateString('en-US', DATE_OPTS)}
       </time>
-      <h2 className="sec-font heading-title">
+      <h2 className="heading-title">
         {superscript()}
         {title}
       </h2>
       {tags.length > 0 && (
-        <ul className="post-tags sec-font" aria-label="Tags">
+        <ul className="post-tags" aria-label="Tags">
           {tags.map((tag) => (
             <li key={tag}>{tag}</li>
           ))}

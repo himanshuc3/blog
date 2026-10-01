@@ -35,7 +35,7 @@ export default function Search({
       <input
         type="text"
         placeholder="Search posts by title..."
-        className="search-input sec-font"
+        className="search-input"
         value={search}
         onInput={onInputHandler}
       />

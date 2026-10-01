@@ -38,7 +38,8 @@ const themeScript = `
 })();
 `;
 
-export const onRenderBody = ({ setHeadComponents }) => {
+export const onRenderBody = ({ setHeadComponents, setHtmlAttributes }) => {
+  setHtmlAttributes({ lang: 'en' });
   setHeadComponents([
     React.createElement('script', {
       key: 'theme-script',

@@ -13,7 +13,7 @@
   width: max-content;
   max-width: calc(100% - 2 * var(--page-gutter));
   padding-left: 16px;
-  font: 500 0.875rem/1.2 'Inter', system-ui, sans-serif;
+  font: 500 0.875rem/1.2 var(--font-sans);
   color: var(--hint-fg);
   background: var(--hint-bg);
   border-radius: 999px;

@@ -8,7 +8,7 @@ type Props = {
 
 const Tag: React.FC<Props> = ({ text, highlighted = false }) => {
   return (
-    <span className={`tag sec-font ${highlighted ? 'highlighted' : ''} `} data-tag={text}>
+    <span className={`tag ${highlighted ? 'highlighted' : ''} `} data-tag={text}>
       {text}
     </span>
   );
