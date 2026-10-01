@@ -2,10 +2,10 @@
 //
 // Assets: every `src` below is null on purpose and renders a labelled placeholder. Drop an image
 // into src/images/scrapbook/, import it here, and set `src`. Nothing else needs to change.
-import nameIsAudio from '../../images/eminem-my-name-cropped.mp3';
+import nameIsAudio from '../../images/eminem-my-name-is.mp3';
 import quillbotLogo from '../../images/quillbot.webp';
-import rapyutaLogo from '../../images/rapyuta.png';
-import razorpayLogo from '../../images/razorpay.png';
+import rapyutaLogo from '../../images/rapyuta.svg';
+import razorpayLogo from '../../images/razorpay.webp';
 import zetaLogo from '../../images/zeta.svg';
 import { PROFILE } from '../About/data';
 import { SOCIAL_LINKS } from '../../utils/constants';
