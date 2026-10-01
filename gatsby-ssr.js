@@ -13,13 +13,7 @@ const themeScript = `
       return ['dark', 'light'].includes(persistedTheme) ? persistedTheme : 'dark';
     }
     
-    // Otherwise, check system preference
-    const mql = window.matchMedia('(prefers-color-scheme: dark)');
-    const hasMediaQueryPreference = typeof mql.matches === 'boolean';
-    if (hasMediaQueryPreference) {
-      return mql.matches ? 'dark' : 'light';
-    }
-    
+    // No saved preference: dark is the default, whatever the system says.
     // Default to dark theme
     return 'dark';
   }

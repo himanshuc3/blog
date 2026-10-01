@@ -13,7 +13,7 @@ import { SOCIAL_LINKS } from '../../utils/constants';
 export { PROFILE, SOCIAL_LINKS };
 
 export const RESUME_URL =
-  'https://drive.google.com/file/d/1FP0_-j3YMKtRxoqHqJlEh6jozooPkPlw/view?usp=sharing';
+  'https://drive.google.com/file/d/1NTNNfp3wzvHl6ITm3MT2-0_97ieTW4nO/view?usp=sharing';
 
 export const NAME = 'himanshu chhabra';
 

@@ -2147,14 +2147,15 @@ html:has(.scrap--noise) {
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background: url('../../images/noise.webp') center top / 600px 600px repeat;
+    background: url('../../images/nnoise.svg') center top / 700px 700px repeat;
+    filter: invert(1); // the tile is dark; light theme inverts it
   }
 
   &.dark {
     background: #0e0e0e;
 
     &::before {
-      filter: invert(1);
+      filter: none;
     }
   }
 }

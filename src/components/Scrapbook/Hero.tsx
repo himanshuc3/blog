@@ -44,9 +44,10 @@ const Hero: React.FC = () => {
         </motion.h1>
       </div>
 
-      <motion.div className="scrap-hero__cat" {...rise(0.45)}>
+      {/* No entrance fade: the cat is the LCP element, and a fade held it at opacity 0 until hydration. */}
+      <div className="scrap-hero__cat">
         <CatStage />
-      </motion.div>
+      </div>
       {overlay}
     </section>
   );
