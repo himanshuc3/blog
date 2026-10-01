@@ -19,8 +19,8 @@ export const NAME = 'himanshu chhabra';
 
 /** The statement under the name, one array per line. `em` runs are set dark; the rest is muted. */
 export const TAGLINE: { text: string; em?: boolean }[][] = [
-  [{ text: 'Fullstack engineer ', em: false}, { text: 'building from ' ,em: true}, ],
-  [{ text: 'first principles & Leveraging AI', em: false },],
+  [{ text: 'Fullstack', em: true}, { text: ' engineer building from ' ,em: false}, ],
+  [{ text: 'first principles & ', em: false },{ text: 'Leveraging AI', em: true },],
 ];
 // export const HEADLINE = 'Milliseconds matter. So do pixels.';
 export const HEADLINE = '';
