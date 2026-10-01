@@ -1997,7 +1997,7 @@ html:has(.scrap--noise) {
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background: url('../../images/noise.png') center top / 600px 600px repeat;
+    background: url('../../images/noise.webp') center top / 600px 600px repeat;
   }
 
   &.dark {
