@@ -837,15 +837,26 @@ html.dark .scrap-nav {
   }
 }
 
-// One frame of cat-spritesheet.webp (14 x 3 grid of 320 x 480 frames). --cat-x/--cat-y pick it.
 .scrap-cat {
+  position: relative;
   width: var(--cat-w);
-  background-image: var(--cat-sheet);
-  background-repeat: no-repeat;
-  background-size: 1400% 300%;
-  background-position: var(--cat-x, 0%) var(--cat-y, 0%);
   filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.22));
   pointer-events: none;
+
+  // The poster (one frame, in the server HTML) shows first; the canvas, which CatHero paints from
+  // cat-spritesheet.webp (14 x 3 grid of 320 x 480 frames), takes over once the sheet has loaded.
+  &__poster,
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  // Same frame as the sprite's first, so hiding it once the canvas is painted is invisible.
+  &.is-ready &__poster {
+    visibility: hidden;
+  }
 }
 
 .sticker {

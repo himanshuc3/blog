@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from 'motion/react';
 
 import sheet from '../../images/cat-spritesheet.webp';
+import poster from '../../images/cat-frame-0.webp';
 import { CAT_GAZE } from './catGaze';
 
 // Sheet layout, from cat-spritesheet.json.
@@ -45,12 +46,85 @@ function nearestFrame(gx: number, gy: number): number {
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
-/** Sets the sprite's background position to `frame` via CSS variables (no React re-render). */
-function showFrame(el: HTMLElement, frame: number) {
+/** Paints `frame` of the spritesheet onto the canvas (no React re-render, no style recalculation). */
+function drawFrame(canvas: HTMLCanvasElement | null, img: ImageBitmap | null, frame: number) {
+  const ctx = canvas?.getContext('2d');
+  if (!canvas || !ctx || !img) return;
   const col = frame % COLS;
   const row = Math.floor(frame / COLS);
-  el.style.setProperty('--cat-x', `${(col / (COLS - 1)) * 100}%`);
-  el.style.setProperty('--cat-y', `${(row / (ROWS - 1)) * 100}%`);
+  ctx.clearRect(0, 0, FRAME_W, FRAME_H);
+  ctx.drawImage(img, col * FRAME_W, row * FRAME_H, FRAME_W, FRAME_H, 0, 0, FRAME_W, FRAME_H);
+}
+
+// How long after the page's content first paints before the big sheet download starts.
+const SETTLE_MS = 1000;
+
+/**
+ * Calls `cb` shortly after the page's main content has painted (its first largest-contentful-paint
+ * entry), so a large download never competes with what the visitor is waiting to see. Browsers
+ * that can't report it get a flat 4 s. Returns a cancel function.
+ */
+function afterContentPainted(cb: () => void): () => void {
+  let timer = setTimeout(cb, 4000);
+  let observer: PerformanceObserver | undefined;
+
+  if (typeof PerformanceObserver !== 'undefined' && PerformanceObserver.supportedEntryTypes?.includes('largest-contentful-paint')) {
+    observer = new PerformanceObserver(() => {
+      observer?.disconnect();
+      clearTimeout(timer);
+      timer = setTimeout(cb, SETTLE_MS);
+    });
+    observer.observe({ type: 'largest-contentful-paint', buffered: true });
+  }
+
+  return () => {
+    observer?.disconnect();
+    clearTimeout(timer);
+  };
+}
+
+/**
+ * Fetches the full spritesheet (~1.8 MB) once the page has loaded, painted its content and the
+ * browser is idle, then hands the decoded bitmap to `onLoad`. Until then the cat shows `poster`,
+ * the same frame the sprite starts on. Skipped when it wouldn't be used (reduced motion), the
+ * visitor asked to save data, or the browser can't decode off the main thread.
+ *
+ * The sheet is a 4480 x 1440 image. Decoding it from an <img> (which drawing one onto a canvas does)
+ * happens on the main thread and blocks input for hundreds of milliseconds on a slow phone;
+ * `createImageBitmap` on a Blob decodes it off-thread, and the canvas then draws from the bitmap.
+ */
+function useSpriteSheet(enabled: boolean, onLoad: (sheet: ImageBitmap) => void) {
+  const onLoadRef = useRef(onLoad);
+  onLoadRef.current = onLoad;
+
+  useEffect(() => {
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (!enabled || connection?.saveData || typeof createImageBitmap !== 'function') return;
+
+    let cancelled = false;
+    let cancelWait = () => {};
+    const load = () => {
+      // Low priority: a background download. On failure the cat just stays on the poster.
+      fetch(sheet, { priority: 'low' } as RequestInit)
+        .then((res) => res.blob())
+        .then((blob) => createImageBitmap(blob))
+        .then((bitmap) => (cancelled ? bitmap.close() : onLoadRef.current(bitmap)))
+        .catch(() => {});
+    };
+    const whenIdle = () => ('requestIdleCallback' in window ? requestIdleCallback(load) : setTimeout(load, 200));
+    const start = () => {
+      cancelWait = afterContentPainted(whenIdle);
+    };
+
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start, { once: true });
+
+    return () => {
+      cancelled = true;
+      cancelWait();
+      window.removeEventListener('load', start);
+    };
+  }, [enabled]);
 }
 
 /** The hero cat: a sprite that follows the cursor with its eyes and head. */
@@ -87,6 +161,18 @@ interface Props {
 const CatHero: React.FC<Props> = ({ onZone, focus = null }) => {
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sheetRef = useRef<ImageBitmap | null>(null);
+  const [sheetReady, setSheetReady] = useState(false);
+  // The sprite is drawn on a canvas, never as a CSS background: Chrome counts a background image as
+  // a new largest-contentful-paint candidate when it first paints, which would make the 1.8 MB
+  // sheet the page's LCP again. Frame 0 is drawn before the poster is hidden so nothing flashes.
+  useSpriteSheet(!reduceMotion, (bitmap) => {
+    sheetRef.current = bitmap;
+    drawFrame(canvasRef.current, bitmap, 0);
+    setSheetReady(true);
+  });
+  useEffect(() => () => sheetRef.current?.close(), []); // frees the decoded sheet (~25 MB)
   const onZoneRef = useRef(onZone);
   onZoneRef.current = onZone;
   const focusRef = useRef(focus);
@@ -101,15 +187,16 @@ const CatHero: React.FC<Props> = ({ onZone, focus = null }) => {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    showFrame(el, 0);
-    if (reduceMotion) return;
+    // Nothing to animate until the spritesheet has arrived (and never with reduced motion).
+    if (reduceMotion || !sheetReady) return;
+    const showFrame = (frame: number) => drawFrame(canvasRef.current, sheetRef.current, frame);
 
     // No hover (touch): play the clip as authored.
     if (!window.matchMedia('(hover: hover)').matches) {
       let i = 0;
       const id = setInterval(() => {
         i = (i + 1) % FRAME_COUNT;
-        showFrame(el, i);
+        showFrame(i);
       }, 1000 / FPS);
       return () => clearInterval(id);
     }
@@ -137,7 +224,7 @@ const CatHero: React.FC<Props> = ({ onZone, focus = null }) => {
       const frame = nearestFrame(gx, gy);
       if (frame !== shown) {
         shown = frame;
-        showFrame(el, frame);
+        showFrame(frame);
       }
       const settled = Math.abs(goal.x - look.x) < 0.002 && Math.abs(goal.y - look.y) < 0.002;
       raf = settled ? 0 : requestAnimationFrame(tick);
@@ -167,16 +254,34 @@ const CatHero: React.FC<Props> = ({ onZone, focus = null }) => {
       window.removeEventListener('pointermove', onMove);
       document.documentElement.removeEventListener('pointerleave', onLeave);
     };
-  }, [reduceMotion]);
+  }, [reduceMotion, sheetReady]);
 
   return (
     <div
       ref={ref}
-      className="scrap-cat"
+      className={`scrap-cat${sheetReady ? ' is-ready' : ''}`}
       role="img"
       aria-label="A round grey cat with big yellow eyes, watching the cursor."
-      style={{ ['--cat-sheet' as string]: `url("${sheet}")`, aspectRatio: `${FRAME_W} / ${FRAME_H}` }}
-    />
+      style={{ aspectRatio: `${FRAME_W} / ${FRAME_H}` }}
+    >
+      {/* First paint: one small frame in the server HTML. The canvas takes over once the sheet has loaded. */}
+      <img
+        className="scrap-cat__poster"
+        src={poster}
+        width={FRAME_W}
+        height={FRAME_H}
+        alt=""
+        decoding="async"
+        {...{ fetchpriority: 'high' }} // React 18.2 doesn't know `fetchPriority`
+      />
+      <canvas
+        ref={canvasRef}
+        className="scrap-cat__canvas"
+        width={FRAME_W}
+        height={FRAME_H}
+        aria-hidden="true"
+      />
+    </div>
   );
 };
 
