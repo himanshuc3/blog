@@ -3,6 +3,7 @@ import { useReducedMotion } from 'motion/react';
 
 import sheet from '../../images/cat-spritesheet.webp';
 import poster from '../../images/cat-frame-0.webp';
+import { saveDataOn, whenPageIdle } from '../../utils/idle';
 import { CAT_GAZE } from './catGaze';
 
 // Sheet layout, from cat-spritesheet.json.
@@ -56,33 +57,6 @@ function drawFrame(canvas: HTMLCanvasElement | null, img: ImageBitmap | null, fr
   ctx.drawImage(img, col * FRAME_W, row * FRAME_H, FRAME_W, FRAME_H, 0, 0, FRAME_W, FRAME_H);
 }
 
-// How long after the page's content first paints before the big sheet download starts.
-const SETTLE_MS = 1000;
-
-/**
- * Calls `cb` shortly after the page's main content has painted (its first largest-contentful-paint
- * entry), so a large download never competes with what the visitor is waiting to see. Browsers
- * that can't report it get a flat 4 s. Returns a cancel function.
- */
-function afterContentPainted(cb: () => void): () => void {
-  let timer = setTimeout(cb, 4000);
-  let observer: PerformanceObserver | undefined;
-
-  if (typeof PerformanceObserver !== 'undefined' && PerformanceObserver.supportedEntryTypes?.includes('largest-contentful-paint')) {
-    observer = new PerformanceObserver(() => {
-      observer?.disconnect();
-      clearTimeout(timer);
-      timer = setTimeout(cb, SETTLE_MS);
-    });
-    observer.observe({ type: 'largest-contentful-paint', buffered: true });
-  }
-
-  return () => {
-    observer?.disconnect();
-    clearTimeout(timer);
-  };
-}
-
 /**
  * Fetches the full spritesheet (~1.8 MB) once the page has loaded, painted its content and the
  * browser is idle, then hands the decoded bitmap to `onLoad`. Until then the cat shows `poster`,
@@ -98,11 +72,9 @@ function useSpriteSheet(enabled: boolean, onLoad: (sheet: ImageBitmap) => void) 
   onLoadRef.current = onLoad;
 
   useEffect(() => {
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-    if (!enabled || connection?.saveData || typeof createImageBitmap !== 'function') return;
+    if (!enabled || saveDataOn() || typeof createImageBitmap !== 'function') return;
 
     let cancelled = false;
-    let cancelWait = () => {};
     const load = () => {
       // Low priority: a background download. On failure the cat just stays on the poster.
       fetch(sheet, { priority: 'low' } as RequestInit)
@@ -111,18 +83,11 @@ function useSpriteSheet(enabled: boolean, onLoad: (sheet: ImageBitmap) => void) 
         .then((bitmap) => (cancelled ? bitmap.close() : onLoadRef.current(bitmap)))
         .catch(() => {});
     };
-    const whenIdle = () => ('requestIdleCallback' in window ? requestIdleCallback(load) : setTimeout(load, 200));
-    const start = () => {
-      cancelWait = afterContentPainted(whenIdle);
-    };
-
-    if (document.readyState === 'complete') start();
-    else window.addEventListener('load', start, { once: true });
+    const cancelWait = whenPageIdle(load);
 
     return () => {
       cancelled = true;
       cancelWait();
-      window.removeEventListener('load', start);
     };
   }, [enabled]);
 }

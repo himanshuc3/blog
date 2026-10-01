@@ -1,5 +1,13 @@
 // Content for the About page lives here so copy can be updated without touching components.
-import type { Project } from '../projectCard';
+export interface Project {
+  name: string;
+  description: string;
+  actions: { name: string; link: string }[];
+  keywords: string[];
+  tag?: string;
+  emoji?: string;
+  year?: string;
+}
 
 export const PROFILE = {
   role: 'Senior Frontend Engineer',

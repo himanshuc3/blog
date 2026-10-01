@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
+import type { IconType } from 'react-icons';
 import { FaGithub, FaLinkedinIn, FaXTwitter } from 'react-icons/fa6';
-import { SiClaude, SiGatsby, SiReact, SiSubstack } from 'react-icons/si';
+import { SiClaude, SiGatsby, SiGithub, SiNetlify, SiPopos, SiReact } from 'react-icons/si';
+import { VscVscode } from 'react-icons/vsc';
 
 import CatHero, { Zone } from './CatHero';
 import { RESUME_URL, SIGNALS, SOCIAL_LINKS } from './data';
@@ -47,13 +49,25 @@ const SOCIALS = [
   { name: 'GitHub', href: SOCIAL_LINKS.GITHUB, Icon: FaGithub },
   { name: 'X', href: SOCIAL_LINKS.X, Icon: FaXTwitter },
   { name: 'LinkedIn', href: SOCIAL_LINKS.LINKEDIN, Icon: FaLinkedinIn },
-  { name: 'Substack', href: SOCIAL_LINKS.SUBSTACK, Icon: SiSubstack },
 ];
 
-const STACK = [
-  { name: 'Gatsby', Icon: SiGatsby },
-  { name: 'React', Icon: SiReact },
-  { name: 'Claude Code', Icon: SiClaude },
+interface Tool {
+  name: string;
+  /** The product's own page. */
+  href: string;
+  Icon: IconType;
+  /** Brand colour of the glyph; omit to use the page's ink (right for GitHub's black). */
+  color?: string;
+}
+
+const STACK: Tool[] = [
+  { name: 'Gatsby', href: 'https://www.gatsbyjs.com/', Icon: SiGatsby, color: '#8c4fd0' },
+  { name: 'React', href: 'https://react.dev/', Icon: SiReact, color: '#00b4d8' },
+  { name: 'Claude', href: 'https://claude.ai/', Icon: SiClaude, color: '#d97757' },
+  { name: 'Pop!_OS', href: 'https://system76.com/pop/', Icon: SiPopos, color: '#2fa6b5' },
+  { name: 'VS Code', href: 'https://code.visualstudio.com/', Icon: VscVscode, color: '#2b8fd6' },
+  { name: 'GitHub', href: 'https://github.com/', Icon: SiGithub },
+  { name: 'Netlify', href: 'https://www.netlify.com/', Icon: SiNetlify, color: '#00b5a8' },
 ];
 
 /** The cat, with a signal on its left, right and below it. */
@@ -108,10 +122,19 @@ const CatStage: React.FC = () => {
         active={current === 'below'}
         onHover={setHover}
       >
-        {STACK.map(({ name, Icon }) => (
-          <span key={name} className="scrap-signal__chip" title={name}>
-            <Icon aria-label={name} />
-          </span>
+        {STACK.map(({ name, href, Icon, color }) => (
+          <a
+            key={name}
+            className="scrap-signal__tech"
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={name}
+            data-tip={name}
+            style={color ? ({ ['--tech-color' as string]: color } as React.CSSProperties) : undefined}
+          >
+            <Icon aria-hidden="true" />
+          </a>
         ))}
       </Signal>
     </div>

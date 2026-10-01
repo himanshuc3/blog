@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 
+import { saveDataOn, whenPageIdle } from '../../utils/idle';
 import { NAME_IS } from './data';
 
 interface Pop {
@@ -60,6 +61,16 @@ export function useNameIs() {
       setPops((p) => p.filter((q) => q.id !== id));
     }, NAME_IS.popMs);
     timers.current.add(timer);
+  }, []);
+
+  // Warm the browser's cache with the song once the page is quiet, so the first hover plays it
+  // straight from the cache instead of waiting on the download. A plain fetch, not an <Audio>
+  // element: building a media element during load costs main-thread time for no benefit.
+  useEffect(() => {
+    if (saveDataOn()) return;
+    return whenPageIdle(() => {
+      fetch(NAME_IS.src, { priority: 'low' } as RequestInit).catch(() => {});
+    });
   }, []);
 
   const start = useCallback(() => {

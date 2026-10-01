@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 import { FiFeather, FiGithub, FiHome, FiMoon, FiSun, FiUser } from 'react-icons/fi';
-import { SiSubstack } from 'react-icons/si';
 
 import ThemeContext from '../../hooks/themeContext';
 import { SOCIAL_LINKS } from './data';
@@ -36,15 +35,6 @@ const Nav: React.FC = () => {
           aria-label="GitHub" data-tip="GitHub"
         >
           <FiGithub aria-hidden="true" />
-        </a>
-        <a
-          className="scrap-nav__item"
-          href={SOCIAL_LINKS.SUBSTACK}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Substack" data-tip="Substack"
-        >
-          <SiSubstack aria-hidden="true" />
         </a>
         <button
           type="button"

@@ -46,7 +46,7 @@ export const ABOUT = {
     [
       { text: 'I am Himanshu, a ' },
       { text: '💻 fullstack engineer', scene: 'stack' },
-      { text: ' pushing 0️⃣s and 1️⃣s while trying to not to have a binary mindset.' },
+      { text: ' pushing 0️⃣s and 1️⃣s while trying my best to not have a binary mindset.' },
     ],
     [
       { text: "Don't forget to read my " },
@@ -66,41 +66,13 @@ export const ABOUT = {
   signoff: 'articles of insignificance, code of moderate significance.',
 };
 
-export interface StickerDef {
-  id: string;
-  label: string;
-  src: string | null;
-  /** Offset from the hero's centre line, in design px (scaled down on narrow screens). */
-  x: number;
-  /** Distance up from the bottom of the sticker row, in design px. */
-  y: number;
-  w: number;
-  h: number;
-  rotate: number;
-  shape: 'round' | 'rect' | 'blob';
-  z?: number;
-}
-
-export const HERO_STICKERS: StickerDef[] = [
-  { id: 'flower', label: 'sticker: flower', src: null, x: -470, y: -40, w: 240, h: 240, rotate: -8, shape: 'blob', z: 3 },
-  { id: 'coffee', label: 'sticker: iced coffee', src: null, x: -330, y: 110, w: 130, h: 220, rotate: 6, shape: 'rect', z: 2 },
-  { id: 'buds', label: 'sticker: earbuds', src: null, x: 240, y: 190, w: 150, h: 110, rotate: -10, shape: 'blob', z: 1 },
-  { id: 'mascot', label: 'sticker: you, in sunglasses', src: null, x: 400, y: -30, w: 230, h: 270, rotate: 5, shape: 'blob', z: 3 },
-];
-
 export const WORK = {
   heading: 'projects',
   script: 'things i’ve built',
 };
 
-export const CONTACT = {
-  heading: 'let’s talk',
-  script: ['connection. presence. join the conversation', 'there is a place for every idea'],
-  footnote: 'made with mild panic and Gatsby',
-};
-
 export const WRITING = {
-  script: 'notes to self',
+  script: 'explorations and experiments',
   heading: ['recent', 'writing'],
 };
 
@@ -111,7 +83,7 @@ export const NAME_IS = {
   start: 0,
   end: Infinity,
   /** Moments "my name is" is spoken; a text pop appears at each. */
-  cues: [2, 3, 4, 7, 8, 9] as number[],
+  cues: [2, 3.2, 4.5, 7.5, 8.8, 10, 13, 14.6] as number[],
   /** How long each pop stays on screen (ms). */
   popMs: 500,
   text: 'my name is',
@@ -151,5 +123,5 @@ export const WORK_HISTORY: HistoryRow[] = [
 export const SIGNALS = {
   left: { title: 'curricula' },
   right: { title: 'socials' },
-  below: { title: 'my stack' },
+  below: { title: 'powered by' },
 };

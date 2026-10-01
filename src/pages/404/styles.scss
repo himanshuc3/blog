@@ -1,21 +1,30 @@
 @use '../../styles/responsive' as r;
+@import '../../styles/mixins.scss';
 
+// Sits inside the shared layout (nav above, footer below), like the blog pages.
 .not-found {
     display: flex;
     @include r.column(750px);
-    margin-block: clamp(64px, 14vh, 100px);
-    min-height: 100vh;
-    min-height: 100svh;
+    margin-block: clamp(24px, 6vh, 60px);
+    min-height: 50vh;
+    min-height: 50svh;
     flex-direction: column;
 
-    &>h2 {
+    &>h1 {
+        margin: 0 0 0.6em;
         font-size: clamp(1.9rem, 7vw, 2.4rem);
         font-weight: 500;
         color: rgba(100, 100, 100, 0.8);
     }
 
     &>p {
+        margin: 0;
         font-size: clamp(1.1rem, 4vw, 1.25rem);
         line-height: 2;
+
+        // `.scrap a { text-decoration: none }` in the shared layout would flatten the link otherwise.
+        a {
+            @include chunky-underline(var(--variable-underline));
+        }
     }
 }

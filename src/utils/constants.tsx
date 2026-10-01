@@ -13,6 +13,4 @@ export const SOCIAL_LINKS = {
   LINKEDIN: 'https://linkedin.com/in/himanshuc3',
   // TODO: confirm the real Instagram handle.
   INSTAGRAM: 'https://instagram.com/himanshuc3',
-  // TODO: confirm the real Substack URL.
-  SUBSTACK: 'https://himanshuc3.substack.com',
 };
