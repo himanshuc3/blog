@@ -1,7 +1,10 @@
+@use '../../styles/responsive' as r;
+
 .search-container {
     display: flex;
     align-items: center;
     flex: 0 1 340px;
+    min-width: 0; // lets the box shrink inside a narrow row
     max-width: 340px;
     height: 42px;
     padding: 0 14px;
@@ -29,5 +32,20 @@
         &::placeholder {
             color: var(--variable-subtext);
         }
+    }
+}
+
+// On a phone the search takes whatever the RSS button leaves, instead of a fixed 340px.
+@include r.down(sm) {
+    .search-container {
+        flex: 1 1 0;
+        max-width: none;
+    }
+}
+
+// iOS zooms the page when a field under 16px gets focus.
+@include r.touch {
+    .search-container input {
+        font-size: 16px;
     }
 }

@@ -1,0 +1,38 @@
+// Responsive building blocks shared by every stylesheet.
+//
+//   @use '../../styles/responsive' as r;
+//
+//   .thing { @include r.down(md) { ... } }
+//
+// Prefer layouts that adapt on their own (`min()`, `clamp()`, `minmax()`, flex-wrap, grid auto-fit)
+// and reach for a breakpoint only when the layout has to change shape.
+
+@use 'sass:map';
+
+// Written as "this size and below". Pick the largest one that still needs the change.
+//   sm: phones         md: tablets / large phones (landscape)         lg: small laptops
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+);
+
+@mixin down($name) {
+  @media only screen and (max-width: map.get($breakpoints, $name)) {
+    @content;
+  }
+}
+
+// Touch screens: no hover, so give controls a real tap target and don't depend on :hover reveals.
+@mixin touch {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+// A centred column capped at `$max` that never touches the screen edge: below `$max` it is the
+// viewport minus the page gutters (`--page-gutter`, set in global.scss).
+@mixin column($max) {
+  width: min(#{$max}, 100% - 2 * var(--page-gutter));
+  margin-inline: auto;
+}

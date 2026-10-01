@@ -1,6 +1,8 @@
 // Scrapbook home page. Everything is scoped under `.scrap` so it can't leak into other pages.
 // Light-only on purpose: the surfaces are painted, not themed.
 
+@use '../../styles/responsive' as r;
+
 html:has(.scrap),
 html:has(.scrap) body {
   background: #fff;
@@ -457,6 +459,10 @@ html.dark .scrap-nowplaying {
       outline: 2px solid var(--ink);
       outline-offset: 3px;
     }
+
+    @include r.touch {
+      min-height: 44px;
+    }
   }
   &__dot {
     flex: none;
@@ -611,6 +617,7 @@ html.dark .scrap-nowplaying {
   --nav-fg: rgba(21, 21, 21, 0.62);
   --nav-fg-strong: #151515;
   --nav-hover: rgba(21, 21, 21, 0.07);
+  --nav-item: 34px;
 
   &__pill {
     pointer-events: auto;
@@ -631,8 +638,8 @@ html.dark .scrap-nowplaying {
     position: relative;
     display: grid;
     place-items: center;
-    width: 34px;
-    height: 34px;
+    width: var(--nav-item);
+    height: var(--nav-item);
     padding: 0;
     font-size: 1rem;
     color: var(--nav-fg);
@@ -691,6 +698,20 @@ html.dark .scrap-nowplaying {
       transform: translate(-50%, 0);
     }
   }
+
+  // Touch: 44px targets, and no tooltips (a tap would leave one stuck open).
+  @include r.touch {
+    --nav-item: 44px;
+
+    & &__item::before {
+      display: none;
+    }
+  }
+
+  // Six 44px items need the full width of the smallest phones.
+  @include r.down(sm) {
+    padding-inline: 8px;
+  }
 }
 
 html.dark .scrap-nav {
@@ -720,6 +741,7 @@ html.dark .scrap-nav {
   --tag-size: clamp(1.2rem, min(4.2vw, 6.4vh), 3.6rem);
   --cat-w: clamp(170px, min(26vw, 27vh), 340px);
   min-height: 100vh;
+  min-height: 100svh;
   padding: 84px 16px 150px;
   text-align: center;
 
@@ -1034,6 +1056,17 @@ html.dark .scrap-nav {
     align-items: center;
     justify-content: center;
   }
+
+  // A fixed 4-column grid is narrower than the widest pill on a phone: let the pills wrap instead.
+  @include r.down(sm) {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 14px 8px;
+    padding: 36px 8px 16px; // top clears the pin
+  }
+
   &__tile {
     position: relative;
     display: flex;
@@ -2074,6 +2107,20 @@ html.dark .scrap--noise {
   }
 }
 
+// Touch: details that are small on desktop need a real tap target.
+@include r.touch {
+  .scrap-project__btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .scrap-window__bar button {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .scrap-nav {
     top: 10px;
@@ -2193,6 +2240,10 @@ html.dark .scrap--noise {
       color: var(--ink);
       opacity: 0.5;
       transition: opacity 0.2s, color 0.2s;
+
+      @include r.touch {
+        min-height: 44px;
+      }
 
       &:hover,
       &:focus-visible {

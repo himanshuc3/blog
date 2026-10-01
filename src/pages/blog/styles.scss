@@ -1,3 +1,5 @@
+@use '../../styles/responsive' as r;
+
 .blog-wrapper {
     display: flex;
     flex-direction: column;
@@ -9,14 +11,21 @@
         justify-content: center;
         gap: 8px;
         margin-top: 14px;
+
+        // On the list the tags are filter buttons: give fingers something to hit.
+        @include r.touch {
+            .tag {
+                padding: 8px 14px;
+            }
+        }
     }
 
     .poster {
 
         display: flex;
         flex-direction: column;
-        width: 750px;
-        margin: 50px auto;
+        @include r.column(750px);
+        margin-block: 50px;
         flex: 1;
 
         // Same voice as "A little about me": big grotesk title, script line tucked under it.
@@ -45,7 +54,7 @@
                 height: 2.2em;
                 padding: 0 0.5em;
                 border-radius: 999px;
-                font-size: 0.26em;
+                font-size: max(0.26em, 0.75rem);
                 font-weight: 600;
                 letter-spacing: 0;
                 line-height: 1;
@@ -81,7 +90,9 @@
             }
         }
 
+        // `auto` margins in a flex column shrink-wrap an item, so ask for the full width explicitly.
         .filter {
+            width: 100%;
             max-width: 560px;
             margin: 24px auto 36px;
         }

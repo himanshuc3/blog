@@ -1,5 +1,6 @@
 import React from 'react';
 
+import DesktopHint from '../DesktopHint';
 import Nav from './Nav';
 import './styles.scss';
 
@@ -10,6 +11,7 @@ const Layout: React.FC<{ children: React.ReactNode; noise?: boolean }> = ({
 }) => (
   <main className={`scrap${noise ? ' scrap--noise' : ''}`}>
     <Nav />
+    <DesktopHint />
     {children}
   </main>
 );

@@ -1,23 +1,21 @@
+@use '../../styles/responsive' as r;
+
 .not-found {
     display: flex;
-    width: 750px;
-    max-width: 100vw;
-    margin: 100px auto;
-    height: 100vh;
+    @include r.column(750px);
+    margin-block: clamp(64px, 14vh, 100px);
+    min-height: 100vh;
+    min-height: 100svh;
     flex-direction: column;
-    padding: 10px;
 
     &>h2 {
-        font-size: 38px;
+        font-size: clamp(1.9rem, 7vw, 2.4rem);
         font-weight: 500;
         color: rgba(100, 100, 100, 0.8);
     }
 
-
-
     &>p {
-        font-size: 20px;
-        line-height: 40px;
-
+        font-size: clamp(1.1rem, 4vw, 1.25rem);
+        line-height: 2;
     }
 }

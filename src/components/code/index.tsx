@@ -48,7 +48,7 @@ const Code = ({ children, language = 'js', title, className, highlightLines = []
         showLineNumbers={false}
         customStyle={{
           borderRadius: '10px',
-          padding: '30px',
+          padding: 'var(--code-pad)', // sized per breakpoint in index.scss
           border: '1px solid var(--variable-hoverBG)',
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',
