@@ -4,12 +4,14 @@ import { StaticImage } from 'gatsby-plugin-image';
 import { MdRssFeed } from 'react-icons/md';
 
 import { SEO } from '../../components/Seo';
+// The shared layout first, as in templates/BlogArticle.tsx: both pages must import the stylesheets
+// in the same order, or webpack can't order the shared CSS chunk and warns about it.
+import BaseComponent from '../../containers/base';
 import Tag from '../../components/tag';
 import { IPost } from '../../utils/types';
 import Posts from '../../components/posts';
 import Search from '../../components/Search';
 import usePostsData from '../../hooks/usePostsData';
-import BaseComponent from '../../containers/base';
 
 import './styles.scss';
 

@@ -83,7 +83,9 @@ const config = {
         projectKey: '48a7fc18cbf83fe54cc6e79475bf407e162a097a',
       },
     },
-    'gatsby-plugin-webpack-bundle-analyser-v2',
+    // Bundle report on demand: `ANALYZE=1 npm run build`. Always on, it would start a local server
+    // during every build, including CI.
+    ...(process.env.ANALYZE ? ['gatsby-plugin-webpack-bundle-analyser-v2'] : []),
     {
       resolve: 'gatsby-plugin-plausible',
       options: {
