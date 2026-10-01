@@ -815,12 +815,12 @@ html.dark .scrap-nav {
   }
 }
 
-// One frame of cat-spritesheet.webp (14 x 14 grid of 320 x 480 frames). --cat-x/--cat-y pick it.
+// One frame of cat-spritesheet.webp (14 x 3 grid of 320 x 480 frames). --cat-x/--cat-y pick it.
 .scrap-cat {
   width: var(--cat-w);
   background-image: var(--cat-sheet);
   background-repeat: no-repeat;
-  background-size: 1400% 1400%;
+  background-size: 1400% 300%;
   background-position: var(--cat-x, 0%) var(--cat-y, 0%);
   filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.22));
   pointer-events: none;

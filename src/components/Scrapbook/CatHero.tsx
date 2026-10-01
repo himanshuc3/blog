@@ -6,23 +6,27 @@ import { CAT_GAZE } from './catGaze';
 
 // Sheet layout, from cat-spritesheet.json.
 const COLS = 14;
-const ROWS = 14;
-const FRAME_COUNT = 193;
-const FPS = 24;
+const ROWS = 3;
+const FRAME_COUNT = 39;
+const FPS = 10;
 const FRAME_W = 320;
 const FRAME_H = 480;
 
 // Where the eyes sit in a frame (the neutral frame's gaze), as fractions of its size.
-const HEAD = { x: 165 / FRAME_W, y: 100 / FRAME_H };
+const HEAD = { x: 164 / FRAME_W, y: 98 / FRAME_H };
 // How far the pupils travel in the sheet, in frame px: [left, right] and [up, down].
-const REACH_X = [49, 40] as const;
-const REACH_Y = [12, 24] as const;
+const REACH_X = [64, 54] as const;
+// Up travel is constant. Down is short straight below (the sheet's only straight-down frames barely
+// move) and grows to `REACH_DOWN_TURNED` as the look turns sideways, where the head-turned frames sit.
+const REACH_UP = 20;
+const REACH_DOWN = 8;
+const REACH_DOWN_TURNED = 31;
 // Cursor distance (as a fraction of the viewport) at which the cat is looking at its limit.
 const RANGE = 0.35;
 // Per-frame easing toward the cursor. Higher is snappier.
 const EASE = 0.3;
 
-const NEUTRAL = { x: 165, y: 100 };
+const NEUTRAL = { x: 164, y: 98 };
 
 /** Frame whose pupils are closest to the (gx, gy) gaze point. */
 function nearestFrame(gx: number, gy: number): number {
@@ -128,7 +132,8 @@ const CatHero: React.FC<Props> = ({ onZone, focus = null }) => {
         onZoneRef.current?.(z);
       }
       const gx = NEUTRAL.x + look.x * (look.x < 0 ? REACH_X[0] : REACH_X[1]);
-      const gy = NEUTRAL.y + look.y * (look.y < 0 ? REACH_Y[0] : REACH_Y[1]);
+      const reachDown = REACH_DOWN + (REACH_DOWN_TURNED - REACH_DOWN) * Math.abs(look.x);
+      const gy = NEUTRAL.y + look.y * (look.y < 0 ? REACH_UP : reachDown);
       const frame = nearestFrame(gx, gy);
       if (frame !== shown) {
         shown = frame;
