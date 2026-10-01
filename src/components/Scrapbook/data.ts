@@ -35,8 +35,6 @@ export interface Seg {
   scene?: Scene;
   /** Struck through, for the joke. */
   strike?: boolean;
-  /** Internal route; rendered as a router link. */
-  to?: string;
 }
 
 export const ABOUT = {
@@ -50,7 +48,7 @@ export const ABOUT = {
     ],
     [
       { text: "Don't forget to read my " },
-      { text: '📖 blog posts', to: '/blog' },
+      { text: '📖 blog posts' },
       { text: ' filled with personal frustations and unusually high amounts of hand coding experiments.' },
     ],
     [

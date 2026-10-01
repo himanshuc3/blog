@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'gatsby';
 import { motion } from 'motion/react';
 
 import AboutViz from './AboutViz';
@@ -49,11 +48,7 @@ const About: React.FC<{ hero?: boolean }> = ({ hero = false }) => {
           {ABOUT.body.map((para, i) => (
             <p key={i}>
               {para.map((seg, j) =>
-                seg.to ? (
-                  <Link key={j} to={seg.to} className="scrap-phrase scrap-phrase--link">
-                    {seg.text}
-                  </Link>
-                ) : seg.strike ? (
+                seg.strike ? (
                   <s key={j}>{seg.text}</s>
                 ) : seg.scene ? (
                   <button

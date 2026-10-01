@@ -2,7 +2,17 @@
 export interface Project {
   name: string;
   description: string;
-  actions: { name: string; link: string }[];
+  /** Source, paper, package...: shown as buttons in the window's footer. */
+  actions: {
+    name: string;
+    link: string;
+    /** Styled as the main button, like "Live" (for a project whose home is, say, its npm page). */
+    primary?: boolean;
+  }[];
+  /** Where the project is deployed; adds a "Live" button after the actions. */
+  live?: string;
+  /** Not deployed yet: shows a "Coming soon" label where "Live" would be. */
+  soon?: boolean;
   keywords: string[];
   tag?: string;
   emoji?: string;
@@ -20,13 +30,25 @@ export const PROFILE = {
 
 export const PROJECTS: Project[] = [
   {
-    name: 'This blog',
-    emoji: '🪴',
+    name: 'Inkulid',
+    emoji: '📐',
+    description: 'A geometry-native interpreter written in Go, with a REPL.',
+    keywords: ['go', 'interpreter', 'geometry'],
+    actions: [{ name: 'Source', link: 'https://github.com/himanshuc3/inkulid' }],
+    tag: 'ongoing',
+    soon: true,
+  },
+  {
+    name: 'Tango',
+    emoji: '🇯🇵',
     description:
-      'The site you are on. Gatsby + MDX, hand-rolled theming, and more motion than strictly necessary.',
-    keywords: ['gatsby', 'typescript', 'motion'],
-    actions: [{ name: 'Source', link: 'https://github.com/himanshuc3/blog' }],
-    tag: 'always wip',
+      'Learn Japanese while you browse: a Chrome extension that turns your tabs into short practice sessions, backed by a Go API.',
+    keywords: ['go', 'typescript', 'chrome extension'],
+    // The repo is called tsunuga; the project inside it is tango.
+    actions: [{ name: 'Source', link: 'https://github.com/himanshuc3/tsunuga' }],
+    // The Chrome Web Store listing: where the extension is installed from.
+    live: 'https://chromewebstore.google.com/detail/tango/ngkiklhogamaagajeonapemmiolpmhhh',
+    tag: 'mvp',
   },
   {
     name: 'Convex hull algorithms',
@@ -44,15 +66,7 @@ export const PROJECTS: Project[] = [
     keywords: ['node.js', 'typescript', 'linux'],
     actions: [
       { name: 'Source', link: 'https://github.com/himanshuc3/file-organize' },
-      { name: 'npm', link: 'https://www.npmjs.com/package/file-organize' },
+      { name: 'npm', link: 'https://www.npmjs.com/package/file-organize', primary: true },
     ],
-  },
-  {
-    name: 'Octosnake',
-    emoji: '🐍',
-    description: 'A GitHub-themed snake game with twists that lure you into scoring more.',
-    keywords: ['typescript', 'p5.js'],
-    actions: [{ name: 'Source', link: 'https://github.com/himanshuc3/usb-snake' }],
-    tag: 'unfinished',
   },
 ];

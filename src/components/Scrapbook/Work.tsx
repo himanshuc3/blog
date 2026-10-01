@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 
 import { PROJECTS } from '../About/data';
@@ -8,12 +8,63 @@ const HUES = [265, 200, 150, 20];
 
 const host = (url: string) => url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
+// How much of a dragged item must stay inside the card, so it can always be grabbed again. Past
+// that it is clipped by the card's edge, like a window dragged half off a screen.
+const GRAB_MARGIN = 40;
+
+/** A desktop decoration the visitor can drag around the card; the card clips whatever leaves it. */
+const DeskItem: React.FC<{
+  desk: React.RefObject<HTMLDivElement>;
+  className: string;
+  children: React.ReactNode;
+}> = ({ desk, className, children }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [limits, setLimits] = useState<{ top: number; left: number; right: number; bottom: number }>();
+
+  // Drag limits are measured from where the item rests: it may travel until only GRAB_MARGIN px
+  // of it are left inside the card. Re-measured whenever the card resizes.
+  useEffect(() => {
+    const item = ref.current;
+    const area = desk.current;
+    if (!item || !area) return;
+    const measure = () =>
+      setLimits({
+        left: -item.offsetLeft - (item.offsetWidth - GRAB_MARGIN),
+        right: area.clientWidth - item.offsetLeft - GRAB_MARGIN,
+        top: -item.offsetTop - (item.offsetHeight - GRAB_MARGIN),
+        bottom: area.clientHeight - item.offsetTop - GRAB_MARGIN,
+      });
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(area);
+    return () => observer.disconnect();
+  }, [desk]);
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      drag
+      dragConstraints={limits}
+      dragMomentum={false}
+      dragElastic={0}
+      whileHover={{ scale: 1.04 }}
+      whileDrag={{ scale: 1.07 }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 /** Browser-window project viewer on the page surface, with a dock to jump between them. */
 const Work: React.FC = () => {
   const reduceMotion = useReducedMotion();
   const [[index, dir], setState] = useState<[number, number]>([0, 0]);
   const project = PROJECTS[index];
   const today = useMemo(() => new Date(), []);
+
+  // The layer that clips the draggable decorations to the card (see .scrap-work__desk).
+  const deskRef = useRef<HTMLDivElement>(null);
 
   const go = (next: number) =>
     setState(([cur]) => [(next + PROJECTS.length) % PROJECTS.length, next > cur ? 1 : -1]);
@@ -25,25 +76,27 @@ const Work: React.FC = () => {
         <span className="script-font">{WORK.script}</span>
       </div>
 
-      <aside className="scrap-cal grotesk-font" aria-hidden="true">
-        <span className="scrap-cal__day">
-          {today.toLocaleDateString('en-US', { weekday: 'long' })}
-        </span>
-        <span className="scrap-cal__num">{today.getDate()}</span>
-        <span className="scrap-cal__event">
-          <b>Focus block</b>
-          <em>Notifications off</em>
-          <em>10:00–13:00</em>
-        </span>
-      </aside>
+      <div className="scrap-work__desk" ref={deskRef} aria-hidden="true">
+        <DeskItem desk={deskRef} className="scrap-cal grotesk-font">
+          <span className="scrap-cal__day">
+            {today.toLocaleDateString('en-US', { weekday: 'long' })}
+          </span>
+          <span className="scrap-cal__num">{today.getDate()}</span>
+          <span className="scrap-cal__event">
+            <b>Focus block</b>
+            <em>Notifications off</em>
+            <em>10:00–13:00</em>
+          </span>
+        </DeskItem>
 
-      <div className="scrap-folder scrap-folder--a grotesk-font" aria-hidden="true">
-        <i />
-        <span>drafts ✦</span>
-      </div>
-      <div className="scrap-folder scrap-folder--b grotesk-font" aria-hidden="true">
-        <i />
-        <span>unfinished</span>
+        <DeskItem desk={deskRef} className="scrap-folder scrap-folder--a grotesk-font">
+          <i />
+          <span>drafts ✦</span>
+        </DeskItem>
+        <DeskItem desk={deskRef} className="scrap-folder scrap-folder--b grotesk-font">
+          <i />
+          <span>unfinished</span>
+        </DeskItem>
       </div>
 
       <div className="scrap-window grotesk-font">
@@ -57,7 +110,7 @@ const Work: React.FC = () => {
           <button type="button" aria-label="Next project" onClick={() => go(index + 1)}>
             →
           </button>
-          <span className="scrap-window__url">{host(project.actions[0].link)}</span>
+          <span className="scrap-window__url">{host(project.live ?? project.actions[0].link)}</span>
         </div>
 
         <div className="scrap-window__viewport">
@@ -82,27 +135,44 @@ const Work: React.FC = () => {
                   <li key={k}>{k}</li>
                 ))}
               </ul>
-              <div className="scrap-project__actions">
-                {project.actions.map((a) => (
-                  <a
-                    key={a.name}
-                    className="scrap-project__btn"
-                    href={a.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {a.name} ↗
-                  </a>
-                ))}
-              </div>
             </motion.article>
           </AnimatePresence>
         </div>
 
         <div className="scrap-window__foot">
           <strong>{project.name}</strong>
-          <span>{project.keywords.slice(0, 2).join(', ')}</span>
-          <span>{project.year ?? project.tag ?? ''}</span>
+          {(project.year ?? project.tag) && (
+            <span className="scrap-window__tag">{project.year ?? project.tag}</span>
+          )}
+          <div className="scrap-window__links">
+            {project.actions.map((a) => (
+              <a
+                key={a.name}
+                className={`scrap-window__link${a.primary ? ' scrap-window__link--primary' : ''}`}
+                href={a.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {a.name} ↗
+              </a>
+            ))}
+            {project.live ? (
+              <a
+                className="scrap-window__link scrap-window__link--primary"
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Live ↗
+              </a>
+            ) : (
+              project.soon && (
+                <span className="scrap-window__link scrap-window__link--soon" aria-disabled="true">
+                  Coming soon
+                </span>
+              )
+            )}
+          </div>
         </div>
       </div>
 

@@ -1460,7 +1460,8 @@ html.dark .scrap-nav {
   width: min(1320px, 100% - 32px);
   // Top margin leaves room for the half of the heading that sits above the card.
   margin: 160px auto 140px;
-  padding: 0 16px 130px;
+  // Just enough below the dock to sit near the card's bottom edge.
+  padding: 0 16px 34px;
   text-align: center;
 
   // The painted card. It is a layer of its own so the heading can straddle its top edge.
@@ -1471,6 +1472,18 @@ html.dark .scrap-nav {
     z-index: 0;
     border-radius: 32px;
     background: url('../../images/projects-bg.webp') center / cover no-repeat;
+  }
+
+  // Holds the draggable decorations. It covers exactly the painted card (same rounded corners) and
+  // clips them, so an item dragged past the edge is cut off by it. A separate layer because the
+  // section itself can't clip: its heading deliberately straddles the card's top edge.
+  &__desk {
+    position: absolute;
+    inset: 0;
+    z-index: 4; // above the window and the dock, so a dropped item is never hidden behind them
+    overflow: hidden;
+    border-radius: 32px;
+    pointer-events: none; // only the items inside take the pointer
   }
 
   // Centred on the card's top edge: half outside, half inside.
@@ -1575,18 +1588,71 @@ html.dark .scrap-nav {
   &__foot {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    gap: 6px 28px;
-    padding: 18px 26px 20px;
+    align-items: center;
+    gap: 10px 16px;
+    padding: 14px 20px 16px 26px;
     font-size: 1rem;
     color: #444;
 
     strong {
-      margin-right: auto;
       font-size: clamp(1.3rem, 2.4vw, 1.9rem);
       font-weight: 600;
       letter-spacing: -0.03em;
       color: var(--ink);
+    }
+  }
+  &__tag {
+    color: #666;
+  }
+
+  // Source / paper / npm, and Live: bottom right of the window, and only here.
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-left: auto;
+  }
+  // `.scrap-window &__link` outranks the shared `.scrap a { color: inherit }`.
+  .scrap-window &__link {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--ink);
+    background: transparent;
+    border: 1.5px solid color-mix(in srgb, var(--ink) 25%, transparent);
+    border-radius: 999px;
+    transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--ink);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    // The main action: the deployment, or the package page when that is the project's home.
+    &--primary {
+      color: #fff;
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    // Not a link: "Coming soon" stands in for "Live" until the project is deployed.
+    &--soon {
+      color: #666;
+      cursor: default;
+      border-style: dashed;
+
+      &:hover {
+        transform: none;
+        border-color: color-mix(in srgb, var(--ink) 25%, transparent);
+      }
     }
   }
 }
@@ -1635,29 +1701,6 @@ html.dark .scrap-nav {
       font-size: 0.85rem;
       background: rgba(255, 255, 255, 0.7);
       border-radius: 999px;
-    }
-  }
-
-  &__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 6px;
-
-    .scrap-project__btn {
-      padding: 10px 18px;
-      font-weight: 600;
-      color: #fff;
-      background: var(--ink);
-      border-radius: 999px;
-      transition: transform 0.15s ease;
-      &:hover {
-        transform: translateY(-2px);
-      }
-      &:focus-visible {
-        outline: 2px solid var(--ink);
-        outline-offset: 3px;
-      }
     }
   }
 }
@@ -1711,7 +1754,7 @@ html.dark .scrap-nav {
   position: absolute;
   top: 190px;
   left: 4vw;
-  z-index: 2;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   width: 170px;
@@ -1760,7 +1803,7 @@ html.dark .scrap-nav {
 
 .scrap-folder {
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1799,6 +1842,19 @@ html.dark .scrap-nav {
     i {
       background: #f4a2bd;
     }
+  }
+}
+
+// The calendar and folders are draggable (see Work.tsx), clipped by .scrap-work__desk.
+.scrap-cal,
+.scrap-folder {
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
   }
 }
 
@@ -2197,9 +2253,7 @@ html.dark .scrap--noise {
 
 // Touch: details that are small on desktop need a real tap target.
 @include r.touch {
-  .scrap-project__btn {
-    display: inline-flex;
-    align-items: center;
+  .scrap-window__link {
     min-height: 44px;
   }
 
