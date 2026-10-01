@@ -1,3 +1,5 @@
+@use '../../styles/responsive' as r;
+
 .info-quote {
   width: 80%;
   margin: 0 auto;
@@ -16,5 +18,7 @@
     color: var(--variable-textSecondary);
   }
 
-  
+  @include r.down(sm) {
+    width: 100%;
+  }
 }

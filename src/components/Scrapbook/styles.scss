@@ -1,0 +1,2520 @@
+// Scrapbook home page. Everything is scoped under `.scrap` so it can't leak into other pages.
+// Light-only on purpose: the surfaces are painted, not themed.
+
+@use '../../styles/responsive' as r;
+
+html:has(.scrap),
+html:has(.scrap) body {
+  background: #fff;
+}
+
+html:has(.scrap) {
+  scroll-behavior: smooth;
+}
+
+.scrap {
+  --ink: #151515;
+  // Primary: the yellow of the cat's eyes. `--primary` is a fill (dark ink sits on it);
+  // `--primary-text` is the same hue darkened enough to read as text on the light surface.
+  --primary: #f5c518;
+  --primary-soft: #fbe083;
+  --primary-text: #8a6400;
+  --pink: #fde4ec;
+  --sky: #4fb0e0;
+  --sun: #f2d84b;
+  // 1 design px at >=1440 viewports, scaled down below it (used to place stickers).
+  --u: min(1px, calc(100vw / 1440));
+
+  // Pin the site theme variables to their light values. The scrapbook surfaces are painted, so
+  // anything inside (including the older About components) must never pick up dark-theme text.
+  --variable-backgroundColor: #e6e6e6;
+  --variable-primary: #8a6400;
+  --variable-text: #000;
+  --variable-textSecondary: rgba(0, 0, 0, 0.7);
+  --variable-hoverBG: rgba(200, 200, 200, 0.4);
+  --variable-underline: #62bec1;
+  --variable-subtext: rgba(100, 100, 100, 0.8);
+
+  position: relative;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  background: #fff;
+  color: var(--ink);
+  color-scheme: light;
+
+  section[id] {
+    scroll-margin-top: 90px;
+  }
+
+  // :where() keeps this at zero specificity so component classes can still set their own colour.
+  :where(h1, h2, h3, p) {
+    margin: 0;
+    color: inherit;
+  }
+
+  // The site-wide `p/span/a:not([class])` rule sets a theme colour (near-white in dark mode).
+  // This outranks it so unclassed text here follows the surface it sits on.
+  :is(p, span, a):not([class]) {
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+// The footer reused on pages outside the scrapbook layout: transparent, following the site theme.
+.scrap--embed {
+  background: transparent;
+}
+
+html.dark .scrap--embed {
+  color-scheme: dark;
+
+  .scrap-footer {
+    --ink: #f2f2f2;
+    --primary-text: #ffd21f;
+    color: var(--ink);
+  }
+}
+
+// ---- shared surfaces --------------------------------------------------------------------------
+
+.scrap-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.1 -.1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.grid-paper {
+  background-color: #fff;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.scrap-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: clamp(0.8rem, 1.1vw, 1rem);
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+// Placeholders for images that haven't been dropped in yet.
+.ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  text-align: center;
+  color: rgba(20, 20, 20, 0.75);
+  border: 2px dashed rgba(20, 20, 20, 0.5);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0 10px,
+    rgba(255, 255, 255, 0.4) 10px 20px
+  );
+
+  &--rect {
+    border-radius: 8px;
+  }
+  &--round {
+    border-radius: 999px;
+  }
+  &--blob {
+    border-radius: 58% 42% 55% 45% / 48% 56% 44% 52%;
+  }
+
+  &__label {
+    font: 600 12px/1.35 'Ubuntu Mono', ui-monospace, monospace;
+    text-transform: lowercase;
+  }
+}
+
+.ph-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+// A spinning vinyl record (used in the now-playing card).
+.scrap-disc {
+  flex: none;
+  position: relative;
+  width: var(--disc-size, 48px);
+  height: var(--disc-size, 48px);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary) 0 16%, #151515 17% 20%, transparent 21%),
+    repeating-radial-gradient(circle, #1c1c1c 0 2px, #2c2c2c 2px 3px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  animation: scrap-spin 1.8s linear infinite;
+
+  // A highlight streak so the spin is visible on a plain disc.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 20deg,
+      transparent 0 20%,
+      rgba(255, 255, 255, 0.28) 25%,
+      transparent 30% 70%,
+      rgba(255, 255, 255, 0.2) 75%,
+      transparent 80%
+    );
+  }
+}
+
+// Dark artwork on a transparent background: flip its lightness but keep its hues.
+html.dark .scrap--noise .scrap-history__logo.is-lighten {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html.dark .scrap-disc {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22), 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes scrap-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrap-disc {
+    animation: none;
+  }
+}
+
+// "my name is" pops (see NameIs). Fixed to the viewport so they can land anywhere on the page.
+.scrap-nameis {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  overflow: hidden;
+  pointer-events: none;
+
+  &__pop {
+    position: absolute;
+    padding: 0.05em 0.3em;
+    white-space: nowrap;
+    color: #151515;
+    background: var(--primary);
+    border-radius: 6px;
+    box-shadow: 4px 5px 0 var(--ink);
+  }
+}
+
+// Now-playing card, bottom centre, while the "my name is" song runs.
+.scrap-nowplaying {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 56;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 200px;
+  padding: 8px 18px 8px 8px;
+  translate: -50% 0;
+  text-align: left;
+  color: #151515;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(21, 21, 21, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 14px 32px -14px rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  pointer-events: none;
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.2;
+  }
+  &__title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  // "Eminem · The Slim Shady LP · 1999": artist in ink, album in a softer tone, year smallest.
+  &__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    color: rgba(21, 21, 21, 0.55);
+
+    b {
+      font-weight: 700;
+      color: rgba(21, 21, 21, 0.85);
+    }
+    i {
+      font-style: normal;
+      font-weight: 500;
+    }
+    em {
+      font-style: normal;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+    }
+    span {
+      opacity: 0.45;
+    }
+  }
+}
+html.dark .scrap-nowplaying {
+  color: #fff;
+  background: rgba(28, 28, 28, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+
+  .scrap-nowplaying__meta {
+    color: rgba(255, 255, 255, 0.55);
+
+    b {
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}
+
+// ---- work history -----------------------------------------------------------------------------
+
+.scrap-history {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 760px);
+  justify-content: center;
+  gap: 48px;
+  width: min(1200px, 100% - 10vw);
+  margin: 0 auto;
+  padding: 20px 0 64px;
+  --rule: color-mix(in srgb, var(--ink) 14%, transparent);
+
+  // Same voice as "A little about me", centered above the table.
+  &__title {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: clamp(3rem, 7vw, 6.6rem);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+  }
+
+  &__script {
+    margin-top: -0.1em;
+    font-size: 0.36em;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--primary-text);
+    transform: rotate(-4deg);
+  }
+
+  &__note {
+    flex-basis: 100%;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
+  }
+
+  &__list {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 62px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  // Same hand-written face as the name on the home page.
+  &__period {
+    font-size: 1.1rem;
+    color: color-mix(in srgb, var(--ink) 72%, transparent);
+  }
+
+  &__what {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+  }
+  &__org {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  &__dot {
+    color: color-mix(in srgb, var(--ink) 35%, transparent);
+  }
+  &__role {
+    color: color-mix(in srgb, var(--ink) 58%, transparent);
+  }
+  &__logo {
+    width: auto;
+    height: 26px;
+    max-width: 96px;
+    object-fit: contain;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .scrap-history {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .scrap-history__row {
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+  }
+  .scrap-history__period {
+    grid-column: 1 / -1;
+  }
+}
+
+// ---- cat stage: signals left, right and below the cat ------------------------------------------
+
+.scrap-stage {
+  position: relative;
+  width: var(--cat-w);
+}
+
+.scrap-signal {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: auto;
+
+  &--left {
+    right: calc(100% + 44px);
+    top: 36%;
+    align-items: flex-end;
+    text-align: right;
+  }
+  &--right {
+    left: calc(100% + 44px);
+    top: 36%;
+    align-items: flex-start;
+    text-align: left;
+  }
+  &--below {
+    left: 50%;
+    top: calc(100% + 36px);
+    align-items: center;
+    translate: -50% 0;
+  }
+
+  // The script title is the signal. A pulsing dot says "there is more here"; a selected title is
+  // lit like a highlighter stroke.
+  &__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 2px 12px;
+    font-size: clamp(1.5rem, 2.3vw, 2.1rem);
+    line-height: 1.35;
+    white-space: nowrap;
+    color: var(--primary-text);
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    @include r.touch {
+      min-height: 44px;
+    }
+  }
+  &__dot {
+    flex: none;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border: 2px solid var(--primary-text);
+    border-radius: 50%;
+    animation: scrap-pulse 2.2s ease-in-out infinite;
+  }
+  &.is-open &__title {
+    color: #151515;
+    background: var(--primary);
+    transform: rotate(-2deg) scale(1.05);
+  }
+  &.is-open &__dot {
+    background: #151515;
+    border-color: #151515;
+    animation: none;
+  }
+
+  // Chips (or links) under the title, revealed with it.
+  &__detail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: inherit;
+    gap: 10px;
+    width: max-content;
+    max-width: 300px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px) scale(0.96);
+    transition: opacity 0.18s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &--left &__detail {
+    justify-content: flex-end;
+    transform-origin: top right;
+  }
+  &--right &__detail {
+    justify-content: flex-start;
+    transform-origin: top left;
+  }
+  &--below &__detail {
+    justify-content: center;
+    // Seven 44px icons stay on one row down to ~350px screens by letting the gap shrink to fit;
+    // narrower than that they wrap onto a second row instead of shrinking the tap targets.
+    gap: clamp(2px, calc((91vw - 308px) / 6), 14px);
+    max-width: min(420px, 92vw);
+    padding-top: 20px; // room for a hovered icon to swell without touching the title
+    transform-origin: top center;
+  }
+  &.is-open &__detail {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  // Round icon chip: a muted glyph on a faint disc.
+  &__chip {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    font-size: 1.15rem;
+    color: color-mix(in srgb, var(--ink) 70%, transparent);
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    border-radius: 50%;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  a#{&}__chip:hover,
+  a#{&}__chip:focus-visible {
+    color: #151515;
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+  }
+
+  // Tool icons ("my stack"): just the glyph, in its brand colour. Hovering one swells it from its
+  // base like a dock and nudges its neighbours, and a label appears underneath. (`a#{&}` outranks the
+  // shared `.scrap a { color: inherit }`, which would otherwise flatten the brand colours.)
+  a#{&}__tech {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 44px; // the tap target; the glyph is smaller
+    height: 44px;
+    font-size: 2rem;
+    color: var(--tech-color, var(--ink));
+    transform-origin: 50% 85%;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    // Label below the icon (the glyphs carry no text of their own).
+    &::after {
+      content: attr(data-tip);
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      padding: 4px 9px;
+      font: 500 0.75rem/1.2 var(--font-sans);
+      white-space: nowrap;
+      color: var(--tip-fg, #fff);
+      background: var(--ink);
+      border-radius: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+
+    @media (hover: hover) {
+      &:hover,
+      &:focus-visible {
+        z-index: 1;
+        transform: translateY(-8px) scale(1.55);
+
+        // The label would grow with the icon: undo that so it stays a normal size.
+        &::after {
+          opacity: 1;
+          transform: translate(-50%, 0) scale(calc(1 / 1.55));
+          transform-origin: 50% 0;
+        }
+      }
+      // (`&` here already contains the ancestor, so the neighbour is spelled out.)
+      &:hover + a.scrap-signal__tech,
+      &:focus-visible + a.scrap-signal__tech,
+      &:has(+ a.scrap-signal__tech:hover),
+      &:has(+ a.scrap-signal__tech:focus-visible) {
+        transform: translateY(-4px) scale(1.22);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  // Text link pill, for entries that need words.
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    border-radius: 999px;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: #151515;
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// The label is the page's ink on a light page and light on a dark one, so its text flips too;
+// the brand colours also get a lift on the dark surface so the darker ones stay visible.
+html.dark .scrap--noise a.scrap-signal__tech {
+  --tip-fg: #151515;
+  filter: brightness(1.3);
+}
+
+@keyframes scrap-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  // No room beside the cat: the signals stack under it.
+  .scrap-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+  }
+  .scrap-signal {
+    position: static;
+    translate: none;
+    align-items: center;
+    text-align: center;
+
+    &__detail {
+      display: none;
+      justify-content: center;
+      transform: none;
+    }
+    &.is-open &__detail {
+      display: flex;
+    }
+
+    // Curricula and socials are desktop-only; only "powered by" stays on mobile.
+    &--left,
+    &--right {
+      display: none;
+    }
+  }
+}
+
+// ---- nav --------------------------------------------------------------------------------------
+
+.scrap-nav {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+
+  // A small frosted dock that follows the theme. Every icon has the same colour; the current page
+  // is marked only by a dot underneath, and hovering shows a tooltip below.
+  --nav-fg: rgba(21, 21, 21, 0.62);
+  --nav-fg-strong: #151515;
+  --nav-hover: rgba(21, 21, 21, 0.07);
+  --nav-item: 34px;
+
+  &__pill {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 5px 7px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(21, 21, 21, 0.08);
+    border-radius: 999px;
+    box-shadow: 0 8px 22px -12px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+  }
+
+  // `& &__item` outranks the shared `.scrap a { color: inherit }` rule.
+  & &__item {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--nav-item);
+    height: var(--nav-item);
+    padding: 0;
+    font-size: 1rem;
+    color: var(--nav-fg);
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--nav-fg-strong);
+      background: var(--nav-hover);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--nav-fg-strong);
+      outline-offset: 1px;
+    }
+
+    // Current page: a dot in the strong ink, one step darker than the icons.
+    &.is-current,
+    &[aria-current='page'] {
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        margin-left: -2px;
+        background: var(--nav-fg-strong);
+        border-radius: 50%;
+      }
+    }
+
+    // Tooltip below the icon.
+    &::before {
+      content: attr(data-tip);
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      padding: 4px 9px;
+      font: 500 0.75rem/1.2 var(--font-sans);
+      white-space: nowrap;
+      color: var(--nav-tip-fg, #fff);
+      background: var(--nav-tip-bg, #151515);
+      border-radius: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -4px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+    &:hover::before,
+    &:focus-visible::before {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  // Touch: 44px targets, and no tooltips (a tap would leave one stuck open).
+  @include r.touch {
+    --nav-item: 44px;
+
+    & &__item::before {
+      display: none;
+    }
+  }
+
+  // Six 44px items need the full width of the smallest phones.
+  @include r.down(sm) {
+    padding-inline: 8px;
+  }
+}
+
+html.dark .scrap-nav {
+  --nav-fg: rgba(255, 255, 255, 0.62);
+  --nav-fg-strong: #fff;
+  --nav-hover: rgba(255, 255, 255, 0.1);
+  --nav-tip-fg: #151515;
+  --nav-tip-bg: #f2f2f2;
+
+  .scrap-nav__pill {
+    background: rgba(28, 28, 28, 0.75);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 22px -12px rgba(0, 0, 0, 0.7);
+  }
+}
+
+// ---- hero -------------------------------------------------------------------------------------
+
+.scrap-hero {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; // the composition is centred; padding below leaves room for the signals
+  gap: clamp(6px, 1.4vh, 20px);
+  --tag-size: clamp(1.2rem, min(4.2vw, 6.4vh), 3.6rem);
+  --cat-w: clamp(170px, min(26vw, 27vh), 340px);
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 84px 16px 150px;
+  text-align: center;
+
+  &__copy {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 0 16px;
+  }
+
+  &__id {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__who {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  // Big muted statement in two lines, with the key phrases pulled forward in full ink. It runs
+  // wider than the name, and the cat (which stacks above it) covers part of the second line.
+  &__tagline {
+    margin-top: -0.15em;
+    font-size: var(--tag-size);
+    font-size: clamp(1.5rem, 8vw, 45px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+    color: color-mix(in srgb, var(--ink) 34%, transparent);
+
+    > span {
+      display: block;
+    }
+    strong {
+      font-weight: 800;
+      color: var(--ink);
+    }
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__name {
+    padding: 0 0.15em;
+    font-size: clamp(1.7rem, 3.6vw, 3.2rem);
+    color: var(--primary-text);
+    border-radius: 6px;
+    // An album-shaped cursor, and no text selection on the name.
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23151515' stroke='%23fff' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23444' stroke-width='1'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23444' stroke-width='1'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23f5c518'/%3E%3Ccircle cx='16' cy='16' r='1.4' fill='%23151515'/%3E%3C/svg%3E") 16 16, pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background-color 0.08s ease, color 0.08s ease, transform 0.12s ease;
+
+    // Lit while a "my name is" cue is on screen.
+    &.is-flash {
+      color: #151515;
+      background: var(--sun);
+      transform: rotate(-2deg) scale(1.06);
+    }
+  }
+
+  &__headline {
+    max-width: 16ch;
+    font-size: clamp(2.6rem, min(7.2vw, 10vh), 6.6rem);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  // Pulled up so the cat's head overlaps the bottom of the tagline.
+  &__cat {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: calc(var(--tag-size) * -1.3);
+    pointer-events: none;
+  }
+}
+
+.scrap-cat {
+  position: relative;
+  width: var(--cat-w);
+  filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.22));
+  pointer-events: none;
+
+  // The poster (one frame, in the server HTML) shows first; the canvas, which CatHero paints from
+  // cat-spritesheet.webp (14 x 3 grid of 320 x 480 frames), takes over once the sheet has loaded.
+  &__poster,
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  // Same frame as the sprite's first, so hiding it once the canvas is painted is invisible.
+  &.is-ready &__poster {
+    visibility: hidden;
+  }
+}
+
+.sticker {
+  position: absolute;
+  left: calc(var(--u) * var(--x));
+  bottom: calc(var(--u) * var(--y));
+  width: calc(var(--u) * var(--w));
+  height: calc(var(--u) * var(--h));
+  translate: -50% 0;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.3));
+}
+
+.scrap-widget {
+  position: absolute;
+  left: calc(var(--u) * 330);
+  bottom: calc(var(--u) * 30);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: calc(var(--u) * 290);
+  padding: 14px 16px 16px;
+  text-align: left;
+  color: #4a2400;
+  background: linear-gradient(140deg, #ffb52e, #f08a12);
+  border-radius: 14px;
+  box-shadow: 0 16px 30px -10px rgba(120, 50, 0, 0.55);
+  cursor: grab;
+  touch-action: none;
+
+  &__app {
+    font-size: 11px;
+    opacity: 0.75;
+  }
+  &__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  &__sub {
+    font-size: 0.85rem;
+    opacity: 0.85;
+  }
+  &__bar {
+    display: block;
+    height: 4px;
+    margin-top: 10px;
+    background: rgba(74, 36, 0, 0.25);
+    border-radius: 4px;
+
+    i {
+      display: block;
+      width: 38%;
+      height: 100%;
+      background: #4a2400;
+      border-radius: 4px;
+    }
+  }
+}
+
+// ---- about ------------------------------------------------------------------------------------
+
+.scrap-about {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  padding: 140px 5vw 80px;
+
+  // "A little about me", with the script line running across it like the projects heading.
+  &__head {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  &__title {
+    display: block;
+    font-size: clamp(3rem, 8vw, 7.4rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.06em;
+  }
+  &__script {
+    display: block;
+    margin-top: -0.32em;
+    font-size: clamp(1.3rem, 3.2vw, 2.8rem);
+    color: var(--primary-text);
+    transform: rotate(-4deg);
+  }
+
+  // Description on the left, the illustration that follows it on the right.
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 32rem) minmax(0, 1fr);
+    align-items: start;
+    gap: 72px;
+    width: min(1100px, 100%);
+  }
+
+  &__body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  &__sign {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--primary-text);
+  }
+}
+
+// A hoverable phrase in the description: underlined in the accent, filled while its scene shows.
+.scrap-phrase {
+  display: inline;
+  padding: 0 2px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-bottom: 2.5px solid var(--primary);
+  border-radius: 3px 3px 0 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover,
+  &.is-on {
+    color: #151515;
+    background: var(--primary);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+}
+
+// The card that shows the current scene.
+.scrap-viz {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 480px;
+  padding: 26px 26px 20px;
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border-radius: 22px;
+
+  &__scene {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__cap {
+    margin-top: 14px;
+    font-size: 1.05rem;
+    text-align: center;
+    color: var(--primary-text);
+  }
+}
+
+// Stickers start one per cell of an even grid and can be dragged anywhere inside the board.
+// Pin-board variant: no padding, no caption, a cork surface with a pin at top centre.
+.scrap-viz--board {
+  padding: 0;
+  overflow: hidden;
+  background-color: #c89b63;
+  background-image: radial-gradient(rgba(90, 55, 20, 0.28) 1px, transparent 1.4px),
+    radial-gradient(rgba(255, 235, 200, 0.22) 1px, transparent 1.4px);
+  background-position: 0 0, 5px 6px;
+  background-size: 10px 10px;
+  border: 6px solid #8a5a2b;
+  box-shadow: inset 0 0 22px rgba(60, 30, 5, 0.45), 0 10px 24px -12px rgba(0, 0, 0, 0.5);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    z-index: 3;
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle at 35% 30%, #ff9b8f 0 18%, #d8322a 45%, #8f1b16 100%);
+    border-radius: 50%;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.4);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+}
+
+.viz-stack {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  align-self: stretch;
+  width: 100%;
+  overflow: hidden;
+
+  &__cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // A fixed 4-column grid is narrower than the widest pill on a phone: let the pills wrap instead.
+  @include r.down(sm) {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 14px 8px;
+    padding: 36px 8px 16px; // top clears the pin
+  }
+
+  &__tile {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    font-size: 1.05rem;
+    touch-action: none;
+    cursor: grab;
+    user-select: none;
+    background: var(--surface, #fff);
+    border: 3px solid #fff;
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent),
+      0 6px 14px -4px color-mix(in srgb, var(--ink) 35%, transparent);
+
+    svg {
+      flex: none;
+    }
+    span {
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: nowrap;
+      color: #151515;
+    }
+  }
+}
+
+.viz-perf {
+  width: 100%;
+
+  &__big {
+    font-size: clamp(3rem, 6vw, 4.6rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.05em;
+
+    small {
+      margin-left: 4px;
+      font-size: 0.4em;
+      letter-spacing: 0;
+    }
+  }
+  &__sub {
+    margin: 4px 0 18px;
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+  }
+  &__bar {
+    display: flex;
+    gap: 3px;
+    height: 34px;
+
+    span {
+      flex-basis: 0;
+      background: var(--primary);
+      border-radius: 6px;
+      transform-origin: left;
+
+      &.is-idle {
+        background: color-mix(in srgb, var(--ink) 12%, transparent);
+      }
+    }
+  }
+  &__legend {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 16px;
+    margin: 18px 0 0;
+    padding: 0;
+    font-size: 0.82rem;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    i {
+      width: 10px;
+      height: 10px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    .is-idle i,
+    li.is-idle i {
+      background: color-mix(in srgb, var(--ink) 20%, transparent);
+    }
+    b {
+      margin-left: auto;
+      font-variant-numeric: tabular-nums;
+      color: color-mix(in srgb, var(--ink) 60%, transparent);
+    }
+  }
+}
+
+.viz-a11y {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  &__key {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1.5px solid var(--ink);
+    border-bottom-width: 4px;
+    border-radius: 8px;
+  }
+  &__btn {
+    padding: 11px 22px;
+    font-weight: 700;
+    color: #151515;
+    background: var(--primary);
+    border-radius: 999px;
+  }
+  &__swatch {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border-radius: 16px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.8rem;
+      color: color-mix(in srgb, var(--ink) 60%, transparent);
+
+      b {
+        font-size: 1.25rem;
+        color: var(--ink);
+      }
+    }
+  }
+  &__aa {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #151515;
+    background: var(--primary);
+    border-radius: 12px;
+  }
+  &__badges {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+
+    em {
+      padding: 3px 8px;
+      font-size: 0.72rem;
+      font-style: normal;
+      font-weight: 700;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+    }
+  }
+  &__note {
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+  }
+}
+
+// Chess scene: no card, just the photos.
+.scrap-viz--bare {
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.viz-photos {
+  position: relative;
+  width: min(100%, 516px);
+  margin: auto;
+  aspect-ratio: 516 / 480;
+
+  &__img {
+    position: absolute;
+    height: auto;
+    user-select: none;
+    filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.35));
+  }
+}
+
+.viz-place {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+
+  &__city {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--primary-text);
+  }
+  &__time {
+    font-size: clamp(3rem, 6vw, 4.6rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  &__meta {
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
+  }
+  &__work {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 8px 16px 8px 8px;
+    font-size: 0.85rem;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    border-radius: 999px;
+
+    img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+  }
+}
+
+.viz-geo {
+  width: 100%;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  &__hull {
+    fill: color-mix(in srgb, var(--primary) 28%, transparent);
+    stroke: var(--primary-text);
+    stroke-width: 2.2;
+    stroke-linejoin: round;
+  }
+  &__pt {
+    fill: color-mix(in srgb, var(--ink) 45%, transparent);
+
+    &.is-hull {
+      fill: var(--ink);
+    }
+  }
+  &__cap {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    text-align: center;
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
+  }
+}
+
+// Corner brackets, like crop marks on a print.
+.crop-marks::before,
+.crop-marks::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 0 solid var(--ink);
+}
+.crop-marks::before {
+  top: -24px;
+  right: -28px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+.crop-marks::after {
+  bottom: -24px;
+  left: -28px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+
+// On the About page "A little about me" is the hero: room for the nav, centred in the viewport.
+.scrap-about--hero {
+  min-height: 100vh;
+  justify-content: center;
+  padding-top: 120px;
+  padding-bottom: 100px;
+}
+
+// ---- work: a desktop under a painted sky ------------------------------------------------------
+
+.scrap-work {
+  position: relative;
+  z-index: 1;
+  width: min(1320px, 100% - 32px);
+  // Top margin leaves room for the half of the heading that sits above the card.
+  margin: 160px auto 64px;
+  // Just enough below the dock to sit near the card's bottom edge.
+  padding: 0 16px 34px;
+  text-align: center;
+
+  // The painted card. It is a layer of its own so the heading can straddle its top edge.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 32px;
+    background: url('../../images/projects-bg.webp') center / cover no-repeat;
+  }
+
+  // Holds the draggable decorations. It covers exactly the painted card (same rounded corners) and
+  // clips them, so an item dragged past the edge is cut off by it. A separate layer because the
+  // section itself can't clip: its heading deliberately straddles the card's top edge.
+  &__desk {
+    position: absolute;
+    inset: 0;
+    z-index: 4; // above the window and the dock, so a dropped item is never hidden behind them
+    overflow: hidden;
+    border-radius: 32px;
+    pointer-events: none; // only the items inside take the pointer
+  }
+
+  // Centred on the card's top edge: half outside, half inside.
+  &__head {
+    position: relative;
+    z-index: 2;
+    transform: translateY(-50%);
+    margin-bottom: calc(-1 * clamp(1.7rem, 4.5vw, 4rem) + 60px);
+
+    h2 {
+      font-size: clamp(3.4rem, 9vw, 8rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    span {
+      display: block;
+      margin-top: -0.6em;
+      font-size: clamp(1.3rem, 3.4vw, 3rem);
+      color: var(--primary-text);
+      transform: rotate(-4deg);
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+}
+
+.scrap-window {
+  position: relative;
+  z-index: 3;
+  width: min(820px, 100%);
+  margin: 36px auto 0;
+  overflow: hidden;
+  text-align: left;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 40px 70px -30px rgba(0, 30, 70, 0.6);
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: #f0f0f2;
+
+    button {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      font-size: 1rem;
+      color: var(--ink);
+      background: #fff;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+      &:hover {
+        transform: scale(1.1);
+      }
+      &:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  &__lights {
+    display: flex;
+    gap: 8px;
+    margin-right: 6px;
+
+    i {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      &:nth-child(1) { background: #ff5f57; }
+      &:nth-child(2) { background: #febc2e; }
+      &:nth-child(3) { background: #28c840; }
+    }
+  }
+
+  &__url {
+    flex: 1;
+    min-width: 0;
+    padding: 7px 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    color: #666;
+    background: #fff;
+    border-radius: 999px;
+  }
+
+  &__viewport {
+    position: relative;
+    height: clamp(300px, 44vw, 420px);
+    overflow: hidden;
+  }
+
+  &__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    padding: 14px 20px 16px 26px;
+    font-size: 1rem;
+    color: #444;
+
+    strong {
+      font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+  }
+  &__tag {
+    color: #666;
+  }
+
+  // Source / paper / npm, and Live: bottom right of the window, and only here.
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-left: auto;
+  }
+  // `.scrap-window &__link` outranks the shared `.scrap a { color: inherit }`.
+  .scrap-window &__link {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--ink);
+    background: transparent;
+    border: 1.5px solid color-mix(in srgb, var(--ink) 25%, transparent);
+    border-radius: 999px;
+    transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--ink);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    // The main action: the deployment, or the package page when that is the project's home.
+    &--primary {
+      color: #fff;
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    // Not a link: "Coming soon" stands in for "Live" until the project is deployed.
+    &--soon {
+      color: #666;
+      cursor: default;
+      border-style: dashed;
+
+      &:hover {
+        transform: none;
+        border-color: color-mix(in srgb, var(--ink) 25%, transparent);
+      }
+    }
+  }
+}
+
+.scrap-project {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  padding: clamp(22px, 5vw, 48px);
+  background: linear-gradient(
+    135deg,
+    hsl(var(--hue) 85% 96%),
+    hsl(calc(var(--hue) + 35) 75% 87%)
+  );
+
+  &__emoji {
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1;
+  }
+  h3 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+  }
+  p {
+    max-width: 44ch;
+    font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+    line-height: 1.55;
+    color: #333;
+  }
+
+  &__kw {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      padding: 4px 11px;
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 999px;
+    }
+  }
+}
+
+.scrap-dock {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  gap: 10px;
+  margin-top: 34px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+
+  button {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    font-size: 1.7rem;
+    background: #fff;
+    border: 0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:hover {
+      transform: translateY(-8px) scale(1.18);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+    &.is-on::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      width: 5px;
+      height: 5px;
+      background: var(--ink);
+      border-radius: 50%;
+    }
+  }
+}
+
+.scrap-cal {
+  position: absolute;
+  top: 190px;
+  left: 4vw;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 170px;
+  padding: 14px 16px;
+  text-align: left;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 18px 30px -16px rgba(0, 30, 70, 0.5);
+
+  &__day {
+    font-size: 0.85rem;
+    color: #d33;
+  }
+  &__num {
+    font-size: 2.6rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+  // A coloured dot marks the event, as calendar apps do.
+  &__event {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding-left: 15px;
+    font-size: 0.8rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.3em;
+      width: 8px;
+      height: 8px;
+      background: #b53fa6;
+      border-radius: 50%;
+    }
+
+    em {
+      font-style: normal;
+      color: #666;
+    }
+  }
+}
+
+.scrap-folder {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 40, 90, 0.5);
+
+  i {
+    position: relative;
+    width: 84px;
+    height: 62px;
+    background: #62b4ee;
+    border-radius: 8px;
+    box-shadow: inset 0 -6px 0 rgba(0, 60, 120, 0.15);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: 0;
+      width: 34px;
+      height: 12px;
+      background: inherit;
+      border-radius: 6px 6px 0 0;
+    }
+  }
+
+  &--a {
+    top: 200px;
+    right: 5vw;
+  }
+  &--b {
+    top: 340px;
+    right: 9vw;
+    i {
+      background: #f4a2bd;
+    }
+  }
+}
+
+// The calendar and folders are draggable (see Work.tsx), clipped by .scrap-work__desk.
+.scrap-cal,
+.scrap-folder {
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+// ---- writing: files scattered around a selected heading ---------------------------------------
+
+.scrap-writing {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: max(100vh, 820px);
+  padding: 120px 16px 64px;
+  background: #fff;
+
+  &__head {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    > span {
+      font-size: clamp(1.4rem, 3vw, 2.6rem);
+      color: var(--primary);
+
+      i {
+        font-style: normal;
+        color: var(--primary-text);
+      }
+    }
+
+    h2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: clamp(4rem, 12vw, 11rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+  }
+
+  &__files {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__all {
+    position: relative;
+    z-index: 2;
+    margin-top: 36px;
+    padding: 13px 24px;
+    font-weight: 600;
+    background: var(--primary);
+    border-radius: 999px;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+  }
+}
+
+// Figma-style selection box with handles and a cursor.
+.scrap-select {
+  position: relative;
+  display: inline-block;
+  padding: 0.02em 0.14em 0.1em;
+  border: 1.5px solid var(--primary);
+
+  b {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    translate: -50% -50%;
+  }
+  .h-tl { left: 0; top: 0; }
+  .h-tm { left: 50%; top: 0; }
+  .h-tr { left: 100%; top: 0; }
+  .h-ml { left: 0; top: 50%; }
+  .h-mr { left: 100%; top: 50%; }
+  .h-bl { left: 0; top: 100%; }
+  .h-bm { left: 50%; top: 100%; }
+  .h-br { left: 100%; top: 100%; }
+
+  .scrap-cursor {
+    position: absolute;
+    right: -0.25em;
+    bottom: -0.2em;
+    width: 0.2em;
+    height: auto;
+    min-width: 22px;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+  }
+}
+
+.scrap-file {
+  position: absolute;
+  width: 170px;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 6px;
+      border-radius: 8px;
+    }
+  }
+
+  &__icon {
+    position: relative;
+    width: 76px;
+    height: 94px;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 6px 22px 6px 6px;
+    box-shadow: 5px 6px 0 var(--primary);
+
+    i {
+      position: absolute;
+      inset: 22px 12px auto;
+      height: 34px;
+      background: repeating-linear-gradient(var(--ink) 0 2px, transparent 2px 9px);
+    }
+  }
+
+  &__name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  &__ext {
+    font-size: 0.78rem;
+    color: #777;
+  }
+}
+
+// ---- contact ----------------------------------------------------------------------------------
+
+.scrap-contact {
+  position: relative;
+  z-index: 1;
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 110px 16px 70px;
+    text-align: center;
+    background: var(--pink);
+
+    h2 {
+      font-size: clamp(3.6rem, 10vw, 9rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+
+    p {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: clamp(0.95rem, 1.7vw, 1.4rem);
+      line-height: 1.5;
+      color: var(--primary-text);
+    }
+  }
+
+  &__mail {
+    display: inline-block;
+    margin-top: 26px;
+    padding: 14px 40px;
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--sun);
+    box-shadow: 0 10px 20px -10px rgba(120, 100, 0, 0.6);
+    overflow-wrap: anywhere;
+
+    &:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 4px;
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 46px;
+      height: 46px;
+      padding: 0 18px;
+      font-weight: 600;
+      background: #fff;
+      border-radius: 999px;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+      }
+      &:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
+      }
+    }
+    a:not(:first-child) {
+      padding: 0;
+    }
+  }
+
+  &__hill {
+    position: relative;
+    height: clamp(420px, 46vw, 640px);
+    overflow: hidden;
+    background: radial-gradient(ellipse 90% 60% at 20% 110%, #2f5d1c 0 96%, transparent 100%),
+      radial-gradient(ellipse 80% 55% at 90% 105%, #3f7424 0 96%, transparent 100%),
+      radial-gradient(ellipse 70% 60% at 50% 100%, #4f8a2a 0 96%, transparent 100%),
+      linear-gradient(var(--pink) 0 22%, #6fa334 22% 100%);
+  }
+
+  &__crew {
+    position: absolute;
+    left: 50%;
+    top: 4%;
+    translate: -50% 0;
+    width: min(620px, 80vw);
+    height: 62%;
+    z-index: 2;
+  }
+
+  &__foot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    z-index: 2;
+    text-align: center;
+    font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+    color: #e8ff4d;
+  }
+}
+
+// ---- noise surface (about and home pages) ---------------------------------------------------------------
+// One tiled grain behind the whole page. Dark theme inverts the same tile. The painted scenes
+// (work, contact) keep their own colours; only the plain sections follow the theme.
+
+// The grain is a fixed layer on <html> so it spans the full viewport, not just the 1440 column.
+html:has(.scrap--noise) {
+  background: #fff;
+
+  body {
+    background: transparent;
+  }
+
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url('../../images/nnoise.svg') center top / 700px 700px repeat;
+    filter: invert(1); // the tile is dark; light theme inverts it
+  }
+
+  &.dark {
+    background: #0e0e0e;
+
+    &::before {
+      filter: none;
+    }
+  }
+}
+
+.scrap--noise {
+  background: transparent;
+
+  .scrap-folder {
+    color: var(--ink);
+  }
+  .scrap-hero,
+  .scrap-about,
+  .scrap-writing {
+    background-color: transparent;
+  }
+}
+
+html.dark .scrap--noise {
+  --surface: #1c1c1c;
+  --variable-text: #fff;
+  --variable-textSecondary: rgba(255, 255, 255, 0.7);
+  --variable-hoverBG: rgba(255, 255, 255, 0.08);
+  --variable-subtext: rgba(200, 200, 200, 0.8);
+  --variable-primary: #ffd21f;
+
+  .scrap-hero,
+  .scrap-about,
+  .scrap-history,
+  .scrap-work__head,
+  .scrap-writing,
+  .scrap-footer {
+    --ink: #f2f2f2;
+    --primary-text: #ffd21f;
+    color: var(--ink);
+  }
+
+  .grid-paper {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  }
+  .scrap-select b,
+  .scrap-file__icon {
+    background: #1c1c1c;
+  }
+  .scrap-file__ext {
+    color: #aaa;
+  }
+  .scrap-folder {
+    color: #f2f2f2;
+  }
+  .scrap-writing__all,
+  .scrap-tag {
+    color: #151515;
+  }
+}
+
+// ---- responsive -------------------------------------------------------------------------------
+
+@media only screen and (max-width: 1100px) {
+  .scrap-cal,
+  .scrap-folder {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .crop-marks::before {
+    right: -8px;
+  }
+  .crop-marks::after {
+    left: -8px;
+  }
+
+  .scrap-about__grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  // Files stop floating and fall into a tidy grid.
+  .scrap-writing {
+    min-height: 0;
+
+    &__files {
+      position: static;
+      order: 3;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 12px;
+      width: 100%;
+      max-width: 480px;
+      margin-top: 40px;
+    }
+  }
+  .scrap-file {
+    position: static;
+    width: auto;
+  }
+  .scrap-writing__all {
+    order: 4;
+  }
+}
+
+// Touch: details that are small on desktop need a real tap target.
+@include r.touch {
+  .scrap-window__link {
+    min-height: 44px;
+  }
+
+  .scrap-window__bar button {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .scrap-nav {
+    top: 10px;
+  }
+
+  // Tighter vertical rhythm between sections.
+  .scrap-hero {
+    min-height: 0;
+    padding-top: 96px;
+    padding-bottom: 24px;
+  }
+  .scrap-hero__tagline {
+    overflow-wrap: anywhere;
+  }
+  .scrap-about {
+    gap: 40px;
+    padding: 24px 5vw 56px;
+  }
+  .scrap-about--hero {
+    padding-top: 96px;
+    padding-bottom: 56px;
+  }
+  .scrap-history {
+    gap: 32px;
+    padding-bottom: 56px;
+  }
+  .scrap-work {
+    margin: 96px auto 64px;
+  }
+  .scrap-writing {
+    padding: 64px 16px;
+  }
+
+  .scrap-dock button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.scrap) {
+    scroll-behavior: auto;
+  }
+}
+
+.scrap-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: min(1200px, 100% - 10vw);
+  margin: 0 auto;
+  padding: 64px 0 32px;
+  color: var(--ink);
+
+  &__title {
+    margin: 0;
+    text-align: center;
+    font-size: clamp(1.1rem, 2.4vw, 1.9rem);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  &__thanks {
+    position: relative;
+    margin-bottom: clamp(24px, 4vh, 48px);
+  }
+
+  &__bubbles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  &__bubble {
+    position: absolute;
+    bottom: 40%;
+    line-height: 1;
+    opacity: 0;
+    animation: scrap-footer-bubble 2.6s ease-out forwards;
+  }
+
+  // The slot is as wide as the longest greeting, so the whole phrase stays centered and
+  // swapping the (absolutely positioned) word never reflows anything.
+  &__rest {
+    display: inline-block;
+  }
+
+  &__slot {
+    position: relative;
+    display: inline-grid;
+    justify-items: end;
+    vertical-align: top;
+  }
+
+  &__sizer {
+    grid-area: 1 / 1;
+    visibility: hidden;
+    white-space: nowrap;
+  }
+
+  &__word {
+    position: absolute;
+    right: 0;
+    white-space: nowrap;
+    color: var(--primary-text);
+    animation: scrap-footer-swap 0.5s ease both;
+  }
+
+  &__connect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  &__invite {
+    max-width: 30ch;
+    margin: 0;
+    text-align: center;
+    font-size: clamp(1.6rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+
+  // Quiet text links that sit in the page; only the colour changes on hover.
+  &__socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25em;
+      border: 0;
+      background: none;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      opacity: 0.5;
+      transition: opacity 0.2s, color 0.2s;
+
+      @include r.touch {
+        min-height: 44px;
+      }
+
+      &:hover,
+      &:focus-visible {
+        background: none;
+        opacity: 1;
+        color: var(--primary-text);
+      }
+    }
+  }
+
+  &__bar {
+    margin-top: clamp(48px, 8vh, 96px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px 32px;
+    font: 600 0.8rem/1.4 'Ubuntu Mono', ui-monospace, monospace;
+    letter-spacing: 0.04em;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__time {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.7;
+  }
+
+  &__name {
+    font-weight: 700;
+  }
+
+  &__built {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin: 0;
+  }
+
+  &__logo {
+    width: 1.2em;
+    height: 1.2em;
+    color: #d97757;
+  }
+}
+
+@keyframes scrap-footer-bubble {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift, 0), -110px) scale(1.15);
+  }
+}
+
+@keyframes scrap-footer-swap {
+  from {
+    opacity: 0;
+    transform: translateY(0.3em);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrap-footer__word,
+  .scrap-footer__bubble {
+    animation: none;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .scrap-footer {
+    padding-top: 40px;
+
+    &__bar {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 48px;
+      text-align: center;
+    }
+    &__left {
+      align-items: center;
+    }
+    &__built {
+      justify-content: center;
+    }
+  }
+}

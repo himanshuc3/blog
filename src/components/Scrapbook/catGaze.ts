@@ -1,0 +1,37 @@
+// Pupil centroid (in frame px) of every open-eyed frame in cat-spritesheet (39 frames, 14 x 3 grid),
+// measured from the sheet. Squint/blink frames (1, 2, 3, 14, 15, 23, 24, 29, 30) are left out so the cat never
+// freezes mid-blink while following the cursor. Used to pick the frame whose gaze is closest to
+// where the cursor is. Regenerate if the sheet changes.
+// Each row is [frame index, gaze x, gaze y].
+export const CAT_GAZE: ReadonlyArray<readonly [number, number, number]> = [
+  [0, 163.8, 97.6],
+  [4, 153.1, 97.5],
+  [5, 141.3, 105.1],
+  [6, 137.5, 110.2],
+  [7, 133.6, 114.3],
+  [8, 107.2, 129.2],
+  [9, 100.3, 126.8],
+  [10, 99.4, 120.0],
+  [11, 100.7, 114.3],
+  [12, 124.6, 79.7],
+  [13, 130.0, 86.1],
+  [16, 148.0, 94.6],
+  [17, 151.0, 95.6],
+  [18, 154.1, 96.5],
+  [19, 156.4, 96.8],
+  [20, 164.9, 97.7],
+  [21, 177.2, 96.3],
+  [22, 179.3, 98.8],
+  [25, 199.7, 114.2],
+  [26, 218.3, 112.6],
+  [27, 217.4, 107.5],
+  [28, 213.0, 97.9],
+  [31, 203.7, 89.5],
+  [32, 197.5, 82.5],
+  [33, 190.4, 77.7],
+  [34, 182.0, 85.3],
+  [35, 174.5, 92.5],
+  [36, 174.1, 92.7],
+  [37, 163.8, 101.1],
+  [38, 163.7, 104.0],
+];

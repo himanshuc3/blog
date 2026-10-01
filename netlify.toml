@@ -4,3 +4,10 @@
 
 [build.environment]
   NODE_VERSION = "20"
+
+# Everything Gatsby puts in /static has a content hash in its name (fonts, images), so it can be
+# cached for a year and never revalidated.
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

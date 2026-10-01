@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
+import { MdRssFeed } from 'react-icons/md';
 
 import { SEO } from '../../components/Seo';
+// The shared layout first, as in templates/BlogArticle.tsx: both pages must import the stylesheets
+// in the same order, or webpack can't order the shared CSS chunk and warns about it.
+import BaseComponent from '../../containers/base';
 import Tag from '../../components/tag';
 import { IPost } from '../../utils/types';
 import Posts from '../../components/posts';
 import Search from '../../components/Search';
 import usePostsData from '../../hooks/usePostsData';
-import BaseComponent from '../../containers/base';
 
 import './styles.scss';
-import useHoverIsolation from '../../hooks/useHoverIsolation';
 
 const TAGS = ['personal', 'TIL', 'git', 'bash', 'svelte', 'react', 'javascript'];
 
@@ -47,7 +49,6 @@ function filterPostsByTag(postsByYear: Array<[number, IPost[]]>, tag: string) {
 const BlogPage: React.FC<PageProps> = () => {
   const [selectedTag, setSelectedTag] = useState<null | string>(null);
   const [searchText, setSearchText] = useState<string>('');
-  // useHoverIsolation('html', '.post-heading');
   let postsData: IPost[] = usePostsData();
 
   let sortedPosts = getSortedPosts(postsData);
@@ -89,44 +90,48 @@ const BlogPage: React.FC<PageProps> = () => {
     );
   }
 
+  const postCount = filteredPosts.reduce((n, [, posts]) => n + posts.length, 0);
+
   return (
     <BaseComponent className="blog-wrapper">
       <div className="poster section">
         <div className="heading">
-          <h1>📘 Articles</h1>
-          <p className="sec-font">
-            Technical conundrums, infrastructure woes, and blogs formated in big-endianess.
-          </p>
+          <h1 className="grotesk-font">
+            List of blogs
+            <span className="count" aria-label={`${postCount} posts`}>
+              {postCount}
+            </span>
+          </h1>
+          <span className="script-font">not written by AI</span>
         </div>
+        <p className="intro grotesk-font">
+          Want to collab on an idea or suggest ideas to my existing blogs? Raise an issue on{' '}
+          <a href="https://github.com/himanshuc3/blog/issues" target="_blank" rel="noreferrer">
+            github
+          </a>
+          .
+        </p>
         <div className="filter">
-          <div>
+          <div className="filter-row">
             <Search onChange={onSearchInput} />
-            <div className="tags" onClick={onTagSelect}>
-              {TAGS.map((tag) => (
-                <Tag text={tag} highlighted={selectedTag === tag} />
-              ))}
-            </div>
+            <a className="rss-button" href="/rss.xml" target="_blank" rel="noreferrer" aria-label="RSS feed">
+              <MdRssFeed aria-hidden="true" />
+              RSS
+            </a>
+          </div>
+          <div className="tags" onClick={onTagSelect}>
+            {TAGS.map((tag) => (
+              <Tag key={tag} text={tag} highlighted={selectedTag === tag} />
+            ))}
           </div>
         </div>
         {filteredPosts.length == 0 ? (
           <div className="no-posts">
-            <StaticImage src="../../images/cena.png" alt="no posts available" />
+            <StaticImage src="../../images/nopost.png" alt="no posts available" />
           </div>
         ) : (
           <div className="post-list">
-            {filteredPosts.map(([year, posts]) => {
-              return (
-                <div className="yearly-posts-container">
-                  {/* <div className="filters">
-                  <h1 className="sec-font">{year}</h1>
-                  </div> */}
-
-                  <div className="posts">
-                    <Posts posts={posts} />
-                  </div>
-                </div>
-              );
-            })}
+            <Posts posts={filteredPosts.flatMap(([, posts]) => posts)} />
           </div>
         )}
       </div>
@@ -136,8 +141,9 @@ const BlogPage: React.FC<PageProps> = () => {
 
 export default BlogPage;
 
-export const Head: HeadFC = () => (
+export const Head: HeadFC = ({ location }) => (
   <SEO
+    pathname={location.pathname}
     title="Himanshu's blog"
     description="Chronological list of blogs written by me on technical topics."
   />

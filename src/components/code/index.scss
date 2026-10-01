@@ -1,7 +1,18 @@
+@use '../../styles/responsive' as r;
+
 .codeblock {
+  --code-pad: 30px;
+  --code-size: 0.875rem;
   position: relative;
   margin: 2rem 0;
-   font-size: 1.2rem;
+
+  // The highlighter nests <pre> > <code> > <span>s: set the size on all of them once, never as
+  // a relative unit, or it compounds.
+  pre,
+  pre * {
+    font-size: var(--code-size);
+  }
+
   .button {
     position: absolute;
     top: 0.5em;
@@ -16,5 +27,15 @@
     z-index: 2;
     color: var(--variable-textSecondary);
     font-weight: 600;
+
+    @include r.touch {
+      min-width: 44px;
+      min-height: 44px;
+    }
+  }
+
+  @include r.down(sm) {
+    --code-pad: 44px 14px 16px; // top clears the copy button
+    --code-size: 0.8125rem;
   }
 }

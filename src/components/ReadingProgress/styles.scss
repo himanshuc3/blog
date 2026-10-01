@@ -1,0 +1,19 @@
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 45; // under the floating nav (50)
+  height: 3px;
+  pointer-events: none;
+
+  // Scaled from its left edge by usePageScrollLoader. The primary colour follows the theme
+  // (a dark gold on the light page, bright yellow on the dark one).
+  &__bar {
+    height: 100%;
+    background: var(--variable-primary, currentColor);
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
+  }
+}

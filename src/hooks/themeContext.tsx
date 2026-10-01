@@ -31,11 +31,6 @@ function getInitialTheme(): boolean {
     if (theme) {
       return theme === 'dark';
     }
-
-    // Check system preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return true;
-    }
   }
 
   // Default to dark theme

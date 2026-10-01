@@ -1,15 +1,90 @@
-.pr-font {
-    font-family: "Mozilla Headline", sans-serif;
-    font-style: normal;
-    font-optical-sizing: auto;
+// Self-hosted fonts (Fontsource packages), woff2 only and just the subsets the site needs.
+//
+// - `font-display: swap`: text paints at once in the fallback font and swaps when the real one is
+//   ready, so a font never blocks the first paint.
+// - The fallback faces below are Arial resized to Inter Tight's metrics, so that swap moves
+//   (almost) nothing.
+// - The latin files are preloaded from <head> (components/Seo/FontPreload.tsx), and the hashed files
+//   in /static are cached for a year (netlify.toml).
+//
+// Paths are relative to this file because css-loader resolves url() that way.
+
+$inter-dir: '../../node_modules/@fontsource-variable/inter-tight/files';
+$apple-dir: '../../node_modules/@fontsource/homemade-apple/files';
+
+// Inter Tight: one variable file covers every weight (100–900).
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('#{$inter-dir}/inter-tight-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-.sec-font {
-    font-family: "Ubuntu", sans-serif;
-    font-style: normal;
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('#{$inter-dir}/inter-tight-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+// Homemade Apple: the script face used for headings and dates. Only has a regular weight.
+@font-face {
+  font-family: 'Homemade Apple';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('#{$apple-dir}/homemade-apple-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+// What the browser draws until Inter Tight arrives: Arial (or its metric twin, Liberation Sans),
+// scaled so line breaks and heights match. Regular and bold are separate so a bold heading doesn't
+// fall back to a synthesised bold, which has different widths.
+// Numbers: size-adjust = Inter Tight avg. glyph width / Arial's; overrides = its vertical metrics / size-adjust.
+@font-face {
+  font-family: 'Inter Tight Fallback';
+  font-weight: 100 500;
+  src: local('Arial'), local('Liberation Sans');
+  size-adjust: 96.39%;
+  ascent-override: 100.51%;
+  descent-override: 25.03%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Inter Tight Fallback';
+  font-weight: 600 900;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold');
+  size-adjust: 96.39%;
+  ascent-override: 100.51%;
+  descent-override: 25.03%;
+  line-gap-override: 0%;
+}
+
+:root {
+  --font-sans: 'Inter Tight', 'Inter Tight Fallback', 'Helvetica Neue', Arial, sans-serif;
+  // No metric-matched fallback: it is short decorative text, and no common font resembles it.
+  --font-script: 'Homemade Apple', cursive;
+}
+
+.pr-font,
+.grotesk-font {
+  font-family: var(--font-sans);
+  font-style: normal;
+}
+
+.script-font {
+  font-family: var(--font-script);
+  font-style: normal;
+}
 
 .italic {
-    font-style: italic;
+  font-style: italic;
 }

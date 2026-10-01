@@ -1,0 +1,125 @@
+// Copy and asset slots for the scrapbook home page. Edit here, not in the components.
+//
+// Assets: every `src` below is null on purpose and renders a labelled placeholder. Drop an image
+// into src/images/scrapbook/, import it here, and set `src`. Nothing else needs to change.
+import nameIsAudio from '../../images/eminem-my-name-is.mp3';
+import quillbotLogo from '../../images/quillbot.webp';
+import rapyutaLogo from '../../images/rapyuta.svg';
+import razorpayLogo from '../../images/razorpay.webp';
+import zetaLogo from '../../images/zeta.svg';
+import { PROFILE } from '../About/data';
+import { SOCIAL_LINKS } from '../../utils/constants';
+
+export { PROFILE, SOCIAL_LINKS };
+
+export const RESUME_URL =
+  'https://drive.google.com/file/d/1NTNNfp3wzvHl6ITm3MT2-0_97ieTW4nO/view?usp=sharing';
+
+export const NAME = 'himanshu chhabra';
+
+/** The statement under the name, one array per line. `em` runs are set dark; the rest is muted. */
+export const TAGLINE: { text: string; em?: boolean }[][] = [
+  [{ text: 'Fullstack', em: true}, { text: ' engineer building from ' ,em: false}, ],
+  [{ text: 'first principles & ', em: false },{ text: 'Leveraging AI', em: true },],
+];
+// export const HEADLINE = 'Milliseconds matter. So do pixels.';
+export const HEADLINE = '';
+
+
+
+export type Scene = 'stack' | 'perf' | 'a11y' | 'chess' | 'livewithout' | 'place' | 'geometry';
+
+/** A run of the description. A run with a `scene` is hoverable and swaps the visual beside it. */
+export interface Seg {
+  text: string;
+  scene?: Scene;
+  /** Struck through, for the joke. */
+  strike?: boolean;
+}
+
+export const ABOUT = {
+  title: 'A little about me',
+  script: `📍 based in ${PROFILE.city.toLowerCase()}`,
+  body: [
+    [
+      { text: 'I am Himanshu, a ' },
+      { text: '💻 fullstack engineer', scene: 'stack' },
+      { text: ' pushing 0️⃣s and 1️⃣s while trying my best to not have a binary mindset.' },
+    ],
+    [
+      { text: "Don't forget to read my " },
+      { text: '📖 blog posts' },
+      { text: ' filled with personal frustations and unusually high amounts of hand coding experiments.' },
+    ],
+    [
+      { text: "When I'm not on my computer, I'm...😴 sleeping. No but seriously, my side quests include " },
+      { text: '♟️ playing chess', scene: 'chess' },
+      { text: ' ,spending countless hours wiffing in 👾 valorant and off late, learning 🇯🇵 nihongo.' },
+    ],
+    [
+      { text: "Want a sneak peek of my daily addictions, here's what " },
+      { text: "i can't live without.", scene: 'livewithout'  },
+     ],
+   ] as Seg[][],
+  signoff: 'articles of insignificance, code of moderate significance.',
+};
+
+export const WORK = {
+  heading: 'projects',
+  script: 'things i’ve built',
+};
+
+export const WRITING = {
+  script: 'explorations and experiments',
+  heading: ['recent', 'writing'],
+};
+
+/** The "my name is" easter egg (hover the name). Times are seconds. */
+export const NAME_IS = {
+  src: nameIsAudio,
+  /** Playback runs from `start` until the clip ends (or `end`, if you shorten it). */
+  start: 0,
+  end: Infinity,
+  /** Moments "my name is" is spoken; a text pop appears at each. */
+  cues: [2, 3.2, 4.5, 7.5, 8.8, 10, 13, 14.6] as number[],
+  /** How long each pop stays on screen (ms). */
+  popMs: 500,
+  text: 'my name is',
+  volume: 0.7,
+  /** Shown in the now-playing card. */
+  title: 'my name is',
+  artist: 'Eminem',
+  album: 'The Slim Shady LP',
+  year: '1999',
+};
+
+export interface HistoryRow {
+  period: string;
+  org: string;
+  role: string;
+  /** Optional aside shown under the role. */
+  note?: string;
+  /** Optional logo image, shown at the right edge of the row. */
+  logo?: string;
+  /** Logo is dark artwork on a transparent background: lighten it on the dark theme. */
+  lightenOnDark?: boolean;
+}
+
+/** Work and study, newest first. */
+export const WORK_HISTORY: HistoryRow[] = [
+  { period: 'Present', org: 'QuillBot', role: 'SDE II', logo: quillbotLogo },
+  { period: '2024–2025', org: 'Razorpay', role: 'Product Development Engineer II', logo: razorpayLogo, lightenOnDark: true },
+  { period: '2022–2024', org: 'IIT Guwahati', role: 'Postgraduate studies', note: 'Not professional experience' },
+  { period: '2021–2022', org: 'Zeta', role: 'Frontend Engineer 2', logo: zetaLogo },
+  { period: '2019–2021', org: 'Rapyuta Robotics', role: 'Frontend Engineer', logo: rapyutaLogo, lightenOnDark: true },
+];
+
+/**
+ * The three signals around the cat. Each is a script title; its chips open when the cat looks that
+ * way or the title is hovered/tapped.
+ */
+export const SIGNALS = {
+  left: { title: 'curricula' },
+  right: { title: 'socials' },
+  below: { title: 'powered by' },
+};

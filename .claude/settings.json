@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Give permission for read only access to content outside this repo",
+     "Bash(npm run typecheck)",
+      "Bash(npm run develop)",
+      "Bash(playwright-cli:*)",
+      "Bash(curl:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)"
+    ]
+  }
+}

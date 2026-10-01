@@ -1,57 +1,12 @@
+@use '../../styles/responsive' as r;
+
+// Page shell for the blog pages. The pages inside size their own column (see `r.column`), so
+// nothing here has a fixed width.
 .skeleton {
-  // background: url('../../images/pattern2.svg') no-repeat;
-  // background-size: cover;
-  & > div:not(#footer) {
-    width: 750px;
-    margin: auto;
-  }
-}
+  // Clear the floating nav.
+  padding-top: 110px;
 
-@media only screen and (max-width: 900px) {
-  #navbar .inner,
-  #footer > div,
-  .skeleton > div:not(#navbar):not(#footer) {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .logo {
-    width: 200px;
-  }
-
-  .logo #alternate_logo_img {
-    justify-content: flex-start;
-  }
-  .logo #alternate_logo_img img {
-    width: 30px;
-    height: auto;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  #navbar {
-    width: 100%;
-    .inner {
-      width: 100%;
-      margin: 0 auto;
-    }
-    .menu .link {
-      font-size: 16px;
-    }
-  }
-  .skeleton > div:not(#navbar):not(#footer) {
-    width: 100%;
-  }
-}
-
-@media only screen and (max-width: 550px) {
-  #navbar .inner {
-
-    .logo-container, .header-actions {
-      width: 100px;
-    }
-    .header-actions .rss-icon{
-      display:none;
-    }
+  @include r.down(md) {
+    padding-top: 88px;
   }
 }

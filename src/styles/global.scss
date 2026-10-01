@@ -9,6 +9,9 @@ $size-prefix: --size-;
 
 :root {
   @include addPrefixToMap($size, $size-prefix);
+
+  // Side padding every page column keeps from the screen edge (see `column` in _responsive.scss).
+  --page-gutter: clamp(16px, 5vw, 24px);
 }
 
 // Font weight utility classes
@@ -26,7 +29,11 @@ body {
 
 html {
   box-sizing: border-box;
-  width: 100vw;
+  // 100vw includes the scrollbar, which pushes the page wider than the screen.
+  width: 100%;
+  // Stop mobile browsers from inflating text after a rotation.
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 .mt-0 {

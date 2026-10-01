@@ -31,11 +31,11 @@ export default function Search({
 
   return (
     <div className={`search-container ${className || ''}`}>
-      <FaSearch style={{ color: '#777575', margin: '0 10px 0 0' }} />
+      <FaSearch aria-hidden="true" />
       <input
         type="text"
         placeholder="Search posts by title..."
-        className="search-input sec-font"
+        className="search-input"
         value={search}
         onInput={onInputHandler}
       />

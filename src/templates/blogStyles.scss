@@ -1,3 +1,4 @@
+@use '../styles/responsive' as r;
 @import '../styles/_common.scss';
 
 .blog-post-wrapper {
@@ -10,25 +11,32 @@
     flex-direction: column;
     min-height: 10px;
     flex-grow: 1;
-    width: 700px;
-    margin: 10px auto;
+    @include r.column(700px);
+    margin-block: 10px;
   }
 
   .heading {
     margin-top: 50px;
 
     & > h1 {
-      font-size: 2.5em;
+      margin: 0;
+      line-height: 1.15;
+      font-size: clamp(1.9rem, 7vw, 2.5rem);
       font-weight: 700;
+      overflow-wrap: break-word;
+      text-wrap: balance;
       position: relative;
-      color: var(--variable-primary);
+      color: var(--variable-text);
     }
 
     .meta {
       display: flex;
+      flex-wrap: wrap;
       position: relative;
       align-items: center;
-      top: -30px;
+      gap: 6px 0;
+      margin-top: 12px;
+      margin-bottom: 30px;
     }
 
     .meta > .separator {
@@ -39,23 +47,71 @@
     .meta > p {
       color: var(--variable-textSecondary) !important;
       display: inline-block;
-      font-size: 1.25em;
+      font-size: 1.05em;
+    }
+
+    .meta > .edit-link {
+      font-size: 0.95em;
+      color: var(--variable-textSecondary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      @include r.touch {
+        padding-block: 12px;
+      }
+
+      &:hover {
+        color: var(--variable-primary);
+      }
+    }
+
+    .meta > .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    // Tags here are static labels: no hover, no pointer.
+    .tag {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    // Phones: one item per line instead of a dotted row.
+    @include r.down(sm) {
+      .meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .meta > .separator {
+        display: none;
+      }
     }
   }
 
   .content {
+    // Long URLs and unbroken strings wrap instead of widening the page.
+    overflow-wrap: break-word;
+
     strong {
       font-weight: 500;
       color: var(--variable-text);
     }
 
+    // Same voice as the description in "A little about me".
     p,
     ul li,
-    ol li{
-      font-size: 1.125em;
-      line-height: 1.7em;
+    ol li {
+      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+      line-height: 1.6;
       font-weight: 400;
-      color: var(--variable-textSecondary);
+      color: var(--variable-text);
+    }
+
+    p {
+      margin: 0 0 16px;
     }
 
     ul li, ol li{
@@ -64,6 +120,13 @@
 
     ul li p, ol li p {
       margin: 0;
+    }
+
+    @include r.down(sm) {
+      ul,
+      ol {
+        padding-inline-start: 1.4em;
+      }
     }
 
     hr {
@@ -79,7 +142,7 @@
     h4,
     h5,
     h6 {
-      color: var(--variable-primary);
+      color: var(--variable-text);
       margin-top: 40px;
     }
 
@@ -88,11 +151,8 @@
     }
 
     a {
+      --variable-underline: var(--variable-primary);
       @extend .chunky-underline;
-    }
-
-    pre * {
-      font-size: 0.9em;
     }
 
     :not(pre) > code {
@@ -109,10 +169,18 @@
       max-width: 400px !important;
     }
 
+    // MDX wraps every table in this (see BlogArticle): wide tables scroll within it.
+    .table-wrapper {
+      margin: 24px 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
     table {
       width: 100%;
+      min-width: 32rem;
       border-collapse: collapse;
-      margin: 24px 0;
+      margin: 0;
       font-size: 0.95em;
 
       th,
@@ -168,6 +236,7 @@
     img {
       overflow: hidden;
       display: inline-block;
+      max-width: 100%;
       border-radius: 5px;
     }
 
@@ -191,6 +260,10 @@
     .gatsby-resp-image-wrapper {
       display: inline-block;
       margin: 60px auto;
+
+      @include r.down(sm) {
+        margin-block: 32px;
+      }
     }
 
     blockquote {
@@ -205,28 +278,12 @@
         font-size: 1.125em;
         font-weight: 600;
         color: var(--variable-text);
+
+        @include r.down(sm) {
+          width: 100%;
+          margin-inline: 0;
+        }
       }
     }
   }
-}
-
-@media only screen and (max-width: 550px){
-  .blog-post-wrapper{
-    font-size: 0.8rem;
-
-    .heading .meta {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .heading .meta > p{
-      margin-bottom: 10px;
-    }
-
-    .separator {
-      display: none;
-    }
-   
-  }
-  
 }
