@@ -304,7 +304,7 @@ html.dark .scrap-nowplaying {
   gap: 48px;
   width: min(1200px, 100% - 10vw);
   margin: 0 auto;
-  padding: 20px 0 120px;
+  padding: 20px 0 64px;
   --rule: color-mix(in srgb, var(--ink) 14%, transparent);
 
   // Same voice as "A little about me", centered above the table.
@@ -673,6 +673,12 @@ html.dark .scrap--noise a.scrap-signal__tech {
     &.is-open &__detail {
       display: flex;
     }
+
+    // Curricula and socials are desktop-only; only "powered by" stays on mobile.
+    &--left,
+    &--right {
+      display: none;
+    }
   }
 }
 
@@ -851,7 +857,7 @@ html.dark .scrap-nav {
   &__tagline {
     margin-top: -0.15em;
     font-size: var(--tag-size);
-    font-size: 45px;
+    font-size: clamp(1.5rem, 8vw, 45px);
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -0.045em;
@@ -1004,7 +1010,7 @@ html.dark .scrap-nav {
   flex-direction: column;
   align-items: center;
   gap: 64px;
-  padding: 140px 5vw 120px;
+  padding: 140px 5vw 80px;
 
   // "A little about me", with the script line running across it like the projects heading.
   &__head {
@@ -1459,7 +1465,7 @@ html.dark .scrap-nav {
   z-index: 1;
   width: min(1320px, 100% - 32px);
   // Top margin leaves room for the half of the heading that sits above the card.
-  margin: 160px auto 140px;
+  margin: 160px auto 64px;
   // Just enough below the dock to sit near the card's bottom edge.
   padding: 0 16px 34px;
   text-align: center;
@@ -1868,7 +1874,7 @@ html.dark .scrap-nav {
   align-items: center;
   justify-content: center;
   min-height: max(100vh, 820px);
-  padding: 120px 16px;
+  padding: 120px 16px 64px;
   background: #fff;
 
   &__head {
@@ -2268,6 +2274,34 @@ html.dark .scrap--noise {
     top: 10px;
   }
 
+  // Tighter vertical rhythm between sections.
+  .scrap-hero {
+    min-height: 0;
+    padding-top: 96px;
+    padding-bottom: 24px;
+  }
+  .scrap-hero__tagline {
+    overflow-wrap: anywhere;
+  }
+  .scrap-about {
+    gap: 40px;
+    padding: 24px 5vw 56px;
+  }
+  .scrap-about--hero {
+    padding-top: 96px;
+    padding-bottom: 56px;
+  }
+  .scrap-history {
+    gap: 32px;
+    padding-bottom: 56px;
+  }
+  .scrap-work {
+    margin: 96px auto 64px;
+  }
+  .scrap-writing {
+    padding: 64px 16px;
+  }
+
   .scrap-dock button {
     width: 50px;
     height: 50px;
@@ -2287,7 +2321,7 @@ html.dark .scrap--noise {
   flex-direction: column;
   width: min(1200px, 100% - 10vw);
   margin: 0 auto;
-  padding: 120px 0 40px;
+  padding: 64px 0 32px;
   color: var(--ink);
 
   &__title {
@@ -2397,7 +2431,7 @@ html.dark .scrap--noise {
   }
 
   &__bar {
-    margin-top: clamp(80px, 16vh, 180px);
+    margin-top: clamp(48px, 8vh, 96px);
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
@@ -2461,5 +2495,25 @@ html.dark .scrap--noise {
   .scrap-footer__word,
   .scrap-footer__bubble {
     animation: none;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .scrap-footer {
+    padding-top: 40px;
+
+    &__bar {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 48px;
+      text-align: center;
+    }
+    &__left {
+      align-items: center;
+    }
+    &__built {
+      justify-content: center;
+    }
   }
 }

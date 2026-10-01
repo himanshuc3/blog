@@ -154,7 +154,7 @@ const Footer: React.FC = () => {
           <span className="scrap-footer__name">HIMANSHU CHHABRA</span>
         </div>
         <p className="scrap-footer__built">
-          Built by <SiClaude className="scrap-footer__logo" aria-label="Claude" /> and proompt
+          Built by <SiClaude className="scrap-footer__logo" aria-label="Claude" /> and prompt
           engineering
         </p>
       </div>
