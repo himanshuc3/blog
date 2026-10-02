@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { StaticImage } from 'gatsby-plugin-image';
 import { MdRssFeed } from 'react-icons/md';
 
 import { SEO } from '../../components/Seo';
@@ -126,9 +125,7 @@ const BlogPage: React.FC<PageProps> = () => {
           </div>
         </div>
         {filteredPosts.length == 0 ? (
-          <div className="no-posts">
-            <StaticImage src="../../images/nopost.png" alt="no posts available" />
-          </div>
+          <p className="no-posts">I'm out of words for the thing you're trying to search</p>
         ) : (
           <div className="post-list">
             <Posts posts={filteredPosts.flatMap(([, posts]) => posts)} />

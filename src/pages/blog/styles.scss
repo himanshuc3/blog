@@ -154,17 +154,15 @@
     }
 
     .no-posts {
-        display: flex;
         flex-grow: 1;
+        margin: 0;
+        padding: 24px 0 60px;
+        display: flex;
         align-items: center;
         justify-content: center;
-        padding: 24px 0 60px;
-
-        &>div,
-        &>img {
-            width: 300px;
-            max-width: 100%;
-        }
+        text-align: center;
+        font-size: var(--size-s);
+        color: var(--variable-textSecondary);
     }
 
 }

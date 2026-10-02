@@ -9,6 +9,8 @@
     min-height: 50vh;
     min-height: 50svh;
     flex-direction: column;
+    // The shared layout makes plain <p>s `inherit`, so the colour has to be set here to follow the theme.
+    color: var(--variable-text);
 
     &>h1 {
         margin: 0 0 0.6em;
