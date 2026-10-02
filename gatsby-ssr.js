@@ -41,6 +41,18 @@ export const onRenderBody = ({ setHeadComponents, setHtmlAttributes }) => {
         __html: themeScript,
       },
     }),
+    // GoatCounter analytics: cookieless, ~3.5 KB, production builds only. It counts the first page
+    // load itself; later client-side navigations are counted in gatsby-browser.tsx.
+    ...(process.env.NODE_ENV === 'production'
+      ? [
+          React.createElement('script', {
+            key: 'goatcounter',
+            async: true,
+            src: 'https://gc.zgo.at/count.js',
+            'data-goatcounter': 'https://dumbriyani.goatcounter.com/count',
+          }),
+        ]
+      : []),
   ]);
 };
 
